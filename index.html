@@ -763,11 +763,13 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
           <div class="alegra-flow">
             <div class="afl-step">💰 Cobra registra pago</div>
             <div class="afl-arrow">→</div>
-            <div class="afl-step">📊 Alegra crea factura</div>
+            <div class="afl-step">📊 Alegra genera FE (XML + PDF)</div>
             <div class="afl-arrow">→</div>
-            <div class="afl-step">🏛️ DIAN valida</div>
+            <div class="afl-step">🏛️ DIAN valida · devuelve CUFE</div>
             <div class="afl-arrow">→</div>
-            <div class="afl-step" style="color:var(--green)">✅ AR actualizado</div>
+            <div class="afl-step">📧 FE enviada al cliente</div>
+            <div class="afl-arrow">→</div>
+            <div class="afl-step" style="color:var(--green)">✅ AR cerrado · libro limpio</div>
           </div>
           <div style="display:flex;gap:8px;margin-bottom:14px;position:relative;z-index:1">
             <button class="btn-sm green" onclick="openAlegraInvoice()">📄 Generar factura manual</button>
@@ -986,7 +988,7 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
           <div class="inc-item"><div class="inc-ico">📊</div><div class="inc-body"><h5>Dashboard en tiempo real</h5><p>Panel con cartera completa, KPIs, tasa de recaudo, historial por cliente y actividad de cobros en vivo.</p></div></div>
           <div class="inc-item"><div class="inc-ico">💬</div><div class="inc-body"><h5>WhatsApp Business API</h5><p>Plantillas aprobadas por Meta, envío automático en horarios Ley 2300, tasa de lectura del 84%.</p></div></div>
           <div class="inc-item"><div class="inc-ico">📞</div><div class="inc-body"><h5>Llamadas IA con Dapta</h5><p>Agente de voz en español colombiano, 300 min/mes incluidos, negocia y registra acuerdos solo.</p></div></div>
-          <div class="inc-item"><div class="inc-ico">🏛️</div><div class="inc-body"><h5>Facturación DIAN automática</h5><p>Cada pago genera su factura electrónica en Alegra, la valida en la DIAN y actualiza el libro AR.</p></div></div>
+          <div class="inc-item"><div class="inc-ico">🏛️</div><div class="inc-body"><h5>Facturación DIAN automática</h5><p>Cada pago genera la FE en Alegra → DIAN la valida y devuelve el CUFE → el cliente recibe su copia por email → AR queda cerrado. Sin tocar nada.</p></div></div>
           <div class="inc-item"><div class="inc-ico">💳</div><div class="inc-body"><h5>Links de pago únicos</h5><p>Cada cuota tiene su propio link Bold/Wompi. El cliente paga con Nequi, Daviplata o tarjeta en 2 taps.</p></div></div>
           <div class="inc-item"><div class="inc-ico">🤝</div><div class="inc-body"><h5>Acuerdos de pago inteligentes</h5><p>Registra pagos parciales, programa recordatorios por cuota acordada y hace seguimiento automático.</p></div></div>
           <div class="inc-item"><div class="inc-ico">📈</div><div class="inc-body"><h5>Reportes de recaudo</h5><p>Comparativa mensual, evolución de la cartera, impacto vs. cobranza manual y proyección de cierre.</p></div></div>
@@ -1011,8 +1013,8 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
           <div class="intg-mini">
             <div class="intg-mini-ico">📊</div>
             <h5>Alegra</h5>
-            <p>Genera facturas electrónicas DIAN, actualiza el AR y sincroniza inventario en cada operación.</p>
-            <div class="intg-mini-tag">Facturación DIAN</div>
+            <p>Genera FE (XML + PDF) → DIAN valida y entrega CUFE → cliente recibe copia → AR se cierra. Todo automático.</p>
+            <div class="intg-mini-tag">Facturación DIAN completa</div>
           </div>
           <div class="intg-mini">
             <div class="intg-mini-ico">💬</div>
