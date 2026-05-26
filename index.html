@@ -267,7 +267,50 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
 @keyframes feedIn{from{opacity:0;transform:translateX(-12px);background:var(--gold-soft)}to{opacity:1;transform:translateX(0)}}
 .demo-flag{position:fixed;bottom:18px;right:18px;background:var(--gold);color:var(--bg);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:7px 14px;border-radius:50px;z-index:99;box-shadow:0 4px 16px rgba(232,185,74,.3)}
 
-@media(max-width:1080px){.kpis{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}.app{grid-template-columns:1fr}.sidebar{display:none}}
+/* COBRA HOY STRIP */
+.cobra-hoy{background:linear-gradient(135deg,rgba(80,70,228,.18),rgba(245,158,11,.08));border:1px solid rgba(80,70,228,.3);border-radius:14px;padding:16px 22px;margin-bottom:22px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.cy-lbl{font-size:12.5px;font-weight:600;color:var(--text);flex-shrink:0;display:flex;align-items:center;gap:8px}
+.cy-lbl span{font-size:10px;background:var(--burg);color:#fff;padding:3px 9px;border-radius:50px;letter-spacing:.04em;font-weight:700}
+.cy-stats{display:flex;gap:0;flex:1;justify-content:flex-end;flex-wrap:wrap}
+.cy-s{display:flex;flex-direction:column;align-items:center;padding:0 20px;border-left:1px solid var(--border2)}
+.cy-s:first-child{border-left:none}
+.cy-s b{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;line-height:1;color:var(--text)}
+.cy-s small{font-size:10px;color:var(--muted);margin-top:3px;text-align:center}
+.cy-s.gold b{color:var(--gold)}
+.cy-s.green b{color:var(--green)}
+/* PRÓXIMA ACCIÓN BADGE */
+.prox{font-size:10px;color:var(--burg-lt);font-weight:600;background:var(--burg-glow);padding:3px 8px;border-radius:50px;white-space:nowrap;margin-top:4px;display:inline-block}
+/* ROI CALCULATOR */
+.roi-calc{}
+.roi-inputs{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:20px}
+.roi-in-group{display:flex;flex-direction:column;gap:8px}
+.roi-in-label{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);font-weight:600}
+.roi-in-val{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--gold);line-height:1}
+.roi-slider{width:100%;-webkit-appearance:none;height:5px;border-radius:3px;background:var(--panel2);outline:none;cursor:pointer}
+.roi-slider::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--burg-lt);cursor:pointer;box-shadow:0 0 8px var(--burg-glow)}
+.roi-result{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:16px}
+.roi-res-card{background:var(--panel2);border:1px solid var(--border2);border-radius:12px;padding:16px;text-align:center}
+.roi-res-card.highlight{background:linear-gradient(135deg,var(--gold-soft),rgba(80,70,228,.1));border-color:rgba(245,158,11,.3)}
+.roi-res-v{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--text)}
+.roi-res-v.gold{color:var(--gold)}
+.roi-res-v.green{color:var(--green)}
+.roi-res-l{font-size:11px;color:var(--muted);margin-top:4px}
+/* COMM HISTORY */
+.comm-hist{margin-top:18px}
+.comm-hist-title{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-weight:700;margin-bottom:10px}
+.ch-row{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid var(--border2)}
+.ch-row:last-child{border:none}
+.ch-ico{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.ch-ico.wa{background:rgba(37,211,102,.14)}
+.ch-ico.call{background:var(--burg-glow)}
+.ch-ico.pay{background:var(--gold-soft)}
+.ch-ico.inv{background:var(--green-bg)}
+.ch-meta{flex:1}
+.ch-ev{font-size:12.5px;font-weight:600}
+.ch-sub{font-size:11px;color:var(--muted);margin-top:1px}
+.ch-time{font-size:10px;color:var(--faint);white-space:nowrap;align-self:center}
+/* ESCALAMIENTO WITH RATES */
+.lstep-rate{display:inline-block;font-size:10px;font-weight:700;background:var(--green-bg);color:var(--green);padding:2px 8px;border-radius:50px;margin-top:4px}
 </style>
 </head>
 <body>
@@ -299,6 +342,15 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
           <button class="btn-g" id="btn-nuevo"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 5v14M5 12h14" stroke-width="2.2" stroke-linecap="round"/></svg>Nuevo crédito</button>
         </div>
       </div>
+      <div class="cobra-hoy">
+        <div class="cy-lbl">🤖 Cobra trabajó hoy mientras tú abrías el local <span>AUTOMÁTICO</span></div>
+        <div class="cy-stats">
+          <div class="cy-s green"><b id="cy-msg">24</b><small>mensajes enviados</small></div>
+          <div class="cy-s"><b id="cy-inv">8</b><small>facturas DIAN</small></div>
+          <div class="cy-s"><b id="cy-hrs">4.5h</b><small>ahorradas hoy</small></div>
+          <div class="cy-s gold"><b id="cy-mgd">$1.2M</b><small>gestionado auto</small></div>
+        </div>
+      </div>
       <div class="kpis" id="kpis"></div>
       <div class="grid2">
         <div class="panel">
@@ -316,10 +368,10 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
         <div class="panel">
           <div class="panel-head"><div class="panel-title"><span class="dot-g"></span>Escalamiento automático</div></div>
           <div class="ladder">
-            <div class="lstep"><div class="lstep-ico" style="background:var(--amber-bg)">🔔</div><div class="lstep-body"><h4>Recordatorio anticipado</h4><p>WhatsApp 3 días antes del vencimiento</p><div class="lstep-time">Automático · día -3</div></div></div>
-            <div class="lstep"><div class="lstep-ico" style="background:var(--green-bg)">💬</div><div class="lstep-body"><h4>Aviso de vencimiento</h4><p>WhatsApp el día de pago + link</p><div class="lstep-time">Automático · día 0</div></div></div>
-            <div class="lstep"><div class="lstep-ico" style="background:var(--red-bg)">⚠️</div><div class="lstep-body"><h4>Gestión de mora</h4><p>WhatsApp recordatorio de cuota vencida</p><div class="lstep-time">Automático · día +1</div></div></div>
-            <div class="lstep"><div class="lstep-ico" style="background:var(--burg-glow)">📞</div><div class="lstep-body"><h4>Llamada con voz IA</h4><p>Solo para quien ignora WhatsApp</p><div class="lstep-time">Automático · día +4</div></div></div>
+            <div class="lstep"><div class="lstep-ico" style="background:var(--amber-bg)">🔔</div><div class="lstep-body"><h4>Recordatorio anticipado</h4><p>WhatsApp + link de pago · día -3</p><div class="lstep-time">Automático · sin tocar nada</div><span class="lstep-rate">71% paga antes de vencer</span></div></div>
+            <div class="lstep"><div class="lstep-ico" style="background:var(--green-bg)">💬</div><div class="lstep-body"><h4>Aviso de vencimiento</h4><p>WhatsApp con link único · día 0</p><div class="lstep-time">Automático · 8:00 AM exactos</div><span class="lstep-rate">+12% paga el mismo día</span></div></div>
+            <div class="lstep"><div class="lstep-ico" style="background:var(--red-bg)">⚠️</div><div class="lstep-body"><h4>Gestión de mora</h4><p>WhatsApp urgente · cuota vencida</p><div class="lstep-time">Automático · día +1 y +2</div><span class="lstep-rate">+6% más — total 89%</span></div></div>
+            <div class="lstep"><div class="lstep-ico" style="background:var(--burg-glow)">📞</div><div class="lstep-body"><h4>Llamada con IA · Dapta</h4><p>Solo el 11% que ignoró todo lo anterior</p><div class="lstep-time">Automático · día +4 · voz colombiana</div><span class="lstep-rate">73% de respuesta · acuerda pago</span></div></div>
           </div>
         </div>
       </div>
@@ -413,9 +465,40 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
         </div></div>
         <div class="chart-legend"><div class="lg"><i style="background:var(--burg-lt)"></i>Cobranza manual</div><div class="lg"><i style="background:var(--gold)"></i>Con Cobra activado</div></div>
       </div>
-      <div class="panel" style="margin-top:20px;text-align:center">
-        <div class="panel-title" style="justify-content:center;margin-bottom:8px">Retorno de inversión</div>
-        <p style="color:var(--muted);font-size:14px;max-width:560px;margin:0 auto;line-height:1.6">Cobra recupera <b style="color:var(--gold)">$2.93M adicionales cada mes</b>. Con una inversión de $900.000/mes, el sistema se paga <b style="color:var(--gold)">más de 3 veces solo</b> — sin contar el tiempo que deja de perseguir pagos a mano.</p>
+      <div class="panel roi-calc" style="margin-top:20px">
+        <div class="panel-head"><div class="panel-title"><span class="dot-g"></span>Calculadora de impacto — pon tus números</div></div>
+        <div class="roi-inputs">
+          <div class="roi-in-group">
+            <div class="roi-in-label">Créditos activos</div>
+            <div class="roi-in-val" id="roi-v-cred">85 créditos</div>
+            <input type="range" class="roi-slider" id="roi-cred" min="10" max="300" value="85" oninput="calcROI()">
+            <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--faint)"><span>10</span><span>300</span></div>
+          </div>
+          <div class="roi-in-group">
+            <div class="roi-in-label">Cuota promedio</div>
+            <div class="roi-in-val" id="roi-v-cuota">$150.000</div>
+            <input type="range" class="roi-slider" id="roi-cuota" min="50000" max="600000" step="10000" value="150000" oninput="calcROI()">
+            <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--faint)"><span>$50K</span><span>$600K</span></div>
+          </div>
+        </div>
+        <div class="roi-result">
+          <div class="roi-res-card">
+            <div class="roi-res-v" id="roi-sin">$8.67M</div>
+            <div class="roi-res-l">Sin Cobra · 68% recuperado</div>
+          </div>
+          <div class="roi-res-card">
+            <div class="roi-res-v green" id="roi-con">$11.6M</div>
+            <div class="roi-res-l">Con Cobra · 91% recuperado</div>
+          </div>
+          <div class="roi-res-card highlight">
+            <div class="roi-res-v gold" id="roi-extra">+$2.93M</div>
+            <div class="roi-res-l" id="roi-roi">ROI 3.3× · cada mes</div>
+          </div>
+        </div>
+        <div style="background:var(--panel2);border-radius:11px;padding:14px 18px;font-size:13px;color:var(--muted);line-height:1.7;border:1px solid var(--border2);display:flex;gap:16px;align-items:center">
+          <div style="font-size:26px">⏱️</div>
+          <div>Cobra también ahorra <b style="color:var(--text)" id="roi-hrs">11 horas</b> de trabajo manual por semana — tiempo que dedicas a crecer el negocio, no a perseguir pagos.</div>
+        </div>
       </div>
     </section>
 
@@ -697,7 +780,7 @@ function go(view){
   if(view==="cartera")renderCartera();
   if(view==="cobros")renderCobros();
   if(view==="llamadas")renderCalls();
-  if(view==="reportes")setTimeout(animBars,80);
+  if(view==="reportes"){setTimeout(animBars,80);setTimeout(calcROI,50);}
   if(view==="automatizaciones"){renderAutomatizaciones();}
   if(view==="panel"){renderHoy();setTimeout(animBars,80);}
   try{window.scrollTo(0,0);}catch(e){}
@@ -760,6 +843,27 @@ document.addEventListener("click",e=>{
 });
 
 // ============ MODAL: DETAIL ============
+function commHistory(c){
+  const h=[];
+  const paidN=c.pagadas;
+  if(c.canalWA||c.estado==="mora"||c.estado==="porvenc"||c.estado==="pagado"){
+    h.push({ico:"wa",cls:"wa",ev:"WhatsApp · recordatorio anticipado enviado",sub:`Cuota ${COP(c.cuota)} · vence 28 mayo · link incluido · 8:01 AM · ✓✓ leído`});
+  }
+  if(c.estado==="mora"||c.estado==="pagado"){
+    h.push({ico:"💬",cls:"wa",ev:"WhatsApp · aviso de vencimiento · día 0",sub:`Mensaje: "tu cuota de ${COP(c.cuota)} venció hoy" · link pago.realconfort.co/${1000+c.id} · ✓✓`});
+    h.push({ico:"⚠️",cls:"wa",ev:"WhatsApp · mora recordatorio · día +1",sub:`Tercer recordatorio · urgencia · ✓ entregado`});
+  }
+  if(c.estado==="mora"&&c.diasMora>=4){
+    h.push({ico:"📞",cls:"call",ev:`Llamada IA Dapta · mora +${c.diasMora}d · duración 1:${rnd(30,58)} min`,sub:`Script colombiano · "${c.nombre.split(" ")[0]}, le llamo por su cuota de ${COP(c.cuota)}..." · resultado: acuerdo de pago`});
+  }
+  if(c.estado==="pagado"||paidN>1){
+    h.push({ico:"💰",cls:"pay",ev:`Pago recibido · cuota ${paidN} de ${c.totalCuotas}`,sub:`${COP(c.cuota)} · Nequi · confirmado · link pago.realconfort.co/${1000+c.id}`});
+    h.push({ico:"📊",cls:"inv",ev:`Alegra · factura electrónica generada automáticamente`,sub:`FE-${1100+c.id} · DIAN validada · AR actualizado · sin acción manual`});
+  }
+  if(!h.length)h.push({ico:"🔔",cls:"wa",ev:"Cobra monitorea este crédito",sub:`Recordatorio automático programado para 3 días antes del vencimiento`});
+  return `<div class="comm-hist"><div class="comm-hist-title">Lo que Cobra hizo automáticamente (sin que tocaras nada)</div>${h.map(r=>`
+    <div class="ch-row"><div class="ch-ico ${r.cls}">${r.ico}</div><div class="ch-meta"><div class="ch-ev">${r.ev}</div><div class="ch-sub">${r.sub}</div></div></div>`).join("")}</div>`;
+}
 function openDetail(id){
   const c=credits.find(x=>x.id===id);if(!c)return;
   const paidN=c.pagadas, totN=c.totalCuotas;
@@ -770,6 +874,7 @@ function openDetail(id){
     const lbl=paid?"Pagada":(i===paidN+1?(c.estado==="mora"?"Vencida":"Próxima"):"Pendiente");
     sched+=`<div class="sch-row ${paid?'paid-row':''}"><span><span class="sch-dot" style="background:${dot}"></span>Cuota ${i} · ${["28 mar","11 abr","28 abr","11 may","28 may","11 jun"][i-1]||"—"}</span><span style="font-weight:600">${COP(c.cuota)} · ${lbl}</span></div>`;
   }
+  const proxAccion=c.estado==="mora"&&c.diasMora>=4?`<div style="background:var(--burg-glow);border:1px solid rgba(80,70,228,.3);border-radius:10px;padding:10px 14px;margin-bottom:16px;font-size:12.5px"><b style="color:var(--burg-lt)">📞 Próxima acción automática:</b> Llamada IA Dapta programada para hoy 9:00 AM — sin que hagas nada</div>`:c.estado==="mora"?`<div style="background:var(--red-bg);border:1px solid rgba(244,84,110,.2);border-radius:10px;padding:10px 14px;margin-bottom:16px;font-size:12.5px"><b style="color:var(--red)">⚠️ Próxima acción automática:</b> WhatsApp de mora enviado · si no responde en 72h → llamada IA</div>`:c.estado==="porvenc"?`<div style="background:var(--amber-bg);border:1px solid rgba(245,158,11,.2);border-radius:10px;padding:10px 14px;margin-bottom:16px;font-size:12.5px"><b style="color:var(--gold)">🔔 Próxima acción automática:</b> Recordatorio WhatsApp en ${rnd(1,3)} días — Cobra lo maneja solo</div>`:"";
   document.getElementById("modal").innerHTML=`
     <div class="modal-head">
       <div class="detail-top">
@@ -779,6 +884,7 @@ function openDetail(id){
       <button class="modal-x" onclick="closeModal()">✕</button>
     </div>
     <div class="modal-body">
+      ${proxAccion}
       <div class="detail-info">
         <div class="di"><div class="di-l">Valor del crédito</div><div class="di-v">${COP(c.total)}</div></div>
         <div class="di"><div class="di-l">Saldo pendiente</div><div class="di-v" style="color:var(--gold)">${COP(c.saldo)}</div></div>
@@ -787,11 +893,13 @@ function openDetail(id){
       </div>
       <div class="sched-title">Plan de cuotas (${paidN}/${totN} pagadas)</div>
       <div class="sched">${sched}</div>
-      <div class="modal-actions">
+      ${commHistory(c)}
+      <div class="modal-actions" style="margin-top:18px">
         ${c.estado==="pagado"?'<button class="btn-ghost" style="flex:1;justify-content:center" disabled>✓ Cuota al día</button>':`
         <button class="btn-g" onclick="cobrar(${c.id});closeModal()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6L9 17l-5-5" stroke-width="2.2" stroke-linecap="round"/></svg>Registrar pago</button>
         <button class="btn-ghost" onclick="enviarRecordatorio(${c.id});closeModal()">💬 Recordatorio</button>
-        <button class="btn-ghost" onclick="programarLlamada(${c.id});closeModal()">📞 Llamada IA</button>`}
+        <button class="btn-ghost" onclick="programarLlamada(${c.id});closeModal()">📞 Llamada IA</button>
+        <button class="btn-ghost" onclick="openAcuerdoPago(${c.id})">🤝 Acuerdo de pago</button>`}
       </div>
     </div>`;
   document.getElementById("overlay").classList.add("show");
@@ -1082,11 +1190,64 @@ function syncAlegra(){
 function exportarInforme(){toast("CSV generado · Contabilidad_mayo_2025.csv","gold","📥");}
 function verEnAlegra(){toast("Abriendo Alegra en nueva pestaña...","gold","↗");}
 
+// ============ ACUERDO DE PAGO ============
+function openAcuerdoPago(id){
+  const c=credits.find(x=>x.id===id);if(!c)return;
+  document.getElementById("modal").innerHTML=`
+    <div class="modal-head"><div><div class="detail-name" style="font-size:22px">Acuerdo de pago</div><div style="font-size:12px;color:var(--muted);margin-top:3px">${c.nombre} · cuota vencida ${COP(c.cuota)}</div></div><button class="modal-x" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <div style="background:var(--amber-bg);border:1px solid rgba(245,158,11,.25);border-radius:10px;padding:12px 15px;font-size:12.5px;color:var(--amber);margin-bottom:16px">
+        🤝 Cobra enviará un WhatsApp de confirmación al cliente y agendará recordatorios automáticos para cada cuota acordada.
+      </div>
+      <div class="fg-row">
+        <div class="fg"><label>Primera cuota parcial</label><input id="ac-p1" type="number" placeholder="60000" style="background:var(--panel2);border:1px solid var(--border2);border-radius:10px;padding:12px 14px;color:var(--text);font-size:14px;font-family:'DM Sans';width:100%;outline:none"></div>
+        <div class="fg"><label>Fecha primer pago</label><input id="ac-f1" type="date" style="background:var(--panel2);border:1px solid var(--border2);border-radius:10px;padding:12px 14px;color:var(--text);font-size:14px;font-family:'DM Sans';width:100%;outline:none"></div>
+      </div>
+      <div class="fg-row">
+        <div class="fg"><label>Segunda cuota parcial (opcional)</label><input id="ac-p2" type="number" placeholder="90000" style="background:var(--panel2);border:1px solid var(--border2);border-radius:10px;padding:12px 14px;color:var(--text);font-size:14px;font-family:'DM Sans';width:100%;outline:none"></div>
+        <div class="fg"><label>Fecha segundo pago</label><input id="ac-f2" type="date" style="background:var(--panel2);border:1px solid var(--border2);border-radius:10px;padding:12px 14px;color:var(--text);font-size:14px;font-family:'DM Sans';width:100%;outline:none"></div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-g" onclick="guardarAcuerdo(${c.id})">🤝 Registrar acuerdo · Cobra programa todo</button>
+        <button class="btn-ghost" onclick="closeModal()">Cancelar</button>
+      </div>
+    </div>`;
+  document.getElementById("overlay").classList.add("show");
+}
+function guardarAcuerdo(id){
+  const c=credits.find(x=>x.id===id);if(!c)return;
+  c.canalWA=true;
+  closeModal();
+  toast(`Acuerdo registrado para ${c.nombre} · Cobra enviará recordatorios automáticos`,"wa","🤝");
+  setTimeout(()=>addFeedEvent("wa",`Confirmación de acuerdo enviada a ${c.nombre}`,`Recordatorios programados · Ley 2300 · horario 8-8 PM`),600);
+}
+
+// ============ ROI CALCULATOR ============
+function calcROI(){
+  const cred=+document.getElementById("roi-cred").value;
+  const cuota=+document.getElementById("roi-cuota").value;
+  const potencial=cred*cuota;
+  const sinCobra=potencial*0.68;
+  const conCobra=potencial*0.91;
+  const extra=conCobra-sinCobra;
+  const costo=800000;
+  const roi=(extra/costo).toFixed(1);
+  const hrs=Math.round(cred*0.18);
+  document.getElementById("roi-v-cred").textContent=cred+" créditos";
+  document.getElementById("roi-v-cuota").textContent="$"+Math.round(cuota/1000)+"K";
+  document.getElementById("roi-sin").textContent="$"+(sinCobra/1000000).toFixed(2)+"M";
+  document.getElementById("roi-con").textContent="$"+(conCobra/1000000).toFixed(2)+"M";
+  document.getElementById("roi-extra").textContent="+$"+(extra/1000000).toFixed(2)+"M";
+  document.getElementById("roi-roi").textContent="ROI "+roi+"× · cada mes";
+  document.getElementById("roi-hrs").textContent=hrs+" horas";
+}
+
 // ============ INIT ============
 renderKPIs();renderHoy();renderCobros();
 renderAutomatizaciones();
 renderConv(0);
 renderAlegraInvoices();
+calcROI();
 setTimeout(animBars,200);
 </script>
 </body>
