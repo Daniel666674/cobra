@@ -1230,9 +1230,9 @@ function calcROI(){
   const sinCobra=potencial*0.68;
   const conCobra=potencial*0.91;
   const extra=conCobra-sinCobra;
-  const costo=390000;
+  const costo=800000;
   const roi=(extra/costo).toFixed(1);
-  const hrs=Math.round(cred*0.13);
+  const hrs=Math.round(cred*0.18);
   document.getElementById("roi-v-cred").textContent=cred+" créditos";
   document.getElementById("roi-v-cuota").textContent="$"+Math.round(cuota/1000)+"K";
   document.getElementById("roi-sin").textContent="$"+(sinCobra/1000000).toFixed(2)+"M";
