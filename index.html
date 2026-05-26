@@ -210,7 +210,8 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
 .fg-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 
 /* TOAST */
-#toasts{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:300;display:flex;flex-direction:column;gap:10px;align-items:center}
+#toasts{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:300;display:flex;flex-direction:column;gap:10px;align-items:center;width:90%;max-width:400px}
+@media(max-width:1080px){#toasts{bottom:72px}}
 .toast{background:linear-gradient(135deg,var(--panel),var(--panel2));border:1px solid var(--border);border-left:3px solid var(--green);border-radius:11px;padding:13px 18px;font-size:13px;font-weight:500;box-shadow:0 12px 40px rgba(0,0,0,.5);display:flex;align-items:center;gap:10px;animation:toastIn .35s cubic-bezier(.2,.9,.3,1);min-width:280px}
 .toast.wa{border-left-color:#25d366}.toast.gold{border-left-color:var(--gold)}.toast.voice{border-left-color:var(--burg-lt)}
 .toast-ico{font-size:18px}
@@ -338,6 +339,143 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
 .feed-new{animation:feedIn .5s ease}
 @keyframes feedIn{from{opacity:0;transform:translateX(-12px);background:var(--gold-soft)}to{opacity:1;transform:translateX(0)}}
 .demo-flag{position:fixed;bottom:18px;right:18px;background:var(--gold);color:var(--bg);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:7px 14px;border-radius:50px;z-index:99;box-shadow:0 4px 16px rgba(232,185,74,.3)}
+
+/* ========= MOBILE NAV ========= */
+.mobile-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--bg2);border-top:1px solid var(--border2);z-index:150;padding-bottom:env(safe-area-inset-bottom)}
+.mn-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 4px 10px;color:var(--faint);cursor:pointer;font-size:9px;font-weight:600;letter-spacing:.02em;transition:color .18s;border:none;background:transparent;font-family:'DM Sans';min-width:0}
+.mn-item svg{stroke:var(--faint);transition:stroke .18s;flex-shrink:0}
+.mn-item.active{color:var(--gold)}.mn-item.active svg{stroke:var(--gold)}
+.mn-item span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:52px}
+
+/* ========= TABLET (1080px) ========= */
+@media(max-width:1080px){
+  .app{grid-template-columns:1fr}
+  .sidebar{display:none}
+  .kpis{grid-template-columns:repeat(2,1fr)}
+  .grid2{grid-template-columns:1fr}
+  .roi-inputs{grid-template-columns:1fr}
+  .roi-result{grid-template-columns:1fr}
+  .integrations-grid{grid-template-columns:1fr}
+  .mobile-nav{display:flex}
+  .main{padding-bottom:80px}
+  .demo-flag{display:none}
+}
+
+/* ========= MOBILE (640px) ========= */
+@media(max-width:640px){
+  .main{padding:14px 14px 84px}
+  /* topbar */
+  .topbar{gap:10px;margin-bottom:18px}
+  .topbar h1{font-size:24px}
+  .topbar .sub{font-size:12px}
+  .top-actions{width:100%;gap:8px}
+  .top-actions .legal-chip{font-size:10.5px;padding:7px 11px}
+  .btn-g,.btn-ghost{padding:9px 14px;font-size:12.5px}
+  /* cobra hoy strip */
+  .cobra-hoy{flex-direction:column;gap:12px;padding:14px 16px}
+  .cy-lbl{font-size:12px}
+  .cy-stats{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:0}
+  .cy-s{border-left:none;padding:10px 12px;border:1px solid var(--border2);border-radius:0}
+  .cy-s:first-child{border-radius:8px 0 0 0}.cy-s:nth-child(2){border-radius:0 8px 0 0}
+  .cy-s:nth-child(3){border-radius:0 0 0 8px}.cy-s:last-child{border-radius:0 0 8px 0}
+  .cy-s b{font-size:22px}
+  /* kpis */
+  .kpis{gap:10px}
+  .kpi{padding:14px}
+  .kpi-val{font-size:24px}
+  .kpi-ico{width:30px;height:30px;margin-bottom:10px}
+  /* panels */
+  .panel{padding:14px}
+  .panel-title{font-size:17px}
+  /* chart */
+  .chart-wrap{height:130px}
+  .bars{height:112px;gap:6px}
+  .bar-label{font-size:9px}
+  /* ladder */
+  .lstep-rate{font-size:9.5px}
+  /* tables */
+  .table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  thead th{font-size:9px;padding:0 10px 10px;white-space:nowrap}
+  tbody td{padding:10px;font-size:12px}
+  .cli-name{font-size:12px}.cli-phone{font-size:10px}
+  .cuota{font-size:14px}
+  .st{font-size:10px;padding:4px 8px}
+  .cn{width:22px;height:22px;font-size:10px}
+  /* search/filter bar */
+  .tools{gap:8px}
+  .tfilters{gap:6px}
+  .tf{padding:6px 11px;font-size:11px}
+  /* wa preview */
+  .wa-tab{font-size:10px;padding:8px 4px}
+  .wa-body{min-height:170px;max-height:220px}
+  .wa-msg{font-size:12px}
+  /* integration cards */
+  .intg-card{padding:16px}
+  .intg-name{font-size:18px}
+  .intg-metrics{gap:14px}
+  .im-v{font-size:18px}
+  .alegra-flow{gap:4px}
+  .afl-step{font-size:10.5px;padding:7px 10px;min-width:90px}
+  .afl-arrow{font-size:12px}
+  /* alegra detail */
+  .dian-bar{flex-direction:column;gap:8px;align-items:flex-start}
+  /* mini stats */
+  .mini-stats{gap:9px}
+  .mini{padding:11px}
+  .mini-v{font-size:18px}
+  /* call rows */
+  .call-row{padding:12px}
+  .call-result{font-size:10px;padding:4px 8px}
+  /* propuesta */
+  .prop-hero{padding:22px 18px;margin-bottom:20px}
+  .prop-hero h2{font-size:24px;line-height:1.2}
+  .prop-hero p{font-size:13px}
+  .prop-hero-stats{gap:18px;margin-top:20px}
+  .phs-v{font-size:26px}
+  .phs-l{font-size:10.5px}
+  .prop-section-title{font-size:20px}
+  .prob-grid{grid-template-columns:1fr}
+  .inc-grid{grid-template-columns:1fr}
+  .intg-mini-grid{grid-template-columns:repeat(2,1fr)}
+  .price-layout{grid-template-columns:1fr}
+  .price-val{font-size:34px}
+  .legal-strip{grid-template-columns:1fr 1fr;gap:14px}
+  .prop-cta{padding:22px 18px}
+  .prop-cta h3{font-size:22px}
+  .price-roi-box{margin-top:0}
+  .how-step{gap:13px;padding:13px 0}
+  .how-num{width:40px;height:40px;font-size:13px}
+  /* modal as bottom sheet */
+  .overlay{align-items:flex-end;padding:0}
+  .modal{border-radius:20px 20px 0 0;max-width:100%;max-height:90vh}
+  .modal-body{padding:16px 18px 24px}
+  .modal-head{padding:18px 18px 14px}
+  .detail-name{font-size:20px}
+  .detail-info{grid-template-columns:1fr 1fr}
+  .di-v{font-size:16px}
+  .modal-actions{flex-wrap:wrap}
+  .modal-actions .btn-g,.modal-actions .btn-ghost{min-width:0;flex:1}
+  /* roi calc */
+  .roi-inputs{grid-template-columns:1fr}
+  .roi-result{grid-template-columns:1fr;gap:10px}
+  .roi-res-v{font-size:22px}
+  /* feed */
+  .feed-row{gap:10px}
+  .feed-ico{width:30px;height:30px;font-size:13px}
+}
+
+/* ========= SMALL MOBILE (380px) ========= */
+@media(max-width:380px){
+  .main{padding:12px 12px 84px}
+  .topbar h1{font-size:20px}
+  .kpis{grid-template-columns:repeat(2,1fr)}
+  .kpi-val{font-size:20px}
+  .prop-hero h2{font-size:20px}
+  .intg-mini-grid{grid-template-columns:1fr}
+  .legal-strip{grid-template-columns:1fr}
+  .mn-item span{display:none}
+  .mn-item{padding:10px 4px 12px}
+}
 
 /* COBRA HOY STRIP */
 .cobra-hoy{background:linear-gradient(135deg,rgba(80,70,228,.18),rgba(245,158,11,.08));border:1px solid rgba(80,70,228,.3);border-radius:14px;padding:16px 22px;margin-bottom:22px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
@@ -993,9 +1131,31 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
 </div>
 
 <!-- MODAL -->
+<nav class="mobile-nav" id="mobile-nav">
+  <div class="mn-item active" id="mn-panel" onclick="go('panel')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
+    <span>Panel</span>
+  </div>
+  <div class="mn-item" id="mn-cartera" onclick="go('cartera')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+    <span>Cartera</span>
+  </div>
+  <div class="mn-item" id="mn-cobros" onclick="go('cobros')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+    <span>Cobros</span>
+  </div>
+  <div class="mn-item" id="mn-reportes" onclick="go('reportes')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg>
+    <span>Recaudo</span>
+  </div>
+  <div class="mn-item" id="mn-propuesta" onclick="go('propuesta')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" stroke-linecap="round"/></svg>
+    <span>Propuesta</span>
+  </div>
+</nav>
+
 <div class="overlay" id="overlay"><div class="modal" id="modal"></div></div>
 <div id="toasts"></div>
-<div class="demo-flag">Demo · Mockup interactivo</div>
 
 <script>
 // ============ DATA ============
@@ -1102,6 +1262,8 @@ function renderCalls(){
 function go(view){
   state.view=view;
   document.querySelectorAll(".nav-item").forEach(n=>n.classList.toggle("active",n.dataset.view===view));
+  document.querySelectorAll(".mn-item").forEach(n=>n.classList.remove("active"));
+  const mni=document.getElementById("mn-"+view);if(mni)mni.classList.add("active");
   document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
   document.getElementById("view-"+view).classList.add("active");
   if(view==="cartera")renderCartera();
