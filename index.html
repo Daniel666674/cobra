@@ -8,18 +8,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#0c0608;--bg2:#140a0e;--panel:#1a0e13;--panel2:#22121a;
-  --burg:#7a1f2b;--burg-lt:#a83545;--burg-glow:rgba(168,53,69,.25);
-  --gold:#e8b94a;--gold-dk:#c89a2e;--gold-soft:rgba(232,185,74,.12);
-  --text:#f4ece8;--muted:#9a8884;--faint:#6b5a57;
-  --green:#52c47a;--green-bg:rgba(82,196,122,.12);
-  --red:#e2576a;--red-bg:rgba(226,87,106,.12);
-  --amber:#e8b94a;--amber-bg:rgba(232,185,74,.12);
-  --border:rgba(232,185,74,.1);--border2:rgba(244,236,232,.06);
+  --bg:#060912;--bg2:#0c1224;--panel:#111b35;--panel2:#192140;
+  --burg:#5046e4;--burg-lt:#7b6eff;--burg-glow:rgba(80,70,228,.28);
+  --gold:#f59e0b;--gold-dk:#d97706;--gold-soft:rgba(245,158,11,.13);
+  --text:#eef2ff;--muted:#8b9fc4;--faint:#566380;
+  --green:#10d9a0;--green-bg:rgba(16,217,160,.12);
+  --red:#f4546e;--red-bg:rgba(244,84,110,.12);
+  --amber:#f59e0b;--amber-bg:rgba(245,158,11,.12);
+  --border:rgba(80,70,228,.22);--border2:rgba(238,242,255,.07);
 }
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;
-  background-image:radial-gradient(ellipse 80% 50% at 20% -10%,rgba(122,31,43,.18),transparent 60%),radial-gradient(ellipse 60% 40% at 100% 0%,rgba(232,185,74,.05),transparent 55%);
+  background-image:radial-gradient(ellipse 80% 50% at 20% -10%,rgba(80,70,228,.16),transparent 60%),radial-gradient(ellipse 60% 40% at 100% 0%,rgba(245,158,11,.06),transparent 55%);
   background-attachment:fixed}
 ::selection{background:var(--burg);color:#fff}
 ::-webkit-scrollbar{width:9px;height:9px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--panel2);border-radius:10px}::-webkit-scrollbar-thumb:hover{background:var(--burg)}
@@ -147,17 +147,25 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
 .mini-l{font-size:11px;color:var(--muted);margin-top:3px}
 
 /* WA PREVIEW */
-.wa-preview{background:#0a1014;border:1px solid var(--border);border-radius:16px;overflow:hidden}
+.wa-preview{background:#0a1014;border:1px solid var(--border);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
 .wa-top{background:#1f2c34;padding:13px 16px;display:flex;align-items:center;gap:11px}
 .wa-av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--burg),var(--burg-lt));display:flex;align-items:center;justify-content:center;font-size:14px}
 .wa-name{font-size:13.5px;font-weight:600;color:#e9edef}
 .wa-status{font-size:10.5px;color:#8696a0;display:flex;align-items:center;gap:5px}
-.wa-body{padding:18px 16px;background:#0b141a;min-height:230px;display:flex;flex-direction:column;gap:10px}
+.wa-tabs{display:flex;background:#111d25;border-bottom:1px solid rgba(255,255,255,.06)}
+.wa-tab{flex:1;padding:9px 8px;font-size:10.5px;font-weight:600;color:#8696a0;cursor:pointer;text-align:center;border-bottom:2px solid transparent;transition:all .2s;line-height:1.3;font-family:'DM Sans'}
+.wa-tab.active{color:#25d366;border-bottom-color:#25d366;background:rgba(37,211,102,.06)}
+.wa-body{padding:14px 14px 10px;background:#0b141a;flex:1;min-height:210px;max-height:270px;display:flex;flex-direction:column;gap:9px;overflow-y:auto}
 .wa-msg{max-width:84%;background:#005c4b;color:#e9edef;padding:9px 12px;border-radius:10px 10px 10px 2px;font-size:12.5px;line-height:1.5;align-self:flex-start;box-shadow:0 1px 2px rgba(0,0,0,.2)}
 .wa-msg.out{background:#1f2c34;align-self:flex-end;border-radius:10px 10px 2px 10px}
 .wa-time{font-size:9px;color:rgba(233,237,239,.5);display:block;text-align:right;margin-top:3px}
-.wa-link{color:#53bdeb;text-decoration:underline}
+.wa-link{color:#53bdeb;text-decoration:underline;cursor:pointer}
 .wa-tag{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:3px}
+.wa-input-row{display:flex;gap:8px;padding:10px 12px;background:#1f2c34;border-top:1px solid rgba(255,255,255,.06)}
+.wa-input{flex:1;background:#2a3942;border:none;border-radius:20px;padding:9px 14px;color:#e9edef;font-size:12.5px;font-family:'DM Sans';outline:none}
+.wa-input::placeholder{color:#8696a0}
+.wa-send{width:34px;height:34px;border-radius:50%;background:#25d366;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
+.wa-send:hover{background:#1da850;transform:scale(1.08)}
 
 /* CALL LOG */
 .call-row{display:flex;align-items:center;gap:14px;padding:15px;border-bottom:1px solid var(--border2)}
@@ -230,6 +238,22 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
 .intg-metrics{display:flex;gap:22px;position:relative;z-index:1;padding-top:14px;border-top:1px solid var(--border2)}
 .im-v{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;line-height:1}
 .im-l{font-size:10.5px;color:var(--faint);margin-top:3px}
+/* ALEGRA DETAIL PANEL */
+.alegra-detail{margin-top:20px}
+.invoice-table td{padding:11px 14px;font-size:12.5px;vertical-align:middle}
+.inv-num{font-weight:700;color:var(--gold);font-size:12px}
+.inv-status{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:50px;font-size:10.5px;font-weight:600}
+.inv-status.dian-ok{background:var(--green-bg);color:var(--green)}
+.inv-status.dian-pend{background:var(--amber-bg);color:var(--amber)}
+.dian-bar{display:flex;align-items:center;justify-content:space-between;background:var(--panel2);border:1px solid var(--border2);border-radius:11px;padding:13px 16px;margin-bottom:14px}
+.dian-badge{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--green)}
+.btn-sm{background:transparent;border:1px solid var(--border2);color:var(--muted);padding:7px 13px;border-radius:8px;font-size:11.5px;font-weight:600;cursor:pointer;font-family:'DM Sans';transition:all .2s;display:inline-flex;align-items:center;gap:6px}
+.btn-sm:hover{color:var(--text);border-color:var(--gold);background:var(--gold-soft)}
+.btn-sm.green{border-color:rgba(16,217,160,.3);color:var(--green)}
+.btn-sm.green:hover{background:var(--green-bg);border-color:var(--green)}
+.alegra-flow{display:flex;align-items:center;gap:0;margin:14px 0;flex-wrap:wrap;gap:6px}
+.afl-step{background:var(--panel2);border:1px solid var(--border2);border-radius:9px;padding:9px 13px;font-size:11.5px;display:flex;align-items:center;gap:7px;flex:1;min-width:110px}
+.afl-arrow{color:var(--gold);font-size:14px;flex-shrink:0}
 /* ACTIVITY FEED */
 .feed-row{display:flex;align-items:center;gap:13px;padding:13px 0;border-bottom:1px solid var(--border2)}
 .feed-row:last-child{border:none}
@@ -306,10 +330,17 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
         </div>
         <div class="wa-preview">
           <div class="wa-top"><div class="wa-av">💬</div><div><div class="wa-name">Real Confort · Cobros</div><div class="wa-status"><span class="pulse"></span>en línea · automático</div></div></div>
-          <div class="wa-body" id="wa-body">
-            <div class="wa-msg out"><div class="wa-tag">Recordatorio · día -3</div>Hola María 👋 Te recordamos que tu cuota de <b>$150.000</b> vence el <b>28 de mayo</b>. Paga aquí 👉 <span class="wa-link">pago.realconfort.co/4421</span> o en el local. ¡Gracias! 🛏️<span class="wa-time">9:02 a.m. ✓✓</span></div>
-            <div class="wa-msg">Listo, ya pagué por Nequi 🙏<span class="wa-time" style="color:rgba(233,237,239,.45)">9:48 a.m.</span></div>
-            <div class="wa-msg out">¡Perfecto María! Recibido ✅ Tu próxima cuota es el <b>11 de junio</b> 😊<span class="wa-time">9:49 a.m. ✓✓</span></div>
+          <div class="wa-tabs">
+            <div class="wa-tab active" onclick="switchConv(0)">María R.<br><span style="font-size:9px;color:var(--green)">✓ Pagó</span></div>
+            <div class="wa-tab" onclick="switchConv(1)">Jorge G.<br><span style="font-size:9px;color:var(--red)">Mora +6d</span></div>
+            <div class="wa-tab" onclick="switchConv(2)">Sandra N.<br><span style="font-size:9px;color:var(--amber)">Por vencer</span></div>
+          </div>
+          <div class="wa-body" id="wa-body"></div>
+          <div class="wa-input-row">
+            <input class="wa-input" id="wa-input" placeholder="Escribir mensaje...">
+            <button class="wa-send" onclick="waSend()" title="Enviar">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke-width="2" stroke-linejoin="round"/></svg>
+            </button>
           </div>
         </div>
       </div>
@@ -429,19 +460,28 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
               <div class="intg-logo alegra">📊</div>
               <div>
                 <div class="intg-name">Alegra <span class="intg-status" id="alegra-status">● Conectado</span></div>
-                <div style="font-size:11px;color:var(--faint)">Facturación · inventario · DIAN</div>
+                <div style="font-size:11px;color:var(--faint)">Facturación DIAN · inventario · AR</div>
               </div>
             </div>
             <div class="intg-toggle" id="toggle-alegra" data-svc="alegra"></div>
           </div>
-          <div class="intg-desc">Cada pago registrado en Cobra genera automáticamente la factura electrónica DIAN en Alegra y actualiza el saldo de cartera. El inventario se sincroniza al crear cada crédito nuevo.</div>
-          <div style="background:var(--panel2);border-radius:10px;padding:12px 14px;font-size:12px;color:var(--muted);margin-bottom:16px;line-height:1.6;border:1px solid var(--border2);position:relative;z-index:1">
-            <div style="color:var(--green);font-size:10px;font-weight:700;letter-spacing:.1em;margin-bottom:6px">FLUJO DE DATOS</div>
-            Cobra registra pago → <span style="color:var(--gold)">Alegra genera factura electrónica</span> → DIAN válida automáticamente → saldo AR actualizado → dueño ve libro limpio
+          <div class="intg-desc">Cada pago registrado en Cobra dispara la factura electrónica en Alegra, la envía a la DIAN y actualiza el saldo de cartera — sin tocar nada manualmente.</div>
+          <div class="alegra-flow">
+            <div class="afl-step">💰 Cobra registra pago</div>
+            <div class="afl-arrow">→</div>
+            <div class="afl-step">📊 Alegra crea factura</div>
+            <div class="afl-arrow">→</div>
+            <div class="afl-step">🏛️ DIAN valida</div>
+            <div class="afl-arrow">→</div>
+            <div class="afl-step" style="color:var(--green)">✅ AR actualizado</div>
+          </div>
+          <div style="display:flex;gap:8px;margin-bottom:14px;position:relative;z-index:1">
+            <button class="btn-sm green" onclick="openAlegraInvoice()">📄 Generar factura manual</button>
+            <button class="btn-sm" onclick="openAlegraSync()">🔄 Ver facturas recientes</button>
           </div>
           <div class="intg-metrics">
             <div><div class="im-v" id="alegra-invoices">47</div><div class="im-l">Facturas este mes</div></div>
-            <div><div class="im-v">100%</div><div class="im-l">Cumplimiento DIAN</div></div>
+            <div><div class="im-v" id="alegra-dian">100%</div><div class="im-l">Cumplimiento DIAN</div></div>
             <div><div class="im-v">~$80K</div><div class="im-l">COP / mes</div></div>
           </div>
         </div>
@@ -498,6 +538,35 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
           </div>
         </div>
 
+      </div>
+
+      <!-- ALEGRA DETAIL PANEL -->
+      <div class="panel alegra-detail" id="alegra-panel">
+        <div class="panel-head">
+          <div class="panel-title"><span class="dot-g"></span>Alegra · Facturación electrónica</div>
+          <div style="display:flex;gap:8px">
+            <button class="btn-sm green" onclick="openAlegraInvoice()">+ Nueva factura</button>
+            <button class="btn-sm" onclick="syncAlegra()">🔄 Sincronizar</button>
+          </div>
+        </div>
+        <div class="dian-bar">
+          <div class="dian-badge"><span class="pulse" style="width:8px;height:8px;background:var(--green)"></span>DIAN conectada · API v2 · NIT 900.xxx.xxx-1</div>
+          <div style="display:flex;gap:10px;align-items:center">
+            <span style="font-size:11px;color:var(--faint)">Última sync: hace 4 min</span>
+            <span class="inv-status dian-ok">100% validadas</span>
+          </div>
+        </div>
+        <div class="table-scroll" style="max-height:280px">
+          <table class="invoice-table">
+            <thead><tr><th>Factura</th><th>Cliente</th><th>Concepto</th><th>Valor</th><th>Fecha</th><th>DIAN</th><th></th></tr></thead>
+            <tbody id="alegra-body"></tbody>
+          </table>
+        </div>
+        <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border2);display:flex;gap:14px;align-items:center;flex-wrap:wrap">
+          <div style="flex:1;font-size:12px;color:var(--muted)">Total facturado mayo: <b style="color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:17px">$11.6M</b></div>
+          <button class="btn-sm" onclick="exportarInforme()">📥 Exportar CSV contable</button>
+          <button class="btn-sm" onclick="verEnAlegra()">↗ Abrir en Alegra</button>
+        </div>
       </div>
 
       <!-- LIVE ACTIVITY FEED -->
@@ -844,14 +913,180 @@ document.getElementById("btn-simulate").addEventListener("click",()=>{
 });
 function renderAutomatizaciones(){
   seedFeed();
+  renderAlegraInvoices();
   Object.keys(intgState).forEach(svc=>{
     const t=document.getElementById("toggle-"+svc);if(t)t.classList.toggle("off",!intgState[svc]);
   });
 }
 
+// ============ WA CONVERSATIONS ============
+let currentConv=0;
+const conversations=[
+  {
+    name:"María Rodríguez",phone:"+57 314 ••• 2281",estado:"pagado",
+    msgs:[
+      {out:true,tag:"Recordatorio · día -3",text:"Hola María 👋 Te recordamos que tu cuota de <b>$150.000</b> vence el <b>28 de mayo</b>. Paga aquí 👉 <span class='wa-link'>pago.realconfort.co/4421</span> o en el local. ¡Gracias! 🛏️",time:"9:02 a.m.",ticks:"✓✓"},
+      {out:false,text:"Listo, ya pagué por Nequi 🙏",time:"9:48 a.m."},
+      {out:true,text:"¡Perfecto María! Recibido ✅ Tu próxima cuota es el <b>11 de junio</b>. ¡Gracias por tu pago! 😊",time:"9:49 a.m.",ticks:"✓✓"},
+      {out:false,text:"Gracias a ustedes, muy bien el servicio 🌟",time:"9:51 a.m."},
+      {out:true,text:"¡Con gusto! Recuerda que siempre puedes pagar con el link o en el local 🛏️",time:"9:52 a.m.",ticks:"✓✓"},
+    ]
+  },
+  {
+    name:"Jorge Gutiérrez",phone:"+57 310 ••• 9043",estado:"mora",diasMora:6,
+    msgs:[
+      {out:true,tag:"Aviso de mora · día +1",text:"Hola Jorge 🔔 Tu cuota de <b>$120.000</b> venció el <b>20 de mayo</b>. Por favor realiza tu pago lo antes posible 👉 <span class='wa-link'>pago.realconfort.co/1032</span>",time:"8:01 a.m.",ticks:"✓✓"},
+      {out:false,text:"Disculpe, he tenido problemas esta semana 😔",time:"10:23 a.m."},
+      {out:true,text:"Entendemos Jorge. ¿Puedes realizarlo esta semana? Puedes pagar en cuotas parciales si prefieres.",time:"10:24 a.m.",ticks:"✓✓"},
+      {out:false,text:"Sí, puedo pagar el viernes $60.000 y el resto el lunes.",time:"10:31 a.m."},
+      {out:true,tag:"Acuerdo de pago registrado ✅",text:"¡Perfecto! Registramos tu acuerdo: <b>$60.000 el viernes 30 mayo</b> y <b>$60.000 el lunes 2 junio</b>. Te enviaremos los links de pago cada día 👍",time:"10:32 a.m.",ticks:"✓✓"},
+      {out:false,text:"Muchas gracias por la comprensión 🙏",time:"10:33 a.m."},
+    ]
+  },
+  {
+    name:"Sandra Niño",phone:"+57 301 ••• 5517",estado:"porvenc",
+    msgs:[
+      {out:true,tag:"Recordatorio anticipado · día -3",text:"Hola Sandra ☀️ Te recordamos que tu cuota de <b>$110.000</b> vence el <b>28 de mayo</b>. Paga con anticipación aquí 👉 <span class='wa-link'>pago.realconfort.co/1008</span>",time:"9:05 a.m.",ticks:"✓✓"},
+      {out:false,text:"Gracias por el aviso! Lo haré el miércoles",time:"9:44 a.m."},
+      {out:true,text:"¡Genial Sandra! El miércoles 28 recibirás tu link de pago de nuevo. ¡Nos vemos! 😊",time:"9:45 a.m.",ticks:"✓✓"},
+      {out:true,tag:"Recordatorio de vencimiento · día 0",text:"Buenos días Sandra 👋 Hoy vence tu cuota de <b>$110.000</b>. Paga aquí 👉 <span class='wa-link'>pago.realconfort.co/1008</span> o en el local. ¡Gracias! 🛏️",time:"8:00 a.m.",ticks:"✓"},
+    ]
+  }
+];
+function renderConv(idx){
+  const conv=conversations[idx];
+  document.getElementById("wa-body").innerHTML=conv.msgs.map(m=>{
+    const tagHtml=m.tag?`<div class="wa-tag">${m.tag}</div>`:"";
+    const ticksHtml=m.ticks?` <span style="color:#53bdeb">${m.ticks}</span>`:"";
+    const timeColor=m.out?"":"color:rgba(233,237,239,.45);";
+    return `<div class="wa-msg${m.out?" out":""}">${tagHtml}${m.text}<span class="wa-time" style="${timeColor}">${m.time}${ticksHtml}</span></div>`;
+  }).join("");
+  const b=document.getElementById("wa-body");b.scrollTop=b.scrollHeight;
+}
+function switchConv(idx){
+  currentConv=idx;
+  document.querySelectorAll(".wa-tab").forEach((t,i)=>t.classList.toggle("active",i===idx));
+  renderConv(idx);
+}
+function waSend(){
+  const inp=document.getElementById("wa-input");const txt=inp.value.trim();if(!txt)return;
+  const conv=conversations[currentConv];
+  const now=new Date().toLocaleTimeString("es-CO",{hour:"2-digit",minute:"2-digit"});
+  conv.msgs.push({out:true,text:txt,time:now,ticks:"✓"});
+  inp.value="";renderConv(currentConv);
+  toast(`Mensaje enviado a ${conv.name}`,"wa","💬");
+  setTimeout(()=>{
+    const el=document.getElementById("wa-sent");if(el)el.textContent=+el.textContent+1;
+  },400);
+}
+document.addEventListener("keydown",e=>{if(e.key==="Enter"&&document.activeElement.id==="wa-input")waSend();});
+
+// ============ ALEGRA INVOICES ============
+const alegraInvoices=[
+  {num:"FE-1201",cliente:"Felipe Suárez",concepto:"Cuota 4/12 · Colchón Queen",valor:150000,fecha:"25 may",dian:"ok"},
+  {num:"FE-1200",cliente:"María Rodríguez",concepto:"Cuota 3/12 · Colchón Doble",valor:150000,fecha:"25 may",dian:"ok"},
+  {num:"FE-1199",cliente:"Carlos Mendoza",concepto:"Cuota 6/24 · Colchón Sencillo",valor:120000,fecha:"24 may",dian:"ok"},
+  {num:"FE-1198",cliente:"Diana Vargas",concepto:"Cuota 2/12 · Cama completa",valor:180000,fecha:"24 may",dian:"ok"},
+  {num:"FE-1197",cliente:"Paola Restrepo",concepto:"Cuota 5/18 · Colchón Queen",valor:135000,fecha:"23 may",dian:"ok"},
+  {num:"FE-1196",cliente:"Ricardo Forero",concepto:"Cuota 1/12 · Base cama",valor:90000,fecha:"23 may",dian:"ok"},
+  {num:"FE-1195",cliente:"Andrés Patiño",concepto:"Cuota 8/24 · Colchón ortopédico",valor:200000,fecha:"22 may",dian:"pend"},
+];
+function renderAlegraInvoices(){
+  const el=document.getElementById("alegra-body");if(!el)return;
+  el.innerHTML=alegraInvoices.map(inv=>`
+    <tr>
+      <td><span class="inv-num">${inv.num}</span></td>
+      <td style="font-weight:600">${inv.cliente}</td>
+      <td style="color:var(--muted);font-size:11.5px">${inv.concepto}</td>
+      <td style="font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;color:var(--gold)">${COP(inv.valor)}</td>
+      <td style="color:var(--faint);font-size:11px">${inv.fecha}</td>
+      <td><span class="inv-status ${inv.dian==="ok"?"dian-ok":"dian-pend"}">${inv.dian==="ok"?"✓ DIAN":"⏳ Pendiente"}</span></td>
+      <td><button class="btn-sm" onclick="openInvoiceDetail('${inv.num}','${inv.cliente}',${inv.valor},'${inv.fecha}','${inv.dian}')">Ver</button></td>
+    </tr>`).join("");
+}
+function openInvoiceDetail(num,cliente,valor,fecha,dian){
+  document.getElementById("modal").innerHTML=`
+    <div class="modal-head">
+      <div><div class="detail-name" style="font-size:22px">Factura ${num}</div><div style="font-size:12px;color:var(--muted);margin-top:3px">Factura electrónica DIAN · Real Confort MD · NIT 900.xxx.xxx-1</div></div>
+      <button class="modal-x" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="background:var(--panel2);border-radius:12px;padding:18px;margin-bottom:16px;border:1px solid var(--border2)">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px">
+          <div>
+            <div style="font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--faint);margin-bottom:4px">Emitida a</div>
+            <div style="font-weight:700;font-size:15px">${cliente}</div>
+          </div>
+          <span class="inv-status ${dian==="ok"?"dian-ok":"dian-pend"}" style="font-size:12px;padding:6px 14px">${dian==="ok"?"✓ Validada DIAN":"⏳ Pendiente validación"}</span>
+        </div>
+        <div class="detail-info" style="margin-bottom:0">
+          <div class="di"><div class="di-l">Número</div><div class="di-v" style="font-size:16px;color:var(--gold)">${num}</div></div>
+          <div class="di"><div class="di-l">Fecha emisión</div><div class="di-v" style="font-size:16px">${fecha} may 2025</div></div>
+          <div class="di"><div class="di-l">Valor total</div><div class="di-v">${COP(valor)}</div></div>
+          <div class="di"><div class="di-l">IVA (0% exento)</div><div class="di-v" style="font-size:16px">$0</div></div>
+        </div>
+      </div>
+      <div style="background:var(--green-bg);border:1px solid rgba(16,217,160,.25);border-radius:10px;padding:12px 15px;font-size:12.5px;color:var(--green);margin-bottom:18px">
+        ✅ Factura electrónica generada automáticamente por Cobra · enviada y validada por la DIAN · CUFE registrado
+      </div>
+      <div class="modal-actions">
+        <button class="btn-g" onclick="toast('PDF descargado · ${num}','gold','📥');closeModal()">📥 Descargar PDF</button>
+        <button class="btn-ghost" onclick="verEnAlegra();closeModal()">↗ Ver en Alegra</button>
+        <button class="btn-ghost" onclick="toast('Factura reenviada al cliente','wa','💬');closeModal()">💬 Reenviar por WA</button>
+      </div>
+    </div>`;
+  document.getElementById("overlay").classList.add("show");
+}
+function openAlegraInvoice(){
+  document.getElementById("modal").innerHTML=`
+    <div class="modal-head">
+      <div><div class="detail-name" style="font-size:22px">Nueva factura electrónica</div><div style="font-size:12px;color:var(--muted);margin-top:3px">Se enviará a la DIAN automáticamente</div></div>
+      <button class="modal-x" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="fg"><label>Cliente</label><select id="fi-cli" style="background:var(--panel2);border:1px solid var(--border2);border-radius:10px;padding:12px 14px;color:var(--text);font-size:14px;font-family:'DM Sans';width:100%;outline:none">
+        ${credits.slice(0,15).map(c=>`<option value="${c.id}">${c.nombre}</option>`).join("")}
+      </select></div>
+      <div class="fg-row">
+        <div class="fg"><label>Valor</label><input id="fi-val" type="number" placeholder="150000"></div>
+        <div class="fg"><label>Concepto</label><input id="fi-con" placeholder="Cuota mensual"></div>
+      </div>
+      <div class="fg"><label>Forma de pago</label><select id="fi-pay" style="background:var(--panel2);border:1px solid var(--border2);border-radius:10px;padding:12px 14px;color:var(--text);font-size:14px;font-family:'DM Sans';width:100%;outline:none"><option>Efectivo</option><option>Nequi</option><option>Daviplata</option><option>Tarjeta débito/crédito</option><option>Transferencia</option></select></div>
+      <div style="background:var(--panel2);border-radius:10px;padding:12px;font-size:11.5px;color:var(--muted);border:1px solid var(--border2);margin-bottom:16px">
+        📊 Alegra generará la FE, la enviará a la DIAN y actualizará el libro de AR automáticamente.
+      </div>
+      <div class="modal-actions">
+        <button class="btn-g" onclick="emitirFactura()">📄 Emitir factura DIAN</button>
+        <button class="btn-ghost" onclick="closeModal()">Cancelar</button>
+      </div>
+    </div>`;
+  document.getElementById("overlay").classList.add("show");
+}
+function emitirFactura(){
+  const cliId=+document.getElementById("fi-cli").value;
+  const c=credits.find(x=>x.id===cliId);
+  const val=+document.getElementById("fi-val").value||150000;
+  const num="FE-"+(1202+alegraInvoices.length);
+  alegraInvoices.unshift({num,cliente:c?c.nombre:"Cliente",concepto:document.getElementById("fi-con").value||"Cuota",valor:val,fecha:"25 may",dian:"pend"});
+  closeModal();
+  toast(`Factura ${num} enviada a DIAN · validación en segundos`,"gold","📊");
+  setTimeout(()=>{alegraInvoices[0].dian="ok";renderAlegraInvoices();toast("DIAN validó "+num+" ✓","","✅");},2800);
+  const el=document.getElementById("alegra-invoices");if(el)el.textContent=+el.textContent+1;
+  renderAlegraInvoices();
+}
+function openAlegraSync(){go("automatizaciones");document.getElementById("alegra-panel").scrollIntoView({behavior:"smooth"});}
+function syncAlegra(){
+  toast("Sincronizando con Alegra...","gold","🔄");
+  setTimeout(()=>{toast("Alegra sincronizado · 47 facturas · AR actualizado","gold","📊");renderAlegraInvoices();},1600);
+}
+function exportarInforme(){toast("CSV generado · Contabilidad_mayo_2025.csv","gold","📥");}
+function verEnAlegra(){toast("Abriendo Alegra en nueva pestaña...","gold","↗");}
+
 // ============ INIT ============
 renderKPIs();renderHoy();renderCobros();
 renderAutomatizaciones();
+renderConv(0);
+renderAlegraInvoices();
 setTimeout(animBars,200);
 </script>
 </body>
