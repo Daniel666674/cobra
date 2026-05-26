@@ -254,6 +254,78 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
 .alegra-flow{display:flex;align-items:center;gap:0;margin:14px 0;flex-wrap:wrap;gap:6px}
 .afl-step{background:var(--panel2);border:1px solid var(--border2);border-radius:9px;padding:9px 13px;font-size:11.5px;display:flex;align-items:center;gap:7px;flex:1;min-width:110px}
 .afl-arrow{color:var(--gold);font-size:14px;flex-shrink:0}
+/* ========= PROPUESTA VIEW ========= */
+.prop-hero{background:linear-gradient(135deg,rgba(80,70,228,.22) 0%,rgba(245,158,11,.1) 100%);border:1px solid rgba(80,70,228,.3);border-radius:20px;padding:40px 44px;margin-bottom:28px;position:relative;overflow:hidden}
+.prop-hero::after{content:'';position:absolute;top:-60px;right:-60px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(80,70,228,.18),transparent 70%);pointer-events:none}
+.prop-hero-tag{display:inline-flex;align-items:center;gap:8px;background:var(--burg-glow);border:1px solid rgba(80,70,228,.35);color:var(--burg-lt);font-size:11px;font-weight:700;letter-spacing:.1em;padding:6px 14px;border-radius:50px;margin-bottom:16px;text-transform:uppercase}
+.prop-hero h2{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:700;line-height:1.15;margin-bottom:12px}
+.prop-hero h2 span{color:var(--gold)}
+.prop-hero p{font-size:15px;color:var(--muted);max-width:580px;line-height:1.65}
+.prop-hero-stats{display:flex;gap:32px;margin-top:28px;flex-wrap:wrap}
+.phs{display:flex;flex-direction:column;gap:3px}
+.phs-v{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:700;color:var(--gold);line-height:1}
+.phs-l{font-size:11px;color:var(--muted)}
+.prop-section{margin-bottom:28px}
+.prop-section-head{margin-bottom:18px}
+.prop-section-tag{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--burg-lt);font-weight:700;margin-bottom:6px}
+.prop-section-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600}
+.prop-section-sub{font-size:13px;color:var(--muted);margin-top:4px;line-height:1.5}
+.prob-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.prob-card{background:linear-gradient(160deg,var(--panel),var(--bg2));border:1px solid var(--border2);border-radius:14px;padding:20px}
+.prob-before{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--red);font-weight:700;margin-bottom:8px}
+.prob-after{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--green);font-weight:700;margin-top:12px;margin-bottom:5px;padding-top:12px;border-top:1px solid var(--border2)}
+.prob-card h4{font-size:14px;font-weight:700;margin-bottom:5px}
+.prob-card p{font-size:12px;color:var(--muted);line-height:1.5}
+.how-steps{display:flex;flex-direction:column;gap:0;position:relative}
+.how-steps::before{content:'';position:absolute;left:22px;top:44px;bottom:44px;width:2px;background:linear-gradient(180deg,var(--burg),var(--gold),var(--green));opacity:.35}
+.how-step{display:flex;gap:18px;padding:16px 0;position:relative;z-index:1}
+.how-num{width:46px;height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;flex-shrink:0}
+.how-body{flex:1;padding-top:4px}
+.how-day{font-size:9.5px;font-weight:700;letter-spacing:.07em;color:var(--faint);text-transform:uppercase;margin-bottom:3px}
+.how-body h4{font-size:14px;font-weight:700;margin-bottom:4px}
+.how-body p{font-size:12.5px;color:var(--muted);line-height:1.55}
+.how-rate{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--green);background:var(--green-bg);padding:4px 11px;border-radius:50px;margin-top:7px}
+.inc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.inc-item{background:var(--panel2);border:1px solid var(--border2);border-radius:12px;padding:16px 18px;display:flex;align-items:flex-start;gap:12px;transition:border-color .2s}
+.inc-item:hover{border-color:rgba(80,70,228,.3)}
+.inc-ico{font-size:20px;flex-shrink:0;margin-top:1px}
+.inc-body h5{font-size:13px;font-weight:700;margin-bottom:3px}
+.inc-body p{font-size:11.5px;color:var(--muted);line-height:1.45}
+.intg-mini-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.intg-mini{background:linear-gradient(160deg,var(--panel),var(--bg2));border:1px solid var(--border2);border-radius:14px;padding:20px;text-align:center;transition:all .25s}
+.intg-mini:hover{border-color:rgba(245,158,11,.3);transform:translateY(-2px)}
+.intg-mini-ico{font-size:30px;margin-bottom:10px}
+.intg-mini h5{font-size:13.5px;font-weight:700;margin-bottom:5px}
+.intg-mini p{font-size:11.5px;color:var(--muted);line-height:1.45}
+.intg-mini-tag{font-size:9.5px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.08em;margin-top:8px}
+.price-layout{display:grid;grid-template-columns:1.4fr 1fr;gap:20px;align-items:start}
+.price-main{background:linear-gradient(160deg,var(--panel),var(--bg2));border:1px solid rgba(80,70,228,.35);border-radius:18px;padding:28px;position:relative;overflow:hidden}
+.price-main::before{content:'PLAN PRO';position:absolute;top:18px;right:18px;font-size:9px;letter-spacing:.14em;font-weight:800;color:var(--gold);background:var(--gold-soft);padding:5px 12px;border-radius:50px;border:1px solid rgba(245,158,11,.25)}
+.price-block{padding-bottom:20px;margin-bottom:20px;border-bottom:1px solid var(--border2)}
+.price-block:last-of-type{border:none;margin:0;padding:0}
+.price-label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-weight:700;margin-bottom:6px}
+.price-val{font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:700;line-height:1;color:var(--text)}
+.price-val-sub{font-size:16px;color:var(--muted);font-weight:400;margin-left:2px}
+.price-note{font-size:12px;color:var(--muted);margin-top:5px}
+.price-inc-list{display:flex;flex-direction:column;gap:9px;margin-top:4px}
+.pil{display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.4}
+.pil i{width:18px;height:18px;border-radius:50%;background:var(--green-bg);color:var(--green);display:flex;align-items:center;justify-content:center;font-size:10px;font-style:normal;flex-shrink:0;margin-top:1px}
+.price-roi-box{background:linear-gradient(135deg,rgba(245,158,11,.1),rgba(80,70,228,.08));border:1px solid rgba(245,158,11,.25);border-radius:14px;padding:22px}
+.price-roi-title{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);font-weight:700;margin-bottom:14px}
+.price-roi-row{display:flex;justify-content:space-between;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--border2);font-size:13px;color:var(--muted)}
+.price-roi-row:last-child{border:none}
+.price-roi-row b{font-family:'Cormorant Garamond',serif;font-size:19px;color:var(--text)}
+.price-roi-row b.gold{color:var(--gold)}
+.price-roi-row b.green{color:var(--green)}
+.legal-strip{background:var(--panel2);border:1px solid var(--border2);border-radius:14px;padding:22px 26px;display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.ls-ico{font-size:20px;margin-bottom:7px}
+.ls-title{font-size:12.5px;font-weight:700;margin-bottom:3px}
+.ls-desc{font-size:11.5px;color:var(--muted);line-height:1.4}
+.prop-cta{background:linear-gradient(130deg,var(--burg) 0%,var(--burg-lt) 100%);border-radius:18px;padding:34px 40px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-top:28px;box-shadow:0 20px 60px var(--burg-glow)}
+.prop-cta h3{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:700;color:#fff}
+.prop-cta p{font-size:13.5px;color:rgba(255,255,255,.72);margin-top:5px;line-height:1.5}
+.btn-white{background:#fff;color:var(--burg);border:none;padding:14px 28px;border-radius:10px;font-size:14px;font-weight:800;cursor:pointer;font-family:'DM Sans';transition:all .2s;display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+.btn-white:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,.25)}
 /* ACTIVITY FEED */
 .feed-row{display:flex;align-items:center;gap:13px;padding:13px 0;border-bottom:1px solid var(--border2)}
 .feed-row:last-child{border:none}
@@ -329,6 +401,7 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
     <div class="nav-item" data-view="reportes"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M3 3v18h18" stroke-width="1.7"/><path d="M7 14l4-4 3 3 5-6" stroke-width="1.7"/></svg>Recaudo</div>
     <div class="nav-section">Sistema</div>
     <div class="nav-item" data-view="automatizaciones"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" stroke-width="1.6" stroke-linejoin="round"/></svg>Automatizaciones<span class="badge-n" style="background:var(--green)">4</span></div>
+    <div class="nav-item" data-view="propuesta" style="margin-top:6px;background:linear-gradient(135deg,rgba(245,158,11,.12),rgba(80,70,228,.08));border:1px solid rgba(245,158,11,.2);color:var(--gold)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-width="1.7"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" stroke-width="1.7" stroke-linecap="round"/></svg>Propuesta &amp; precios</div>
     <div class="sidebar-foot"><div class="acct"><div class="acct-av">RC</div><div><div class="acct-name">Real Confort MD</div><div class="acct-role">Plan Cobranza Pro</div></div></div></div>
   </aside>
 
@@ -660,6 +733,260 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
         </div>
         <div id="activity-feed"></div>
       </div>
+    </section>
+
+    <!-- PROPUESTA -->
+    <section class="view" id="view-propuesta">
+      <div class="topbar">
+        <div><h1>Propuesta &amp; precios</h1><div class="sub">Todo lo que hace Cobra — y lo que cuesta</div></div>
+        <div class="top-actions">
+          <button class="btn-g" onclick="toast('Propuesta enviada por WhatsApp','wa','💬')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke-width="2.2" stroke-linejoin="round"/></svg>Enviar propuesta
+          </button>
+        </div>
+      </div>
+
+      <!-- HERO -->
+      <div class="prop-hero">
+        <div class="prop-hero-tag"><span class="pulse"></span>Demo activo · Real Confort MD</div>
+        <h2>Deja de perseguir pagos.<br>Deja que <span>Cobra</span> lo haga.</h2>
+        <p>Un sistema que envía recordatorios, hace llamadas con IA, genera facturas electrónicas DIAN y cobra por links — completamente solo, mientras tú atiendes el local y vendes más colchones.</p>
+        <div class="prop-hero-stats">
+          <div class="phs"><div class="phs-v">91%</div><div class="phs-l">tasa de recaudo</div></div>
+          <div class="phs"><div class="phs-v">+$2.93M</div><div class="phs-l">recuperado extra / mes</div></div>
+          <div class="phs"><div class="phs-v">15h</div><div class="phs-l">ahorradas por semana</div></div>
+          <div class="phs"><div class="phs-v">0</div><div class="phs-l">llamadas de cobro manuales</div></div>
+        </div>
+      </div>
+
+      <!-- EL PROBLEMA -->
+      <div class="prop-section">
+        <div class="prop-section-head">
+          <div class="prop-section-tag">El problema que resuelve</div>
+          <div class="prop-section-title">La cobranza manual destruye tiempo y dinero</div>
+          <div class="prop-section-sub">Cada semana, sin Cobra, así se ve la realidad de cobrar a crédito en una colchonería.</div>
+        </div>
+        <div class="prob-grid">
+          <div class="prob-card">
+            <div class="prob-before">😓 Sin Cobra</div>
+            <h4>3–4 horas llamando uno a uno</h4>
+            <p>Cada lunes buscas quién debe, marcas teléfonos, dejas mensajes, olvidas a quién llamaste. Algunos te evaden, otros prometen y no pagan.</p>
+            <div class="prob-after">✅ Con Cobra</div>
+            <p>Cobra envía WhatsApp automático 3 días antes del vencimiento. El 71% paga sin que hagas nada. Tú solo ves el dinero entrar.</p>
+          </div>
+          <div class="prob-card">
+            <div class="prob-before">😓 Sin Cobra</div>
+            <h4>Mora que crece sin control</h4>
+            <p>Sin seguimiento consistente, los clientes se acostumbran a pagar tarde. La cartera vencida sube y cada mes recuperas menos del potencial.</p>
+            <div class="prob-after">✅ Con Cobra</div>
+            <p>4 niveles de escalamiento automático: WhatsApp → urgente → llamada IA. Solo el 9% queda sin resolver, y ese 9% ya recibió 4 contactos automáticos.</p>
+          </div>
+          <div class="prob-card">
+            <div class="prob-before">😓 Sin Cobra</div>
+            <h4>Facturas DIAN pendientes o mal hechas</h4>
+            <p>Anotas el pago en un cuaderno o Excel. La factura electrónica queda para después, o nunca. Riesgo de sanción DIAN y libro contable sucio.</p>
+            <div class="prob-after">✅ Con Cobra</div>
+            <p>Cada pago genera la factura electrónica en Alegra, la envía a la DIAN y actualiza el AR — automáticamente, en segundos, sin que toques nada.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CÓMO FUNCIONA -->
+      <div class="prop-section panel">
+        <div class="prop-section-head">
+          <div class="prop-section-tag">El ciclo automático</div>
+          <div class="prop-section-title">4 acciones automáticas antes de que tengas que hacer algo</div>
+          <div class="prop-section-sub">Cobra escalona los contactos por canal y urgencia. Tú intervenes solo si el cliente nunca responde — y eso es el 9%.</div>
+        </div>
+        <div class="how-steps">
+          <div class="how-step">
+            <div class="how-num" style="background:var(--amber-bg);color:var(--gold)">D−3</div>
+            <div class="how-body">
+              <div class="how-day">Tres días antes del vencimiento</div>
+              <h4>WhatsApp de recordatorio anticipado</h4>
+              <p>Mensaje amable con el monto exacto, la fecha y un link de pago único. Aprobado por Meta. Enviado a las 8:00 AM dentro del horario que permite la Ley 2300.</p>
+              <span class="how-rate">✓ 71% paga aquí — sin escalamiento</span>
+            </div>
+          </div>
+          <div class="how-step">
+            <div class="how-num" style="background:var(--green-bg);color:var(--green)">D 0</div>
+            <div class="how-body">
+              <div class="how-day">El día del vencimiento</div>
+              <h4>WhatsApp de vencimiento + link único</h4>
+              <p>Recordatorio del día, con el link de pago por Nequi, Daviplata o tarjeta. El cliente paga en 2 taps desde el celular. Cobra detecta el pago al instante.</p>
+              <span class="how-rate">+12% paga el mismo día</span>
+            </div>
+          </div>
+          <div class="how-step">
+            <div class="how-num" style="background:var(--red-bg);color:var(--red)">D+1</div>
+            <div class="how-body">
+              <div class="how-day">Un día después del vencimiento</div>
+              <h4>WhatsApp de mora — tono urgente</h4>
+              <p>Mensaje de cuota vencida con el saldo acumulado y el link de pago. Si el cliente propone un acuerdo parcial, el sistema lo registra y programa los recordatorios del acuerdo.</p>
+              <span class="how-rate">+6% adicional — total acumulado: 89%</span>
+            </div>
+          </div>
+          <div class="how-step">
+            <div class="how-num" style="background:var(--burg-glow);color:var(--burg-lt)">D+4</div>
+            <div class="how-body">
+              <div class="how-day">Cuatro días en mora · solo para quienes ignoraron todo</div>
+              <h4>Llamada con voz IA — Dapta · español colombiano</h4>
+              <p>Un agente de voz llama al cliente, se presenta como cobrador de Real Confort, negocia, acepta acuerdos de pago y actualiza el estado en Cobra en tiempo real. Sin intervención humana.</p>
+              <span class="how-rate">73% de respuesta · acuerdo de pago registrado automático</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- QUÉ INCLUYE -->
+      <div class="prop-section">
+        <div class="prop-section-head">
+          <div class="prop-section-tag">Todo incluido</div>
+          <div class="prop-section-title">Lo que recibes con Cobra</div>
+        </div>
+        <div class="inc-grid">
+          <div class="inc-item"><div class="inc-ico">📊</div><div class="inc-body"><h5>Dashboard en tiempo real</h5><p>Panel con cartera completa, KPIs, tasa de recaudo, historial por cliente y actividad de cobros en vivo.</p></div></div>
+          <div class="inc-item"><div class="inc-ico">💬</div><div class="inc-body"><h5>WhatsApp Business API</h5><p>Plantillas aprobadas por Meta, envío automático en horarios Ley 2300, tasa de lectura del 84%.</p></div></div>
+          <div class="inc-item"><div class="inc-ico">📞</div><div class="inc-body"><h5>Llamadas IA con Dapta</h5><p>Agente de voz en español colombiano, 300 min/mes incluidos, negocia y registra acuerdos solo.</p></div></div>
+          <div class="inc-item"><div class="inc-ico">🏛️</div><div class="inc-body"><h5>Facturación DIAN automática</h5><p>Cada pago genera su factura electrónica en Alegra, la valida en la DIAN y actualiza el libro AR.</p></div></div>
+          <div class="inc-item"><div class="inc-ico">💳</div><div class="inc-body"><h5>Links de pago únicos</h5><p>Cada cuota tiene su propio link Bold/Wompi. El cliente paga con Nequi, Daviplata o tarjeta en 2 taps.</p></div></div>
+          <div class="inc-item"><div class="inc-ico">🤝</div><div class="inc-body"><h5>Acuerdos de pago inteligentes</h5><p>Registra pagos parciales, programa recordatorios por cuota acordada y hace seguimiento automático.</p></div></div>
+          <div class="inc-item"><div class="inc-ico">📈</div><div class="inc-body"><h5>Reportes de recaudo</h5><p>Comparativa mensual, evolución de la cartera, impacto vs. cobranza manual y proyección de cierre.</p></div></div>
+          <div class="inc-item"><div class="inc-ico">⚖️</div><div class="inc-body"><h5>Cumplimiento Ley 2300</h5><p>Horarios de contacto automatizados, registro de consentimiento, límite de intentos y trazabilidad completa.</p></div></div>
+          <div class="inc-item"><div class="inc-ico">🚀</div><div class="inc-body"><h5>Implementación completa</h5><p>Carga de cartera, configuración de todas las integraciones, capacitación y soporte durante el primer mes.</p></div></div>
+        </div>
+      </div>
+
+      <!-- INTEGRACIONES -->
+      <div class="prop-section">
+        <div class="prop-section-head">
+          <div class="prop-section-tag">Integraciones</div>
+          <div class="prop-section-title">4 sistemas que trabajan juntos de forma invisible</div>
+        </div>
+        <div class="intg-mini-grid">
+          <div class="intg-mini">
+            <div class="intg-mini-ico">🧠</div>
+            <h5>Dapta AI</h5>
+            <p>Agente de voz IA que llama, negocia y registra acuerdos en español colombiano natural.</p>
+            <div class="intg-mini-tag">Llamadas automáticas</div>
+          </div>
+          <div class="intg-mini">
+            <div class="intg-mini-ico">📊</div>
+            <h5>Alegra</h5>
+            <p>Genera facturas electrónicas DIAN, actualiza el AR y sincroniza inventario en cada operación.</p>
+            <div class="intg-mini-tag">Facturación DIAN</div>
+          </div>
+          <div class="intg-mini">
+            <div class="intg-mini-ico">💬</div>
+            <h5>WhatsApp Business API</h5>
+            <p>Plantillas pre-aprobadas por Meta para cobranza, enviadas en horarios legales automáticamente.</p>
+            <div class="intg-mini-tag">Canal principal · 80% pagos</div>
+          </div>
+          <div class="intg-mini">
+            <div class="intg-mini-ico">💳</div>
+            <h5>Bold / Wompi</h5>
+            <p>Links de pago únicos por cuota, reconciliación automática, 0% comisión Bold para emprendedores.</p>
+            <div class="intg-mini-tag">Pagos digitales</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- INVERSIÓN -->
+      <div class="prop-section">
+        <div class="prop-section-head">
+          <div class="prop-section-tag">Inversión</div>
+          <div class="prop-section-title">Precio único y transparente</div>
+          <div class="prop-section-sub">Sin sorpresas. Sin comisiones por cobro. Sin letra pequeña.</div>
+        </div>
+        <div class="price-layout">
+          <div class="price-main">
+            <div class="price-block">
+              <div class="price-label">Implementación · pago único</div>
+              <div class="price-val">$2.000.000<span class="price-val-sub"> COP</span></div>
+              <div class="price-note">Incluye: carga de cartera, configuración de las 4 integraciones, WhatsApp aprobado, capacitación del equipo y acompañamiento el primer mes.</div>
+            </div>
+            <div class="price-block">
+              <div class="price-label">Mensualidad</div>
+              <div class="price-val">$800.000<span class="price-val-sub"> COP / mes</span></div>
+              <div class="price-note">Todo incluido · sin límite de créditos en el plan Pro.</div>
+            </div>
+            <div class="price-inc-list">
+              <div class="pil"><i>✓</i>Dashboard Cobra ilimitado</div>
+              <div class="pil"><i>✓</i>WhatsApp API · mensajes automáticos de cobranza</div>
+              <div class="pil"><i>✓</i>Llamadas IA Dapta · 300 min / mes</div>
+              <div class="pil"><i>✓</i>Facturación Alegra + DIAN automática</div>
+              <div class="pil"><i>✓</i>Links de pago Bold / Wompi</div>
+              <div class="pil"><i>✓</i>Reportes de recaudo y cartera</div>
+              <div class="pil"><i>✓</i>Cumplimiento Ley 2300 garantizado</div>
+              <div class="pil"><i>✓</i>Soporte prioritario por WhatsApp</div>
+            </div>
+          </div>
+          <div class="price-roi-box">
+            <div class="price-roi-title">El ROI en números reales · 85 créditos · $150K cuota</div>
+            <div class="price-roi-row">Cartera potencial / mes <b>$12.75M</b></div>
+            <div class="price-roi-row">Recaudo sin Cobra (68%) <b>$8.67M</b></div>
+            <div class="price-roi-row">Recaudo con Cobra (91%) <b class="green">$11.6M</b></div>
+            <div class="price-roi-row">Extra recuperado / mes <b class="gold">+$2.93M</b></div>
+            <div class="price-roi-row">Inversión mensual <b>$800K</b></div>
+            <div class="price-roi-row" style="padding-top:14px;margin-top:4px;border-top:2px solid rgba(245,158,11,.3)">
+              <span style="font-weight:700;color:var(--text)">ROI neto / mes</span>
+              <b class="gold" style="font-size:26px">3.7×</b>
+            </div>
+            <div style="margin-top:14px;font-size:12px;color:var(--muted);line-height:1.6;padding-top:14px;border-top:1px solid var(--border2)">
+              La implementación de <b style="color:var(--text)">$2M</b> se paga en <b style="color:var(--gold)">21 días</b> de uso. A partir del día 22, cada mes son <b style="color:var(--green)">$2.13M de ganancia neta</b> adicional.
+            </div>
+            <button class="btn-g" style="width:100%;justify-content:center;margin-top:16px" onclick="toast('Propuesta enviada · nos contactamos esta semana','gold','🚀')">
+              Quiero empezar con Cobra
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- LEGAL -->
+      <div class="prop-section">
+        <div class="prop-section-head">
+          <div class="prop-section-tag">Cumplimiento legal</div>
+          <div class="prop-section-title">Cobra opera 100% dentro de la Ley 2300 de 2023</div>
+        </div>
+        <div class="legal-strip">
+          <div>
+            <div class="ls-ico">⏰</div>
+            <div class="ls-title">Horarios controlados</div>
+            <div class="ls-desc">Todos los mensajes y llamadas se envían entre 7 AM y 8 PM de lunes a sábado. Ningún contacto en festivos.</div>
+          </div>
+          <div>
+            <div class="ls-ico">📋</div>
+            <div class="ls-title">Consentimiento registrado</div>
+            <div class="ls-desc">Al crear cada crédito se registra la autorización del cliente para contacto de cobranza. Trazabilidad completa.</div>
+          </div>
+          <div>
+            <div class="ls-ico">🚫</div>
+            <div class="ls-title">Límite de intentos</div>
+            <div class="ls-desc">Cobra respeta el límite legal de contactos por día y por semana. Ninguna plantilla incluye presión indebida.</div>
+          </div>
+          <div>
+            <div class="ls-ico">🏛️</div>
+            <div class="ls-title">DIAN al día</div>
+            <div class="ls-desc">Cada cobro genera su factura electrónica válida. Cero facturas pendientes, cero riesgo de sanción contable.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="prop-cta">
+        <div>
+          <h3>¿Listo para recuperar $2.93M más cada mes?</h3>
+          <p>Implementación en una semana. Primeros cobros automáticos al día siguiente.</p>
+        </div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <button class="btn-white" onclick="toast('Propuesta enviada por WhatsApp · te contactamos hoy','wa','💬')">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke-width="2.2" stroke-linejoin="round"/></svg>
+            Empezar ahora
+          </button>
+          <button class="btn-ghost" style="border-color:rgba(255,255,255,.3);color:#fff" onclick="go('reportes')">Ver calculadora de impacto →</button>
+        </div>
+      </div>
+
     </section>
 
   </main>
