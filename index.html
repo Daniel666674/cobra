@@ -340,7 +340,115 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
 @keyframes feedIn{from{opacity:0;transform:translateX(-12px);background:var(--gold-soft)}to{opacity:1;transform:translateX(0)}}
 .demo-flag{position:fixed;bottom:18px;right:18px;background:var(--gold);color:var(--bg);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:7px 14px;border-radius:50px;z-index:99;box-shadow:0 4px 16px rgba(232,185,74,.3)}
 
-/* ========= MOBILE NAV ========= */
+/* ======= NOTIFICATION BELL ======= */
+.notif-wrap{position:fixed;top:18px;right:18px;z-index:180}
+@media(max-width:1080px){.notif-wrap{top:12px;right:12px}}
+.notif-btn{width:40px;height:40px;border-radius:11px;background:var(--panel);border:1px solid var(--border2);cursor:pointer;display:flex;align-items:center;justify-content:center;position:relative;transition:all .2s;box-shadow:0 4px 14px rgba(0,0,0,.3)}
+.notif-btn:hover{border-color:var(--gold);background:var(--panel2)}
+.notif-badge{position:absolute;top:-5px;right:-5px;min-width:18px;height:18px;border-radius:50px;background:var(--red);color:#fff;font-size:9px;font-weight:800;display:flex;align-items:center;justify-content:center;border:2px solid var(--bg);padding:0 4px}
+.notif-drop{position:absolute;top:50px;right:0;width:310px;background:var(--panel);border:1px solid var(--border);border-radius:14px;box-shadow:0 24px 60px rgba(0,0,0,.55);display:none;flex-direction:column;overflow:hidden;animation:fade .2s ease}
+.notif-drop.open{display:flex}
+.notif-hd{padding:13px 16px;border-bottom:1px solid var(--border2);display:flex;justify-content:space-between;align-items:center}
+.notif-hd b{font-size:13px;font-weight:700}
+.notif-clr{font-size:11px;color:var(--gold);cursor:pointer;font-weight:600;background:none;border:none;font-family:'DM Sans'}
+.notif-clr:hover{text-decoration:underline}
+.notif-item{display:flex;gap:11px;padding:11px 16px;border-bottom:1px solid var(--border2);cursor:pointer;transition:background .15s;position:relative}
+.notif-item:last-child{border:none}
+.notif-item:hover{background:var(--panel2)}
+.notif-item.unread{background:rgba(80,70,228,.07)}
+.notif-item.unread::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--burg-lt);border-radius:0 2px 2px 0}
+.notif-ico{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;margin-top:1px}
+.notif-msg{font-size:12px;line-height:1.45;color:var(--muted)}
+.notif-item.unread .notif-msg{color:var(--text);font-weight:500}
+.notif-t{font-size:10px;color:var(--faint);margin-top:3px}
+/* ======= SIN COBRA WIDGET ======= */
+.sin-cobra{background:linear-gradient(135deg,rgba(244,84,110,.07),rgba(80,70,228,.05));border:1px solid rgba(244,84,110,.2);border-radius:14px;padding:15px 20px;margin-bottom:20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.sc-label{font-size:12px;font-weight:700;color:var(--red);flex-shrink:0;white-space:nowrap}
+.sc-stats{display:flex;gap:0;flex:1;justify-content:flex-end;flex-wrap:wrap}
+.sc-s{display:flex;flex-direction:column;align-items:center;padding:0 16px;border-left:1px solid rgba(244,84,110,.15)}
+.sc-s:first-child{border-left:none}
+.sc-s b{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--red);line-height:1}
+.sc-s small{font-size:9.5px;color:var(--muted);margin-top:2px;text-align:center}
+/* ======= AGING BREAKDOWN ======= */
+.aging-row{display:flex;align-items:center;gap:14px;padding:11px 0;border-bottom:1px solid var(--border2)}
+.aging-row:last-child{border:none}
+.aging-label{width:90px;font-size:12px;font-weight:700;flex-shrink:0;color:var(--text)}
+.aging-bar-wrap{flex:1;height:7px;background:var(--panel2);border-radius:4px;overflow:hidden}
+.aging-fill{height:100%;border-radius:4px;transition:width 1.2s cubic-bezier(.3,.8,.3,1);width:0}
+.aging-right{width:160px;text-align:right;flex-shrink:0;display:flex;flex-direction:column;gap:1px}
+.aging-amt{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:600}
+.aging-cnt{font-size:10.5px;color:var(--faint)}
+/* ======= PAYMENT PAGE ======= */
+.pay-page{background:#0d1117;border-radius:14px;overflow:hidden;max-width:340px;margin:0 auto}
+.pay-page-top{background:linear-gradient(160deg,#161b22,#0d1117);padding:22px 20px 18px;text-align:center;border-bottom:1px solid rgba(255,255,255,.07)}
+.pay-brand{font-size:11px;font-weight:800;letter-spacing:.12em;color:#58a6ff;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;justify-content:center;gap:6px}
+.pay-to{font-size:12.5px;color:#7d8590;margin-bottom:4px}
+.pay-biz{font-size:15px;font-weight:700;color:#e6edf3;margin-bottom:16px}
+.pay-amount{font-family:'Cormorant Garamond',serif;font-size:46px;font-weight:700;color:#e6edf3;line-height:1}
+.pay-concept{font-size:11.5px;color:#7d8590;margin-top:6px}
+.pay-body{padding:18px 20px 20px}
+.pay-methods-label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:#7d8590;font-weight:700;margin-bottom:12px}
+.pay-methods{display:flex;flex-direction:column;gap:9px}
+.pay-method{display:flex;align-items:center;gap:13px;padding:13px 14px;border:1px solid rgba(255,255,255,.1);border-radius:11px;cursor:pointer;transition:all .2s;background:rgba(255,255,255,.03)}
+.pay-method:hover{border-color:#58a6ff;background:rgba(88,166,255,.06);transform:translateY(-1px)}
+.pay-method-ico{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.pay-method-info{flex:1}
+.pay-method-name{font-size:13px;font-weight:700;color:#e6edf3}
+.pay-method-sub{font-size:10.5px;color:#7d8590;margin-top:1px}
+.pay-secure{text-align:center;font-size:10.5px;color:#484f58;padding:14px 0 4px;display:flex;align-items:center;justify-content:center;gap:5px}
+/* ======= ONBOARDING ======= */
+.ob-hero{background:linear-gradient(135deg,rgba(80,70,228,.15),rgba(16,217,160,.07));border:1px solid rgba(80,70,228,.25);border-radius:16px;padding:28px 32px;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.ob-hero h2{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;margin-bottom:5px}
+.ob-hero p{font-size:13.5px;color:var(--muted);max-width:420px;line-height:1.55}
+.ob-progress-wrap{margin-bottom:24px}
+.ob-progress-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.ob-progress-label{font-size:12px;color:var(--muted);font-weight:500}
+.ob-progress-pct{font-size:13px;font-weight:700;color:var(--gold)}
+.ob-bar{height:6px;background:var(--panel2);border-radius:4px;overflow:hidden}
+.ob-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--burg),var(--gold));transition:width .6s ease}
+.ob-steps{display:flex;flex-direction:column;gap:14px}
+.ob-step{background:linear-gradient(160deg,var(--panel),var(--bg2));border:1px solid var(--border2);border-radius:15px;overflow:hidden;transition:all .3s}
+.ob-step.active{border-color:rgba(80,70,228,.4);box-shadow:0 0 0 1px rgba(80,70,228,.15),0 8px 24px rgba(0,0,0,.2)}
+.ob-step.done{border-color:rgba(16,217,160,.3)}
+.ob-step-hd{display:flex;align-items:center;gap:14px;padding:18px 20px;cursor:pointer}
+.ob-num{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex-shrink:0;background:var(--panel2);border:1px solid var(--border2);color:var(--faint);transition:all .3s}
+.ob-step.active .ob-num{background:var(--burg-glow);border-color:rgba(80,70,228,.4);color:var(--burg-lt)}
+.ob-step.done .ob-num{background:var(--green-bg);border-color:rgba(16,217,160,.3);color:var(--green);font-size:17px}
+.ob-step-info h4{font-size:14.5px;font-weight:700;margin-bottom:2px}
+.ob-step-info p{font-size:12px;color:var(--muted)}
+.ob-chip{margin-left:auto;font-size:10px;font-weight:700;padding:4px 11px;border-radius:50px;flex-shrink:0}
+.ob-chip.done{background:var(--green-bg);color:var(--green)}
+.ob-chip.active{background:var(--burg-glow);color:var(--burg-lt)}
+.ob-chip.pending{background:var(--panel2);color:var(--faint)}
+.ob-step-body{padding:0 20px 20px;border-top:1px solid var(--border2);display:none}
+.ob-step.active .ob-step-body{display:block;padding-top:18px}
+.ob-step.done .ob-step-body{display:block;padding-top:18px}
+.upload-zone{border:2px dashed var(--border2);border-radius:12px;padding:28px;text-align:center;cursor:pointer;transition:all .2s;margin-bottom:14px}
+.upload-zone:hover,.upload-zone.dragover{border-color:rgba(80,70,228,.5);background:rgba(80,70,228,.05)}
+.upload-zone-ico{font-size:30px;margin-bottom:9px}
+.upload-zone p{font-size:13px;color:var(--muted);line-height:1.5}
+.upload-zone b{color:var(--burg-lt)}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.qr-area{display:flex;align-items:center;gap:20px;background:var(--panel2);border-radius:12px;padding:16px;margin-bottom:14px}
+.qr-box{width:88px;height:88px;background:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:48px;flex-shrink:0}
+.qr-info h5{font-size:13px;font-weight:700;margin-bottom:4px}
+.qr-info p{font-size:11.5px;color:var(--muted);line-height:1.45}
+.toggle-row{display:flex;align-items:center;justify-content:space-between;background:var(--panel2);border-radius:11px;padding:14px 16px;margin-bottom:10px}
+.toggle-row-info h5{font-size:13px;font-weight:600}
+.toggle-row-info p{font-size:11px;color:var(--muted);margin-top:2px}
+.big-toggle{width:50px;height:27px;border-radius:20px;background:var(--green);position:relative;cursor:pointer;flex-shrink:0}
+.big-toggle::after{content:'';position:absolute;top:3px;left:25px;width:21px;height:21px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.3)}
+/* mobile fixes for new features */
+@media(max-width:640px){
+  .sc-stats{display:grid;grid-template-columns:1fr 1fr}
+  .sc-s{border-left:none;padding:8px;border:1px solid rgba(244,84,110,.1);border-radius:8px}
+  .ob-hero{padding:18px 18px}
+  .ob-hero h2{font-size:22px}
+  .field-row{grid-template-columns:1fr}
+  .qr-area{flex-direction:column;text-align:center}
+  .pay-page{max-width:100%}
+  .notif-drop{width:280px;right:-8px}
+}
 .mobile-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--bg2);border-top:1px solid var(--border2);z-index:150;padding-bottom:env(safe-area-inset-bottom)}
 .mn-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 4px 10px;color:var(--faint);cursor:pointer;font-size:9px;font-weight:600;letter-spacing:.02em;transition:color .18s;border:none;background:transparent;font-family:'DM Sans';min-width:0}
 .mn-item svg{stroke:var(--faint);transition:stroke .18s;flex-shrink:0}
@@ -535,6 +643,7 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
     <div class="nav-item" data-view="cartera"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke-width="1.7"/><circle cx="9" cy="7" r="4" stroke-width="1.7"/></svg>Cartera<span class="badge-n" id="nav-cartera-n">85</span></div>
     <div class="nav-item" data-view="cobros"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke-width="1.7"/></svg>Cobros<span class="badge-n" id="nav-cobros-n">0</span></div>
     <div class="nav-item" data-view="llamadas"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.8 19.8 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0122 16.92z" stroke-width="1.7"/></svg>Llamadas IA</div>
+    <div class="nav-item" data-view="onboarding"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 11.08V12a10 10 0 11-5.93-9.14" stroke-width="1.7"/><polyline points="22 4 12 14.01 9 11.01" stroke-width="1.7"/></svg>Inicio rápido<span class="badge-n" style="background:var(--gold);color:var(--bg)">!</span></div>
     <div class="nav-section">Análisis</div>
     <div class="nav-item" data-view="reportes"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M3 3v18h18" stroke-width="1.7"/><path d="M7 14l4-4 3 3 5-6" stroke-width="1.7"/></svg>Recaudo</div>
     <div class="nav-section">Sistema</div>
@@ -560,6 +669,15 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
           <div class="cy-s"><b id="cy-inv">8</b><small>facturas DIAN</small></div>
           <div class="cy-s"><b id="cy-hrs">4.5h</b><small>ahorradas hoy</small></div>
           <div class="cy-s gold"><b id="cy-mgd">$1.2M</b><small>gestionado auto</small></div>
+        </div>
+      </div>
+      <div class="sin-cobra">
+        <div class="sc-label">⏱️ Sin Cobra esta semana habrías...</div>
+        <div class="sc-stats">
+          <div class="sc-s"><b id="sc-calls">47</b><small>llamadas manuales</small></div>
+          <div class="sc-s"><b id="sc-wa">85</b><small>WhatsApps a mano</small></div>
+          <div class="sc-s"><b id="sc-hrs">11h</b><small>de tu tiempo</small></div>
+          <div class="sc-s"><b id="sc-cost">$275K</b><small>en costo laboral</small></div>
         </div>
       </div>
       <div class="kpis" id="kpis"></div>
@@ -709,6 +827,21 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
         <div style="background:var(--panel2);border-radius:11px;padding:14px 18px;font-size:13px;color:var(--muted);line-height:1.7;border:1px solid var(--border2);display:flex;gap:16px;align-items:center">
           <div style="font-size:26px">⏱️</div>
           <div>Cobra también ahorra <b style="color:var(--text)" id="roi-hrs">11 horas</b> de trabajo manual por semana — tiempo que dedicas a crecer el negocio, no a perseguir pagos.</div>
+        </div>
+      </div>
+
+      <!-- AGING BREAKDOWN -->
+      <div class="panel" style="margin-top:20px">
+        <div class="panel-head">
+          <div class="panel-title"><span class="dot-g"></span>Antigüedad de mora</div>
+          <span class="see-all" data-go="cobros">Ver cobros →</span>
+        </div>
+        <div style="font-size:12.5px;color:var(--muted);margin-bottom:16px">Distribución de la cartera vencida por días de mora — actualizado en tiempo real.</div>
+        <div id="aging-list"></div>
+        <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--border2);display:flex;gap:20px;flex-wrap:wrap">
+          <div style="font-size:12px;color:var(--muted)">Total en mora: <b style="color:var(--red);font-family:'Cormorant Garamond',serif;font-size:17px" id="aging-total">—</b></div>
+          <div style="font-size:12px;color:var(--muted)">Clientes: <b style="color:var(--text)" id="aging-count">—</b></div>
+          <div style="font-size:12px;color:var(--muted)">% de cartera: <b style="color:var(--amber)" id="aging-pct">—</b></div>
         </div>
       </div>
     </section>
@@ -872,6 +1005,112 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
           <span class="see-all" id="btn-simulate">▶ Simular ciclo de cobro</span>
         </div>
         <div id="activity-feed"></div>
+      </div>
+    </section>
+
+    <!-- ONBOARDING -->
+    <section class="view" id="view-onboarding">
+      <div class="topbar">
+        <div><h1>Inicio rápido</h1><div class="sub">3 pasos para que Cobra empiece a cobrar por ti hoy</div></div>
+      </div>
+      <div class="ob-hero">
+        <div>
+          <h2>Configura Cobra en menos de una hora</h2>
+          <p>Sube tu cartera, conecta WhatsApp y activa la cobranza automática. Desde mañana Cobra trabaja mientras tú vendes.</p>
+        </div>
+        <div style="text-align:center">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:700;color:var(--gold)" id="ob-pct">0%</div>
+          <div style="font-size:11px;color:var(--muted)">configurado</div>
+        </div>
+      </div>
+      <div class="ob-progress-wrap">
+        <div class="ob-progress-top"><span class="ob-progress-label" id="ob-step-label">Paso 1 de 3 · Sube tu cartera</span><span class="ob-progress-pct" id="ob-progress-pct">0%</span></div>
+        <div class="ob-bar"><div class="ob-bar-fill" id="ob-bar-fill" style="width:0%"></div></div>
+      </div>
+      <div class="ob-steps">
+
+        <!-- PASO 1 -->
+        <div class="ob-step active" id="ob-s1">
+          <div class="ob-step-hd" onclick="obToggle(1)">
+            <div class="ob-num" id="ob-n1">1</div>
+            <div class="ob-step-info"><h4>Sube tu cartera</h4><p>Importa tu Excel con los créditos activos — Cobra los reconoce automáticamente</p></div>
+            <span class="ob-chip active" id="ob-c1">En progreso</span>
+          </div>
+          <div class="ob-step-body">
+            <div class="upload-zone" onclick="obSimulateUpload()" id="upload-zone">
+              <div class="upload-zone-ico">📂</div>
+              <p>Arrastra tu archivo Excel aquí o <b>haz clic para seleccionar</b><br><span style="font-size:11px;color:var(--faint);margin-top:4px;display:block">Columnas: Nombre · Teléfono · Valor crédito · Cuota · Fecha inicio</span></p>
+            </div>
+            <div id="upload-preview" style="display:none;margin-bottom:14px">
+              <div style="background:var(--green-bg);border:1px solid rgba(16,217,160,.25);border-radius:10px;padding:11px 14px;font-size:12.5px;color:var(--green);display:flex;align-items:center;gap:9px">
+                ✅ <b>cartera_mayo_2025.xlsx</b> · 85 créditos detectados · $170M en cartera · listo para importar
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap">
+              <button class="btn-sm" onclick="obDownloadTemplate()">📥 Descargar plantilla Excel</button>
+              <button class="btn-g" id="ob-btn1" onclick="obCompleteStep(1)" style="display:none">Importar 85 créditos →</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- PASO 2 -->
+        <div class="ob-step" id="ob-s2">
+          <div class="ob-step-hd" onclick="obToggle(2)">
+            <div class="ob-num" id="ob-n2">2</div>
+            <div class="ob-step-info"><h4>Conecta WhatsApp Business</h4><p>Escanea el QR o ingresa tu número — Meta aprueba las plantillas de cobranza en 24h</p></div>
+            <span class="ob-chip pending" id="ob-c2">Pendiente</span>
+          </div>
+          <div class="ob-step-body">
+            <div class="qr-area">
+              <div class="qr-box">📱</div>
+              <div class="qr-info">
+                <h5>Escanea con WhatsApp Business</h5>
+                <p>Abre WhatsApp Business → Dispositivos vinculados → Vincular dispositivo → escanea este QR</p>
+                <div style="margin-top:10px;font-size:11px;color:var(--faint)">QR válido por 60 segundos · se renueva automáticamente</div>
+              </div>
+            </div>
+            <div style="text-align:center;margin-bottom:14px;font-size:12px;color:var(--muted)">— o ingresa tu número directamente —</div>
+            <div class="field-row">
+              <div class="fg"><label>Número WhatsApp Business</label><input placeholder="+57 310 000 0000" style="background:var(--panel2);border:1px solid var(--border2);border-radius:10px;padding:11px 13px;color:var(--text);font-size:13.5px;font-family:'DM Sans';width:100%;outline:none"></div>
+              <div class="fg"><label>Nombre del negocio</label><input placeholder="Real Confort MD" style="background:var(--panel2);border:1px solid var(--border2);border-radius:10px;padding:11px 13px;color:var(--text);font-size:13.5px;font-family:'DM Sans';width:100%;outline:none"></div>
+            </div>
+            <div style="background:var(--amber-bg);border:1px solid rgba(245,158,11,.2);border-radius:10px;padding:10px 14px;font-size:12px;color:var(--amber);margin-bottom:14px">
+              ⏱️ Meta aprueba las 3 plantillas de cobranza en <b>24–48 horas</b>. Cobra las envía automáticamente en cuanto estén aprobadas.
+            </div>
+            <button class="btn-g" onclick="obCompleteStep(2)">Conectar WhatsApp →</button>
+          </div>
+        </div>
+
+        <!-- PASO 3 -->
+        <div class="ob-step" id="ob-s3">
+          <div class="ob-step-hd" onclick="obToggle(3)">
+            <div class="ob-num" id="ob-n3">3</div>
+            <div class="ob-step-info"><h4>Activa la cobranza automática</h4><p>Cobra empieza a monitorear toda tu cartera y envía los primeros recordatorios esta noche</p></div>
+            <span class="ob-chip pending" id="ob-c3">Pendiente</span>
+          </div>
+          <div class="ob-step-body">
+            <div class="toggle-row">
+              <div class="toggle-row-info"><h5>Recordatorios automáticos</h5><p>WhatsApp día -3, día 0 y día +1 para cada vencimiento</p></div>
+              <div class="big-toggle" id="ob-t1"></div>
+            </div>
+            <div class="toggle-row">
+              <div class="toggle-row-info"><h5>Llamadas IA Dapta</h5><p>Activar para mora +4 días que no responde WhatsApp</p></div>
+              <div class="big-toggle" id="ob-t2"></div>
+            </div>
+            <div class="toggle-row">
+              <div class="toggle-row-info"><h5>Facturación Alegra · DIAN</h5><p>Generar FE automáticamente en cada pago registrado</p></div>
+              <div class="big-toggle" id="ob-t3"></div>
+            </div>
+            <div style="background:var(--green-bg);border:1px solid rgba(16,217,160,.25);border-radius:10px;padding:11px 14px;font-size:12.5px;color:var(--green);margin:14px 0">
+              🚀 Esta noche Cobra enviará los primeros recordatorios a los <b>24 clientes</b> que vencen esta semana.
+            </div>
+            <button class="btn-g" style="width:100%;justify-content:center" onclick="obCompleteStep(3)">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 11.08V12a10 10 0 11-5.93-9.14" stroke-width="2.2"/><polyline points="22 4 12 14.01 9 11.01" stroke-width="2.2"/></svg>
+              Activar Cobra ahora
+            </button>
+          </div>
+        </div>
+
       </div>
     </section>
 
@@ -1133,6 +1372,18 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
 </div>
 
 <!-- MODAL -->
+<!-- NOTIFICATION BELL -->
+<div class="notif-wrap">
+  <button class="notif-btn" onclick="toggleNotifs()" id="notif-btn">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg>
+    <span class="notif-badge" id="notif-badge">3</span>
+  </button>
+  <div class="notif-drop" id="notif-drop">
+    <div class="notif-hd"><b>Alertas de Cobra</b><button class="notif-clr" onclick="clearNotifs()">Marcar todas leídas</button></div>
+    <div id="notif-list"></div>
+  </div>
+</div>
+
 <nav class="mobile-nav" id="mobile-nav">
   <div class="mn-item active" id="mn-panel" onclick="go('panel')">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
@@ -1271,7 +1522,7 @@ function go(view){
   if(view==="cartera")renderCartera();
   if(view==="cobros")renderCobros();
   if(view==="llamadas")renderCalls();
-  if(view==="reportes"){setTimeout(animBars,80);setTimeout(calcROI,50);}
+  if(view==="reportes"){setTimeout(animBars,80);setTimeout(calcROI,50);setTimeout(renderAging,100);}
   if(view==="automatizaciones"){renderAutomatizaciones();}
   if(view==="panel"){renderHoy();setTimeout(animBars,80);}
   try{window.scrollTo(0,0);}catch(e){}
@@ -1733,12 +1984,206 @@ function calcROI(){
   document.getElementById("roi-hrs").textContent=hrs+" horas";
 }
 
-// ============ INIT ============
+// ============ NOTIFICATION BELL ============
+const notifData=[
+  {id:1,ico:"⚠️",cls:"var(--red-bg)",msg:"Jorge Gutiérrez prometió pagar hoy y no lo ha hecho — mora +6d · $120.000",time:"hace 2h",unread:true},
+  {id:2,ico:"🤝",cls:"var(--amber-bg)",msg:"2 acuerdos de pago vencen mañana — Liliana Castro y Óscar Ramírez",time:"hace 4h",unread:true},
+  {id:3,ico:"📈",cls:"var(--green-bg)",msg:"¡Cartera de mora bajó 18% esta semana! De 12 a 9 clientes en mora",time:"hoy 8:00 AM",unread:true},
+  {id:4,ico:"💬",cls:"rgba(37,211,102,.14)",msg:"24 recordatorios WhatsApp enviados esta mañana · 21 entregados ✓✓",time:"hoy 8:01 AM",unread:false},
+  {id:5,ico:"📊",cls:"var(--green-bg)",msg:"Alegra sincronizó 8 facturas DIAN · libro AR completamente al día",time:"hace 1h",unread:false},
+];
+function renderNotifs(){
+  const list=document.getElementById("notif-list");if(!list)return;
+  list.innerHTML=notifData.map(n=>`
+    <div class="notif-item${n.unread?" unread":""}" onclick="readNotif(${n.id})">
+      <div class="notif-ico" style="background:${n.cls}">${n.ico}</div>
+      <div><div class="notif-msg">${n.msg}</div><div class="notif-t">${n.time}</div></div>
+    </div>`).join("");
+  const unread=notifData.filter(n=>n.unread).length;
+  const badge=document.getElementById("notif-badge");
+  if(badge){badge.textContent=unread;badge.style.display=unread?"flex":"none";}
+}
+function toggleNotifs(){
+  const d=document.getElementById("notif-drop");d.classList.toggle("open");
+  if(d.classList.contains("open"))renderNotifs();
+}
+function readNotif(id){notifData.forEach(n=>{if(n.id===id)n.unread=false;});renderNotifs();}
+function clearNotifs(){notifData.forEach(n=>n.unread=false);renderNotifs();document.getElementById("notif-drop").classList.remove("open");}
+document.addEventListener("click",e=>{
+  if(!e.target.closest(".notif-wrap"))document.getElementById("notif-drop")?.classList.remove("open");
+},{capture:true});
+
+// ============ SIN COBRA WIDGET ============
+function renderSinCobra(){
+  const mora=credits.filter(c=>c.estado==="mora"||c.estado==="porvenc").length;
+  const calls=Math.round(mora*1.6+credits.filter(c=>c.estado==="aldia").length*0.2);
+  const was=credits.length;
+  const hrs=Math.round(calls*0.12+was*0.04);
+  const cost=Math.round(hrs*25000/1000)*1000;
+  const sc=document.getElementById("sc-calls");if(sc)sc.textContent=calls;
+  const sw=document.getElementById("sc-wa");if(sw)sw.textContent=was;
+  const sh=document.getElementById("sc-hrs");if(sh)sh.textContent=hrs+"h";
+  const sk=document.getElementById("sc-cost");if(sk)sk.textContent="$"+Math.round(cost/1000)+"K";
+}
+
+// ============ MORA AGING ============
+const agingConfig=[
+  {label:"1 – 7 días",maxD:7,color:"var(--amber)"},
+  {label:"8 – 15 días",minD:8,maxD:15,color:"var(--red)"},
+  {label:"16 – 30 días",minD:16,maxD:30,color:"#d9244a"},
+  {label:"+ 30 días",minD:31,color:"#8b0000"},
+];
+function renderAging(){
+  const el=document.getElementById("aging-list");if(!el)return;
+  const mora=credits.filter(c=>c.estado==="mora");
+  // augment with synthetic older mora for demo depth
+  const synthetic=[
+    {saldo:320000,cuota:160000,diasMora:22},{saldo:240000,cuota:120000,diasMora:11},
+    {saldo:180000,cuota:90000,diasMora:38},{saldo:210000,cuota:105000,diasMora:9}
+  ];
+  const all=[...mora,...synthetic];
+  const rows=agingConfig.map(cfg=>{
+    const bucket=all.filter(c=>{
+      const d=c.diasMora||0;
+      if(cfg.minD&&d<cfg.minD)return false;
+      if(cfg.maxD&&d>cfg.maxD)return false;
+      if(!cfg.minD&&d>cfg.maxD)return false;
+      return true;
+    });
+    const amount=bucket.reduce((s,c)=>s+c.cuota,0);
+    return{...cfg,count:bucket.length,amount};
+  });
+  const total=rows.reduce((s,r)=>s+r.amount,0);
+  const maxAmt=Math.max(...rows.map(r=>r.amount),1);
+  el.innerHTML=rows.map(r=>`
+    <div class="aging-row">
+      <div class="aging-label">${r.label}</div>
+      <div class="aging-bar-wrap"><div class="aging-fill" style="background:${r.color};width:0" data-w="${Math.round(r.amount/maxAmt*100)}"></div></div>
+      <div class="aging-right">
+        <div class="aging-amt" style="color:${r.color}">${COP(r.amount)}</div>
+        <div class="aging-cnt">${r.count} cliente${r.count!==1?"s":""}</div>
+      </div>
+    </div>`).join("");
+  document.getElementById("aging-total").textContent=COP(total);
+  document.getElementById("aging-count").textContent=rows.reduce((s,r)=>s+r.count,0);
+  document.getElementById("aging-pct").textContent=Math.round(total/credits.reduce((s,c)=>s+c.saldo,0)*100)+"%";
+  setTimeout(()=>el.querySelectorAll(".aging-fill").forEach(b=>{b.style.width=b.dataset.w+"%";}),80);
+}
+
+// ============ PAYMENT PAGE ============
+function openPaymentPage(nombre,cuota,id){
+  const name=nombre||"Cliente";
+  document.getElementById("modal").innerHTML=`
+    <div class="modal-head" style="padding:16px 20px 12px">
+      <div style="font-size:13px;color:var(--muted)">Vista del cliente al abrir el link de pago</div>
+      <button class="modal-x" onclick="closeModal()">✕</button>
+    </div>
+    <div style="padding:0 20px 24px">
+      <div class="pay-page">
+        <div class="pay-page-top">
+          <div class="pay-brand">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            Bold · Pagos seguros
+          </div>
+          <div class="pay-to">Pago a</div>
+          <div class="pay-biz">🛏️ Real Confort MD</div>
+          <div class="pay-amount">${COP(cuota||150000)}</div>
+          <div class="pay-concept">Cuota mensual · ${name} · Ref. ${id||4421}</div>
+        </div>
+        <div class="pay-body">
+          <div class="pay-methods-label">Elige cómo pagar</div>
+          <div class="pay-methods">
+            <div class="pay-method" onclick="simulatePay('Nequi',${id})">
+              <div class="pay-method-ico" style="background:#6c1fc4">💜</div>
+              <div class="pay-method-info"><div class="pay-method-name">Nequi</div><div class="pay-method-sub">Débito instantáneo desde tu Nequi</div></div>
+              <span style="color:#484f58;margin-left:auto">›</span>
+            </div>
+            <div class="pay-method" onclick="simulatePay('Daviplata',${id})">
+              <div class="pay-method-ico" style="background:#e8003d">❤️</div>
+              <div class="pay-method-info"><div class="pay-method-name">Daviplata</div><div class="pay-method-sub">Débito desde tu Daviplata</div></div>
+              <span style="color:#484f58;margin-left:auto">›</span>
+            </div>
+            <div class="pay-method" onclick="simulatePay('Tarjeta',${id})">
+              <div class="pay-method-ico" style="background:#1a3a5c">💳</div>
+              <div class="pay-method-info"><div class="pay-method-name">Tarjeta débito / crédito</div><div class="pay-method-sub">Visa · Mastercard · Amex</div></div>
+              <span style="color:#484f58;margin-left:auto">›</span>
+            </div>
+            <div class="pay-method" onclick="simulatePay('PSE',${id})">
+              <div class="pay-method-ico" style="background:#003087">🏦</div>
+              <div class="pay-method-info"><div class="pay-method-name">PSE · Transferencia bancaria</div><div class="pay-method-sub">Desde cualquier banco colombiano</div></div>
+              <span style="color:#484f58;margin-left:auto">›</span>
+            </div>
+          </div>
+          <div class="pay-secure">🔒 Transacción cifrada · Bold · Superintendencia Financiera</div>
+        </div>
+      </div>
+    </div>`;
+  document.getElementById("overlay").classList.add("show");
+}
+function simulatePay(method,id){
+  closeModal();
+  const c=credits.find(x=>x.id===id);
+  if(c&&c.estado!=="pagado"){cobrar(id);toast(`✅ Pago por ${method} procesado · Cobra actualiza estado · Alegra genera FE`,"wa","💳");}
+  else toast(`Pago por ${method} procesado · confirmación enviada al cliente`,"wa","💳");
+}
+
+// ============ ONBOARDING ============
+let obState={step:1,done:[false,false,false]};
+function obSetProgress(){
+  const done=obState.done.filter(Boolean).length;
+  const pct=Math.round(done/3*100);
+  const labels=["Paso 1 de 3 · Sube tu cartera","Paso 2 de 3 · Conecta WhatsApp","Paso 3 de 3 · Activa la cobranza","¡Cobra está listo! 🎉"];
+  document.getElementById("ob-bar-fill").style.width=pct+"%";
+  document.getElementById("ob-progress-pct").textContent=pct+"%";
+  document.getElementById("ob-pct").textContent=pct+"%";
+  document.getElementById("ob-step-label").textContent=labels[Math.min(done,3)];
+}
+function obToggle(n){
+  const s=document.getElementById("ob-s"+n);
+  if(!s.classList.contains("active"))s.classList.add("active");
+}
+function obSimulateUpload(){
+  const zone=document.getElementById("upload-zone");
+  const prev=document.getElementById("upload-preview");
+  const btn=document.getElementById("ob-btn1");
+  zone.style.display="none";prev.style.display="block";btn.style.display="flex";
+}
+function obDownloadTemplate(){toast("Plantilla descargada · cartera_plantilla.xlsx","gold","📥");}
+function obCompleteStep(n){
+  obState.done[n-1]=true;
+  const step=document.getElementById("ob-s"+n);
+  const chip=document.getElementById("ob-c"+n);
+  const num=document.getElementById("ob-n"+n);
+  step.classList.remove("active");step.classList.add("done");
+  chip.textContent="✓ Listo";chip.className="ob-chip done";
+  num.textContent="✓";
+  obSetProgress();
+  if(n<3){
+    const next=document.getElementById("ob-s"+(n+1));
+    const nc=document.getElementById("ob-c"+(n+1));
+    if(next){next.classList.add("active");nc.textContent="En progreso";nc.className="ob-chip active";}
+  } else {
+    toast("🚀 ¡Cobra está activo! Primera ronda de recordatorios esta noche","gold","🚀");
+    setTimeout(()=>go("panel"),1800);
+  }
+}
+
+// Make WA payment links open the payment page
+document.addEventListener("click",e=>{
+  if(e.target.classList.contains("wa-link")){
+    e.stopPropagation();
+    const conv=conversations[currentConv];
+    openPaymentPage(conv.name,conv.estado==="mora"?120000:150000,1000+currentConv);
+  }
+});
 renderKPIs();renderHoy();renderCobros();
 renderAutomatizaciones();
 renderConv(0);
 renderAlegraInvoices();
+renderNotifs();
+renderSinCobra();
 calcROI();
+obSetProgress();
 setTimeout(animBars,200);
 </script>
 </body>
