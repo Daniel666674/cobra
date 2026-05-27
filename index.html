@@ -327,6 +327,50 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
 .prop-cta p{font-size:13.5px;color:rgba(255,255,255,.72);margin-top:5px;line-height:1.5}
 .btn-white{background:#fff;color:var(--burg);border:none;padding:14px 28px;border-radius:10px;font-size:14px;font-weight:800;cursor:pointer;font-family:'DM Sans';transition:all .2s;display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
 .btn-white:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,.25)}
+/* ========= ARQUITECTURA VIEW ========= */
+.arq-hero{background:linear-gradient(135deg,rgba(80,70,228,.12),rgba(16,217,160,.05));border:1px solid var(--border);border-radius:18px;padding:36px 40px;margin-bottom:28px;position:relative;overflow:hidden}
+.arq-hero::before{content:'';position:absolute;top:-60px;right:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(80,70,228,.18),transparent 70%)}
+.arq-hero-tag{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--burg-lt);margin-bottom:12px}
+.arq-hero-title{font-size:26px;font-weight:700;line-height:1.2;margin-bottom:10px}
+.arq-hero-title span{color:var(--green)}
+.arq-hero-sub{color:var(--muted);font-size:14px;line-height:1.6;max-width:600px}
+.arq-philosophy{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:28px}
+.arq-phil-card{background:var(--panel);border:1px solid var(--border2);border-radius:12px;padding:18px;text-align:center}
+.arq-phil-card .ph-icon{font-size:22px;margin-bottom:8px}
+.arq-phil-card .ph-label{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.arq-phil-card .ph-val{font-size:14px;font-weight:600;color:var(--text)}
+.arq-engines{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:28px}
+.arq-engine{background:var(--panel);border:1px solid var(--border2);border-radius:16px;padding:22px;cursor:pointer;transition:.2s;position:relative;overflow:hidden}
+.arq-engine:hover{border-color:var(--border);transform:translateY(-2px);box-shadow:0 8px 30px rgba(80,70,228,.12)}
+.arq-engine.active-engine{border-color:var(--burg);background:var(--panel2)}
+.arq-engine-num{font-size:11px;font-weight:700;letter-spacing:1px;color:var(--faint);margin-bottom:10px}
+.arq-engine-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;font-size:18px}
+.arq-engine-name{font-size:15px;font-weight:700;margin-bottom:6px}
+.arq-engine-desc{font-size:12.5px;color:var(--muted);line-height:1.55}
+.arq-engine-pill{position:absolute;top:14px;right:14px;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;letter-spacing:.5px}
+.arq-engine-detail{background:linear-gradient(135deg,var(--panel2),var(--panel));border:1px solid var(--border);border-radius:16px;padding:28px;margin-bottom:28px;display:none}
+.arq-engine-detail.visible{display:block;animation:fadeIn .3s}
+.arq-det-head{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+.arq-det-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.arq-det-title{font-size:20px;font-weight:700}
+.arq-det-why{font-size:13px;color:var(--muted);margin-top:4px}
+.arq-det-body{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.arq-det-col h4{font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--burg-lt);margin-bottom:12px}
+.arq-det-col ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.arq-det-col ul li{font-size:13px;color:var(--muted);padding-left:18px;position:relative;line-height:1.5}
+.arq-det-col ul li::before{content:'→';position:absolute;left:0;color:var(--burg-lt);font-size:11px;top:1px}
+.arq-moat{background:linear-gradient(135deg,rgba(245,158,11,.08),rgba(80,70,228,.06));border:1px solid rgba(245,158,11,.2);border-radius:16px;padding:24px 28px}
+.arq-moat-title{font-size:16px;font-weight:700;color:var(--gold);margin-bottom:8px}
+.arq-moat-body{font-size:13.5px;color:var(--muted);line-height:1.7}
+.arq-moat-body strong{color:var(--text)}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media(max-width:860px){
+  .arq-engines{grid-template-columns:1fr}
+  .arq-philosophy{grid-template-columns:1fr 1fr}
+  .arq-det-body{grid-template-columns:1fr}
+  .arq-hero{padding:24px 20px}
+}
+
 /* ACTIVITY FEED */
 .feed-row{display:flex;align-items:center;gap:13px;padding:13px 0;border-bottom:1px solid var(--border2)}
 .feed-row:last-child{border:none}
@@ -647,6 +691,7 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
     <div class="nav-section">Análisis</div>
     <div class="nav-item" data-view="reportes"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M3 3v18h18" stroke-width="1.7"/><path d="M7 14l4-4 3 3 5-6" stroke-width="1.7"/></svg>Recaudo</div>
     <div class="nav-section">Sistema</div>
+    <div class="nav-item" data-view="arquitectura"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3" stroke-width="1.7"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83" stroke-width="1.7" stroke-linecap="round"/></svg>Arquitectura</div>
     <div class="nav-item" data-view="automatizaciones"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" stroke-width="1.6" stroke-linejoin="round"/></svg>Automatizaciones<span class="badge-n" style="background:var(--green)">4</span></div>
     <div class="nav-item" data-view="propuesta" style="margin-top:6px;background:linear-gradient(135deg,rgba(245,158,11,.12),rgba(80,70,228,.08));border:1px solid rgba(245,158,11,.2);color:var(--gold)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-width="1.7"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" stroke-width="1.7" stroke-linecap="round"/></svg>Propuesta &amp; precios</div>
     <div class="sidebar-foot"><div class="acct"><div class="acct-av">RC</div><div><div class="acct-name">Real Confort MD</div><div class="acct-role">Plan Premier</div></div></div></div>
@@ -1115,6 +1160,53 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
     </section>
 
     <!-- PROPUESTA -->
+    <!-- ARQUITECTURA -->
+    <section class="view" id="view-arquitectura">
+      <div class="topbar">
+        <div><h1>Arquitectura del sistema</h1><div class="sub">Los 9 motores operativos que hacen funcionar Cobra</div></div>
+        <div class="top-actions">
+          <button class="btn-g" onclick="go('propuesta')">Ver propuesta →</button>
+        </div>
+      </div>
+      <div class="content-area">
+
+        <!-- Hero -->
+        <div class="arq-hero">
+          <div class="arq-hero-tag">Filosofía de diseño</div>
+          <div class="arq-hero-title">Cobra no es un CRM.<br>Es un <span>sistema operativo de cobranza.</span></div>
+          <div class="arq-hero-sub">Cada feature existe para responder una pregunta: ¿esto aumenta el recaudo o reduce la fricción operativa? Si la respuesta es no, no existe. Los workflows correctos son lo primero — sin ellos, la IA no importa, el UI no importa, las integraciones no importan.</div>
+        </div>
+
+        <!-- Philosophy chips -->
+        <div class="arq-philosophy">
+          <div class="arq-phil-card"><div class="ph-icon">🎯</div><div class="ph-label">Objetivo principal</div><div class="ph-val">Maximizar recaudo</div></div>
+          <div class="arq-phil-card"><div class="ph-icon">⚡</div><div class="ph-label">Objetivo operativo</div><div class="ph-val">Reducir trabajo humano</div></div>
+          <div class="arq-phil-card"><div class="ph-icon">🛡️</div><div class="ph-label">Objetivo legal</div><div class="ph-val">Cumplimiento Ley 2300</div></div>
+        </div>
+
+        <!-- Engine detail panel (shown on click) -->
+        <div class="arq-engine-detail" id="arq-detail">
+          <div class="arq-det-head">
+            <div class="arq-det-icon" id="arq-det-icon"></div>
+            <div><div class="arq-det-title" id="arq-det-title"></div><div class="arq-det-why" id="arq-det-why"></div></div>
+          </div>
+          <div class="arq-det-body" id="arq-det-body"></div>
+        </div>
+
+        <!-- 9 Engines grid -->
+        <div class="arq-engines" id="arq-engines-grid"></div>
+
+        <!-- Moat -->
+        <div class="arq-moat">
+          <div class="arq-moat-title">🔒 El moat competitivo</div>
+          <div class="arq-moat-body">
+            Con el tiempo, Cobra acumula <strong>inteligencia de deuda conductual</strong>: sabe quién miente, quién dilata, quién responde mejor a WhatsApp vs. llamada, cuándo cobrar según el ciclo de ingreso. Eso es territorio <strong>fintech</strong>. Ninguna colchonería puede construirlo sola — y quien lo tiene primero, lo defiende.
+          </div>
+        </div>
+
+      </div>
+    </section>
+
     <section class="view" id="view-propuesta">
       <div class="topbar">
         <div><h1>Propuesta &amp; precios</h1><div class="sub">Todo lo que hace Cobra — y lo que cuesta</div></div>
@@ -1401,9 +1493,9 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg>
     <span>Recaudo</span>
   </div>
-  <div class="mn-item" id="mn-propuesta" onclick="go('propuesta')">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" stroke-linecap="round"/></svg>
-    <span>Propuesta</span>
+  <div class="mn-item" id="mn-arquitectura" onclick="go('arquitectura')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83" stroke-linecap="round"/></svg>
+    <span>Sistema</span>
   </div>
 </nav>
 
@@ -1524,6 +1616,7 @@ function go(view){
   if(view==="llamadas")renderCalls();
   if(view==="reportes"){setTimeout(animBars,80);setTimeout(calcROI,50);setTimeout(renderAging,100);}
   if(view==="automatizaciones"){renderAutomatizaciones();}
+  if(view==="arquitectura"){renderArquitectura();}
   if(view==="panel"){renderHoy();setTimeout(animBars,80);}
   try{window.scrollTo(0,0);}catch(e){}
 }
@@ -2176,6 +2269,148 @@ document.addEventListener("click",e=>{
     openPaymentPage(conv.name,conv.estado==="mora"?120000:150000,1000+currentConv);
   }
 });
+// ============ ARQUITECTURA ============
+const ARQ_ENGINES=[
+  {
+    id:1,icon:"🤝",label:"Promise-to-Pay Engine",
+    color:"rgba(80,70,228,.15)",colorBorder:"rgba(80,70,228,.5)",
+    pill:"CORE",pillColor:"var(--burg-lt)",pillBg:"rgba(80,70,228,.18)",
+    desc:"Convierte promesas verbales en datos operativos estructurados con fecha, monto, confianza y escalación automática.",
+    why:"La mayoría de los negocios olvidan las promesas. Los cobradores dependen de memoria y stickies. Eso destruye el rendimiento.",
+    cols:[
+      {head:"Qué captura",items:["Fecha prometida de pago","Monto prometido","Score de confianza","Tarea de seguimiento","Timer de escalación","Colector asignado"]},
+      {head:"Qué construye",items:["Historial de cumplimiento","Score de confiabilidad del cliente","Inteligencia de escalación","Presión adaptativa futura","Behavioral debt intelligence","Datos para negociar"]}
+    ]
+  },
+  {
+    id:2,icon:"📊",label:"Risk Scoring System",
+    color:"rgba(244,84,110,.12)",colorBorder:"rgba(244,84,110,.4)",
+    pill:"IA",pillColor:"var(--red)",pillBg:"rgba(244,84,110,.15)",
+    desc:"Score dinámico 0–100 que predice probabilidad de pago. Se actualiza con cada interacción.",
+    why:"Sin scoring, los cobradores malgastan tiempo aleatoriamente. Con scoring, el esfuerzo es estratégico.",
+    cols:[
+      {head:"Señales de entrada",items:["Días en mora","Promesas rotas","Velocidad de respuesta","Historial de pagos","Demora promedio","Sentimiento conversacional","Mensajes ignorados","Pagos parciales"]},
+      {head:"Salidas del score",items:["BAJO: paga usualmente, sin presión extra","MEDIO: dilata, negocia — aumentar frecuencia","ALTO: ghost, ignorado — escalar a IA call","Asignación de colector humano","Intensidad de contacto","Canal de cobranza recomendado"]}
+    ]
+  },
+  {
+    id:3,icon:"⚡",label:"Collections Escalation Engine",
+    color:"rgba(245,158,11,.12)",colorBorder:"rgba(245,158,11,.4)",
+    pill:"HEART",pillColor:"var(--gold)",pillBg:"rgba(245,158,11,.15)",
+    desc:"4 etapas automáticas que aplican la presión correcta en el momento correcto. Tú defines umbrales; Cobra ejecuta.",
+    why:"Cobranza es gestión de presión, no soporte al cliente. El sistema debe saber cuándo, cómo, cuánto y con qué frecuencia presionar.",
+    cols:[
+      {head:"4 etapas",items:["D−3: Preventivo — recordatorio amigable + link de pago","D0 a D+5: Mora temprana — urgencia + sugerencia de arreglo","Promesa rota: Escalación conductual — llamada IA + negociación","Mora grave: Riesgo crítico — colector humano + advertencia legal"]},
+      {head:"Resultados típicos",items:["71% pagan en D−3 con solo WA","+12% recuperados en D0","+6% recuperados en D+1","73% del 11% restante con llamada IA D+4","Solo 3% requieren intervención humana compleja"]}
+    ]
+  },
+  {
+    id:4,icon:"💳",label:"Payment Orchestration",
+    color:"rgba(16,217,160,.1)",colorBorder:"rgba(16,217,160,.35)",
+    pill:"UX",pillColor:"var(--green)",pillBg:"rgba(16,217,160,.15)",
+    desc:"Cada touchpoint incluye un botón de pago. Nequi, Daviplata, tarjeta, QR, PSE — donde el cliente quiera pagar.",
+    why:"Cada paso extra reduce la probabilidad de pago. El éxito en cobranza depende de reducir fricción, no de persuasión.",
+    cols:[
+      {head:"Canales de pago",items:["Nequi — link directo en WA","Daviplata — transferencia inmediata","Tarjeta débito/crédito via Bold","QR en mensaje o PDF","PSE para montos grandes","Opción de cuota parcial"]},
+      {head:"Integración",items:["Bold/Wompi API — links por cuota","0% comisión emprendedores","Confirmación automática en Cobra","Alegra genera FE al confirmar","AR cerrado en tiempo real","Notificación al cliente + negocio"]}
+    ]
+  },
+  {
+    id:5,icon:"🤖",label:"Automated Arrangement Engine",
+    color:"rgba(80,70,228,.12)",colorBorder:"rgba(80,70,228,.4)",
+    pill:"LATAM",pillColor:"var(--burg-lt)",pillBg:"rgba(80,70,228,.18)",
+    desc:"Cuando el cliente no puede pagar el total, el sistema ofrece opciones — sin intervención humana.",
+    why:"La mayoría de negocios pierden recaudos porque los cobradores responden tarde, nadie hace follow-up, o los arreglos se olvidan.",
+    cols:[
+      {head:"Tipos de arreglo",items:["Pago parcial — mínimo configurable","Extensión de fecha — hasta N días","Dividir cuota — en 2 o 3 pagos","Refinanciación total — plan nuevo","Descuento por pago inmediato","Acuerdo de pago documentado"]},
+      {head:"Automatización",items:["Ofrece opciones vía WA / voz IA","El cliente selecciona sin llamar","Sistema crea nuevo calendario","Cobra monitorea cumplimiento","Escalación si rompe nuevo arreglo","Registro legal del acuerdo"]}
+    ]
+  },
+  {
+    id:6,icon:"🎖️",label:"Collector Command Center",
+    color:"rgba(16,217,160,.1)",colorBorder:"rgba(16,217,160,.35)",
+    pill:"OPS",pillColor:"var(--green)",pillBg:"rgba(16,217,160,.15)",
+    desc:"El humano ve exactamente qué merece su atención ahora mismo — no una lista de 85 cuentas.",
+    why:"Estás optimizando la asignación de esfuerzo humano. Eso es pensamiento de operaciones empresariales.",
+    cols:[
+      {head:"Vista de prioridad",items:["5 promesas rotas hoy","3 cuentas alto riesgo activas","8 confirmaciones de pago pendientes","2 escalaciones que requieren llamada","Cuentas sin contacto hace 7+ días","Arreglos próximos a vencer"]},
+      {head:"Métricas del colector",items:["Tasa de recaudo personal","Promesas obtenidas vs. rotas","Tiempo promedio por gestión","Casos resueltos esta semana","Comparativa con equipo","Efectividad por canal"]}
+    ]
+  },
+  {
+    id:7,icon:"🧠",label:"AI Memory Layer",
+    color:"rgba(80,70,228,.15)",colorBorder:"rgba(80,70,228,.5)",
+    pill:"MOAT",pillColor:"var(--burg-lt)",pillBg:"rgba(80,70,228,.2)",
+    desc:"El sistema recuerda tono, excusas, horarios preferidos y patrones emocionales. Las automatizaciones se adaptan solas.",
+    why:"Este es el foso competitivo. Con el tiempo construyes inteligencia de deuda conductual que ningún competidor puede copiar fácilmente.",
+    cols:[
+      {head:"Qué memoriza",items:["Tono efectivo por cliente","Excusas frecuentes","Horario de contacto preferido","Día de cobro según ingreso","Método de pago favorito","Historial de negociaciones"]},
+      {head:"Cómo se usa",items:["WA más efectivo según historial","Llamada IA adapta guión","Horario de contacto optimizado","Oferta de arreglo personalizada","Score predictivo por cliente","Presión calibrada automáticamente"]}
+    ]
+  },
+  {
+    id:8,icon:"🛡️",label:"Compliance Protection Engine",
+    color:"rgba(244,84,110,.1)",colorBorder:"rgba(244,84,110,.35)",
+    pill:"LEY 2300",pillColor:"var(--red)",pillBg:"rgba(244,84,110,.15)",
+    desc:"El sistema impone automáticamente las restricciones de la Ley 2300: horarios, frecuencia, opt-outs, logs de auditoría.",
+    why:"Tus clientes le tienen terror a quejas legales, acusaciones de abuso y perder su número de WhatsApp. Cobra es infraestructura de seguridad operativa.",
+    cols:[
+      {head:"Controles automáticos",items:["Contacto solo 7AM–8PM","Máximo 2 contactos por día por canal","Opt-out inmediato y documentado","Sin mensajes los domingos festivos","Tono regulado por etapa","Sin amenazas ni presión indebida"]},
+      {head:"Auditoría y logs",items:["Timestamp de cada contacto","Canal, mensaje y respuesta guardados","Historial completo exportable","Evidencia ante quejas SIFC","Reporte de frecuencia por cliente","Compliance automático, sin errores humanos"]}
+    ]
+  },
+  {
+    id:9,icon:"📈",label:"Recovery Analytics Engine",
+    color:"rgba(245,158,11,.12)",colorBorder:"rgba(245,158,11,.4)",
+    pill:"INSIGHT",pillColor:"var(--gold)",pillBg:"rgba(245,158,11,.18)",
+    desc:"Las métricas que los dueños realmente necesitan ver. Una vez que las ven, no pueden trabajar sin ellas.",
+    why:"Los dueños ven fugas operativas, ineficiencia de cobradores y tendencias de recaudo. Se vuelven dependientes de la plataforma.",
+    cols:[
+      {head:"Métricas clave",items:["Recaudado esta semana / mes","Reducción de cartera vencida","Efectividad de cobrador por canal","Probabilidad de pago por segmento","Tasa de promesas rotas","Días promedio en mora","Efectividad de llamadas IA"]},
+      {head:"Reportes estratégicos",items:["Aging de mora por antigüedad","Evolución de recuperación","Top clientes en riesgo","Comparativa de canales","ROI de automatización","Proyección de recaudo próximo mes"]}
+    ]
+  }
+];
+
+let arqActive=null;
+function renderArquitectura(){
+  const grid=document.getElementById("arq-engines-grid");
+  if(!grid||grid.innerHTML!=="")return;
+  grid.innerHTML=ARQ_ENGINES.map(e=>`
+    <div class="arq-engine" id="arq-e${e.id}" onclick="showArqDetail(${e.id})" style="border-color:${e.colorBorder.replace('.4','.2')}">
+      <div class="arq-engine-num">MOTOR 0${e.id}</div>
+      <div class="arq-engine-icon" style="background:${e.color}">${e.icon}</div>
+      <div class="arq-engine-name">${e.label}</div>
+      <div class="arq-engine-desc">${e.desc}</div>
+      <span class="arq-engine-pill" style="background:${e.pillBg};color:${e.pillColor}">${e.pill}</span>
+    </div>`).join("");
+}
+function showArqDetail(id){
+  const e=ARQ_ENGINES.find(x=>x.id===id);
+  const det=document.getElementById("arq-detail");
+  if(arqActive===id){
+    det.classList.remove("visible");
+    document.querySelectorAll(".arq-engine").forEach(el=>el.classList.remove("active-engine"));
+    arqActive=null;
+    return;
+  }
+  arqActive=id;
+  document.querySelectorAll(".arq-engine").forEach(el=>el.classList.remove("active-engine"));
+  document.getElementById("arq-e"+id).classList.add("active-engine");
+  document.getElementById("arq-det-icon").textContent=e.icon;
+  document.getElementById("arq-det-icon").style.cssText=`width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;background:${e.color};border:1px solid ${e.colorBorder}`;
+  document.getElementById("arq-det-title").textContent=e.label;
+  document.getElementById("arq-det-why").textContent=e.why;
+  document.getElementById("arq-det-body").innerHTML=e.cols.map(col=>`
+    <div class="arq-det-col">
+      <h4>${col.head}</h4>
+      <ul>${col.items.map(i=>`<li>${i}</li>`).join("")}</ul>
+    </div>`).join("");
+  det.classList.add("visible");
+  // scroll detail into view
+  setTimeout(()=>det.scrollIntoView({behavior:"smooth",block:"nearest"}),80);
+}
+
 renderKPIs();renderHoy();renderCobros();
 renderAutomatizaciones();
 renderConv(0);
