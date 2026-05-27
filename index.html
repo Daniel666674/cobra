@@ -8,18 +8,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#05100f;--bg2:#091716;--panel:#0e201e;--panel2:#142a28;
-  --burg:#0d9488;--burg-lt:#2dd4bf;--burg-glow:rgba(13,148,136,.28);
+  --bg:#03050c;--bg2:#06091a;--panel:#090e1c;--panel2:#0d1326;
+  --burg:#1e3a8a;--burg-lt:#4a80d0;--burg-glow:rgba(30,58,138,.22);
   --gold:#f59e0b;--gold-dk:#d97706;--gold-soft:rgba(245,158,11,.13);
-  --text:#e8faf8;--muted:#7ab5af;--faint:#3d7a74;
+  --text:#eef2ff;--muted:#7c8fa8;--faint:#354560;
   --green:#10d9a0;--green-bg:rgba(16,217,160,.12);
   --red:#f4546e;--red-bg:rgba(244,84,110,.12);
   --amber:#f59e0b;--amber-bg:rgba(245,158,11,.12);
-  --border:rgba(13,148,136,.22);--border2:rgba(232,250,248,.07);
+  --border:rgba(30,58,138,.2);--border2:rgba(238,242,255,.06);
 }
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;
-  background-image:radial-gradient(ellipse 80% 50% at 20% -10%,rgba(13,148,136,.14),transparent 60%),radial-gradient(ellipse 60% 40% at 100% 0%,rgba(245,158,11,.06),transparent 55%);
+  background-image:radial-gradient(ellipse 80% 50% at 20% -10%,rgba(30,58,138,.12),transparent 60%),radial-gradient(ellipse 60% 40% at 100% 0%,rgba(245,158,11,.06),transparent 55%);
   background-attachment:fixed}
 ::selection{background:var(--burg);color:#fff}
 ::-webkit-scrollbar{width:9px;height:9px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--panel2);border-radius:10px}::-webkit-scrollbar-thumb:hover{background:var(--burg)}
@@ -36,7 +36,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .nav-section{font-size:9px;letter-spacing:.18em;color:var(--faint);text-transform:uppercase;padding:0 10px;margin:16px 0 8px}
 .nav-item{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:9px;color:var(--muted);font-size:13.5px;font-weight:500;cursor:pointer;transition:all .2s;margin-bottom:2px}
 .nav-item:hover{background:var(--panel);color:var(--text)}
-.nav-item.active{background:linear-gradient(135deg,rgba(13,148,136,.2),rgba(13,148,136,.08));color:var(--gold);box-shadow:inset 0 0 0 1px var(--border)}
+.nav-item.active{background:linear-gradient(135deg,rgba(30,58,138,.2),rgba(30,58,138,.08));color:var(--gold);box-shadow:inset 0 0 0 1px var(--border)}
 .nav-item.active svg{stroke:var(--gold)}
 .nav-item svg{flex-shrink:0;stroke:var(--muted);transition:stroke .2s}
 .nav-item .badge-n{margin-left:auto;background:var(--burg);color:#fff;font-size:10px;font-weight:700;padding:1px 7px;border-radius:20px}
@@ -133,7 +133,7 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
 .canal{display:flex;gap:6px}
 .cn{width:26px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;background:var(--panel2);border:1px solid var(--border2);font-size:12px}
 .cn.sent{background:var(--green-bg);border-color:rgba(82,196,122,.3)}
-.cn.voice{background:var(--burg-glow);border-color:rgba(13,148,136,.3)}
+.cn.voice{background:var(--burg-glow);border-color:rgba(30,58,138,.3)}
 .row-act{background:#25d366;color:#fff;border:none;padding:7px 13px;border-radius:8px;font-size:11.5px;font-weight:700;cursor:pointer;transition:all .2s;font-family:'DM Sans';white-space:nowrap}
 .row-act:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(37,211,102,.35)}
 .row-act.paid{background:transparent;border:1px solid var(--green);color:var(--green);cursor:default}
@@ -265,9 +265,9 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
 .afl-step{background:var(--panel2);border:1px solid var(--border2);border-radius:9px;padding:9px 13px;font-size:11.5px;display:flex;align-items:center;gap:7px;flex:1;min-width:110px}
 .afl-arrow{color:var(--gold);font-size:14px;flex-shrink:0}
 /* ========= PROPUESTA VIEW ========= */
-.prop-hero{background:linear-gradient(135deg,rgba(13,148,136,.22) 0%,rgba(245,158,11,.1) 100%);border:1px solid rgba(13,148,136,.3);border-radius:20px;padding:40px 44px;margin-bottom:28px;position:relative;overflow:hidden}
-.prop-hero::after{content:'';position:absolute;top:-60px;right:-60px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(13,148,136,.18),transparent 70%);pointer-events:none}
-.prop-hero-tag{display:inline-flex;align-items:center;gap:8px;background:var(--burg-glow);border:1px solid rgba(13,148,136,.35);color:var(--burg-lt);font-size:11px;font-weight:700;letter-spacing:.1em;padding:6px 14px;border-radius:50px;margin-bottom:16px;text-transform:uppercase}
+.prop-hero{background:linear-gradient(135deg,rgba(30,58,138,.22) 0%,rgba(245,158,11,.1) 100%);border:1px solid rgba(30,58,138,.3);border-radius:20px;padding:40px 44px;margin-bottom:28px;position:relative;overflow:hidden}
+.prop-hero::after{content:'';position:absolute;top:-60px;right:-60px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(30,58,138,.18),transparent 70%);pointer-events:none}
+.prop-hero-tag{display:inline-flex;align-items:center;gap:8px;background:var(--burg-glow);border:1px solid rgba(30,58,138,.35);color:var(--burg-lt);font-size:11px;font-weight:700;letter-spacing:.1em;padding:6px 14px;border-radius:50px;margin-bottom:16px;text-transform:uppercase}
 .prop-hero h2{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:700;line-height:1.15;margin-bottom:12px}
 .prop-hero h2 span{color:var(--gold)}
 .prop-hero p{font-size:15px;color:var(--muted);max-width:580px;line-height:1.65}
@@ -297,7 +297,7 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
 .how-rate{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--green);background:var(--green-bg);padding:4px 11px;border-radius:50px;margin-top:7px}
 .inc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .inc-item{background:var(--panel2);border:1px solid var(--border2);border-radius:12px;padding:16px 18px;display:flex;align-items:flex-start;gap:12px;transition:border-color .2s}
-.inc-item:hover{border-color:rgba(13,148,136,.3)}
+.inc-item:hover{border-color:rgba(30,58,138,.3)}
 .inc-ico{font-size:20px;flex-shrink:0;margin-top:1px}
 .inc-body h5{font-size:13px;font-weight:700;margin-bottom:3px}
 .inc-body p{font-size:11.5px;color:var(--muted);line-height:1.45}
@@ -309,7 +309,7 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
 .intg-mini p{font-size:11.5px;color:var(--muted);line-height:1.45}
 .intg-mini-tag{font-size:9.5px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.08em;margin-top:8px}
 .price-layout{display:grid;grid-template-columns:1.4fr 1fr;gap:20px;align-items:start}
-.price-main{background:linear-gradient(160deg,var(--panel),var(--bg2));border:1px solid rgba(13,148,136,.35);border-radius:18px;padding:28px;position:relative;overflow:hidden}
+.price-main{background:linear-gradient(160deg,var(--panel),var(--bg2));border:1px solid rgba(30,58,138,.35);border-radius:18px;padding:28px;position:relative;overflow:hidden}
 .price-main::before{content:'PLAN PREMIER';position:absolute;top:18px;right:18px;font-size:9px;letter-spacing:.14em;font-weight:800;color:var(--gold);background:var(--gold-soft);padding:5px 12px;border-radius:50px;border:1px solid rgba(245,158,11,.25)}
 .price-block{padding-bottom:20px;margin-bottom:20px;border-bottom:1px solid var(--border2)}
 .price-block:last-of-type{border:none;margin:0;padding:0}
@@ -320,7 +320,7 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
 .price-inc-list{display:flex;flex-direction:column;gap:9px;margin-top:4px}
 .pil{display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.4}
 .pil i{width:18px;height:18px;border-radius:50%;background:var(--green-bg);color:var(--green);display:flex;align-items:center;justify-content:center;font-size:10px;font-style:normal;flex-shrink:0;margin-top:1px}
-.price-roi-box{background:linear-gradient(135deg,rgba(245,158,11,.1),rgba(13,148,136,.08));border:1px solid rgba(245,158,11,.25);border-radius:14px;padding:22px}
+.price-roi-box{background:linear-gradient(135deg,rgba(245,158,11,.1),rgba(30,58,138,.08));border:1px solid rgba(245,158,11,.25);border-radius:14px;padding:22px}
 .price-roi-title{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);font-weight:700;margin-bottom:14px}
 .price-roi-row{display:flex;justify-content:space-between;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--border2);font-size:13px;color:var(--muted)}
 .price-roi-row:last-child{border:none}
@@ -337,8 +337,8 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
 .btn-white{background:#fff;color:var(--burg);border:none;padding:14px 28px;border-radius:10px;font-size:14px;font-weight:800;cursor:pointer;font-family:'DM Sans';transition:all .2s;display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
 .btn-white:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,.25)}
 /* ========= ARQUITECTURA VIEW ========= */
-.arq-hero{background:linear-gradient(135deg,rgba(13,148,136,.12),rgba(16,217,160,.05));border:1px solid var(--border);border-radius:18px;padding:36px 40px;margin-bottom:28px;position:relative;overflow:hidden}
-.arq-hero::before{content:'';position:absolute;top:-60px;right:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(13,148,136,.18),transparent 70%)}
+.arq-hero{background:linear-gradient(135deg,rgba(30,58,138,.12),rgba(16,217,160,.05));border:1px solid var(--border);border-radius:18px;padding:36px 40px;margin-bottom:28px;position:relative;overflow:hidden}
+.arq-hero::before{content:'';position:absolute;top:-60px;right:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(30,58,138,.18),transparent 70%)}
 .arq-hero-tag{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--burg-lt);margin-bottom:12px}
 .arq-hero-title{font-size:26px;font-weight:700;line-height:1.2;margin-bottom:10px}
 .arq-hero-title span{color:var(--green)}
@@ -350,7 +350,7 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
 .arq-phil-card .ph-val{font-size:14px;font-weight:600;color:var(--text)}
 .arq-engines{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:28px}
 .arq-engine{background:var(--panel);border:1px solid var(--border2);border-radius:16px;padding:22px;cursor:pointer;transition:.2s;position:relative;overflow:hidden}
-.arq-engine:hover{border-color:var(--border);transform:translateY(-2px);box-shadow:0 8px 30px rgba(13,148,136,.12)}
+.arq-engine:hover{border-color:var(--border);transform:translateY(-2px);box-shadow:0 8px 30px rgba(30,58,138,.12)}
 .arq-engine.active-engine{border-color:var(--burg);background:var(--panel2)}
 .arq-engine-num{font-size:11px;font-weight:700;letter-spacing:1px;color:var(--faint);margin-bottom:10px}
 .arq-engine-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;font-size:18px}
@@ -368,7 +368,7 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
 .arq-det-col ul{list-style:none;display:flex;flex-direction:column;gap:8px}
 .arq-det-col ul li{font-size:13px;color:var(--muted);padding-left:18px;position:relative;line-height:1.5}
 .arq-det-col ul li::before{content:'→';position:absolute;left:0;color:var(--burg-lt);font-size:11px;top:1px}
-.arq-moat{background:linear-gradient(135deg,rgba(245,158,11,.08),rgba(13,148,136,.06));border:1px solid rgba(245,158,11,.2);border-radius:16px;padding:24px 28px}
+.arq-moat{background:linear-gradient(135deg,rgba(245,158,11,.08),rgba(30,58,138,.06));border:1px solid rgba(245,158,11,.2);border-radius:16px;padding:24px 28px}
 .arq-moat-title{font-size:16px;font-weight:700;color:var(--gold);margin-bottom:8px}
 .arq-moat-body{font-size:13.5px;color:var(--muted);line-height:1.7}
 .arq-moat-body strong{color:var(--text)}
@@ -405,9 +405,9 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
 .vmsg{max-width:78%;padding:10px 14px;border-radius:14px;font-size:13px;line-height:1.55}
 .vmsg.bot{background:var(--panel2);border:1px solid var(--border2);align-self:flex-start;border-bottom-left-radius:4px}
 .vmsg.bot .vmsg-sender{font-size:10px;font-weight:700;color:var(--burg-lt);margin-bottom:4px;letter-spacing:.3px}
-.vmsg.user{background:linear-gradient(135deg,rgba(13,148,136,.2),rgba(13,148,136,.12));border:1px solid rgba(13,148,136,.25);align-self:flex-end;border-bottom-right-radius:4px}
+.vmsg.user{background:linear-gradient(135deg,rgba(30,58,138,.2),rgba(30,58,138,.12));border:1px solid rgba(30,58,138,.25);align-self:flex-end;border-bottom-right-radius:4px}
 .vmsg-time{font-size:10px;color:var(--faint);margin-top:4px}
-.vhandoff{background:linear-gradient(135deg,rgba(245,158,11,.12),rgba(13,148,136,.08));border:1px solid rgba(245,158,11,.3);border-radius:12px;padding:14px 18px;margin:10px 20px;display:flex;align-items:center;gap:12px}
+.vhandoff{background:linear-gradient(135deg,rgba(245,158,11,.12),rgba(30,58,138,.08));border:1px solid rgba(245,158,11,.3);border-radius:12px;padding:14px 18px;margin:10px 20px;display:flex;align-items:center;gap:12px}
 .vhandoff-icon{font-size:20px}
 .vhandoff-text{flex:1;font-size:12.5px;line-height:1.5}
 .vhandoff-text b{color:var(--gold)}
@@ -448,8 +448,8 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
 .tog input:checked+.tog-slider{background:var(--burg);border-color:var(--burg)}
 .tog input:checked+.tog-slider::before{transform:translateX(18px);background:#fff}
 /* WA Report button */
-.wa-report-btn{display:flex;align-items:center;gap:14px;background:linear-gradient(135deg,rgba(37,211,102,.12),rgba(13,148,136,.08));border:1px solid rgba(37,211,102,.3);border-radius:16px;padding:20px 24px;cursor:pointer;transition:.2s;width:100%;text-align:left;margin-bottom:16px}
-.wa-report-btn:hover{background:linear-gradient(135deg,rgba(37,211,102,.2),rgba(13,148,136,.12));transform:translateY(-1px);box-shadow:0 8px 24px rgba(37,211,102,.1)}
+.wa-report-btn{display:flex;align-items:center;gap:14px;background:linear-gradient(135deg,rgba(37,211,102,.12),rgba(30,58,138,.08));border:1px solid rgba(37,211,102,.3);border-radius:16px;padding:20px 24px;cursor:pointer;transition:.2s;width:100%;text-align:left;margin-bottom:16px}
+.wa-report-btn:hover{background:linear-gradient(135deg,rgba(37,211,102,.2),rgba(30,58,138,.12));transform:translateY(-1px);box-shadow:0 8px 24px rgba(37,211,102,.1)}
 .wa-report-icon{width:48px;height:48px;background:rgba(37,211,102,.15);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
 .wa-report-text{flex:1}
 .wa-report-title{font-size:15px;font-weight:700;color:#25d366;margin-bottom:4px}
@@ -495,14 +495,14 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
 .notif-item{display:flex;gap:11px;padding:11px 16px;border-bottom:1px solid var(--border2);cursor:pointer;transition:background .15s;position:relative}
 .notif-item:last-child{border:none}
 .notif-item:hover{background:var(--panel2)}
-.notif-item.unread{background:rgba(13,148,136,.07)}
+.notif-item.unread{background:rgba(30,58,138,.07)}
 .notif-item.unread::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--burg-lt);border-radius:0 2px 2px 0}
 .notif-ico{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;margin-top:1px}
 .notif-msg{font-size:12px;line-height:1.45;color:var(--muted)}
 .notif-item.unread .notif-msg{color:var(--text);font-weight:500}
 .notif-t{font-size:10px;color:var(--faint);margin-top:3px}
 /* ======= SIN COBRA WIDGET ======= */
-.sin-cobra{background:linear-gradient(135deg,rgba(244,84,110,.07),rgba(13,148,136,.05));border:1px solid rgba(244,84,110,.2);border-radius:14px;padding:15px 20px;margin-bottom:20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.sin-cobra{background:linear-gradient(135deg,rgba(244,84,110,.07),rgba(30,58,138,.05));border:1px solid rgba(244,84,110,.2);border-radius:14px;padding:15px 20px;margin-bottom:20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 .sc-label{font-size:12px;font-weight:700;color:var(--red);flex-shrink:0;white-space:nowrap}
 .sc-stats{display:flex;gap:0;flex:1;justify-content:flex-end;flex-wrap:wrap}
 .sc-s{display:flex;flex-direction:column;align-items:center;padding:0 16px;border-left:1px solid rgba(244,84,110,.15)}
@@ -537,7 +537,7 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
 .pay-method-sub{font-size:10.5px;color:#7d8590;margin-top:1px}
 .pay-secure{text-align:center;font-size:10.5px;color:#484f58;padding:14px 0 4px;display:flex;align-items:center;justify-content:center;gap:5px}
 /* ======= ONBOARDING ======= */
-.ob-hero{background:linear-gradient(135deg,rgba(13,148,136,.15),rgba(16,217,160,.07));border:1px solid rgba(13,148,136,.25);border-radius:16px;padding:28px 32px;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.ob-hero{background:linear-gradient(135deg,rgba(30,58,138,.15),rgba(16,217,160,.07));border:1px solid rgba(30,58,138,.25);border-radius:16px;padding:28px 32px;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
 .ob-hero h2{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;margin-bottom:5px}
 .ob-hero p{font-size:13.5px;color:var(--muted);max-width:420px;line-height:1.55}
 .ob-progress-wrap{margin-bottom:24px}
@@ -548,11 +548,11 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
 .ob-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--burg),var(--gold));transition:width .6s ease}
 .ob-steps{display:flex;flex-direction:column;gap:14px}
 .ob-step{background:linear-gradient(160deg,var(--panel),var(--bg2));border:1px solid var(--border2);border-radius:15px;overflow:hidden;transition:all .3s}
-.ob-step.active{border-color:rgba(13,148,136,.4);box-shadow:0 0 0 1px rgba(13,148,136,.15),0 8px 24px rgba(0,0,0,.2)}
+.ob-step.active{border-color:rgba(30,58,138,.4);box-shadow:0 0 0 1px rgba(30,58,138,.15),0 8px 24px rgba(0,0,0,.2)}
 .ob-step.done{border-color:rgba(16,217,160,.3)}
 .ob-step-hd{display:flex;align-items:center;gap:14px;padding:18px 20px;cursor:pointer}
 .ob-num{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex-shrink:0;background:var(--panel2);border:1px solid var(--border2);color:var(--faint);transition:all .3s}
-.ob-step.active .ob-num{background:var(--burg-glow);border-color:rgba(13,148,136,.4);color:var(--burg-lt)}
+.ob-step.active .ob-num{background:var(--burg-glow);border-color:rgba(30,58,138,.4);color:var(--burg-lt)}
 .ob-step.done .ob-num{background:var(--green-bg);border-color:rgba(16,217,160,.3);color:var(--green);font-size:17px}
 .ob-step-info h4{font-size:14.5px;font-weight:700;margin-bottom:2px}
 .ob-step-info p{font-size:12px;color:var(--muted)}
@@ -564,7 +564,7 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
 .ob-step.active .ob-step-body{display:block;padding-top:18px}
 .ob-step.done .ob-step-body{display:block;padding-top:18px}
 .upload-zone{border:2px dashed var(--border2);border-radius:12px;padding:28px;text-align:center;cursor:pointer;transition:all .2s;margin-bottom:14px}
-.upload-zone:hover,.upload-zone.dragover{border-color:rgba(13,148,136,.5);background:rgba(13,148,136,.05)}
+.upload-zone:hover,.upload-zone.dragover{border-color:rgba(30,58,138,.5);background:rgba(30,58,138,.05)}
 .upload-zone-ico{font-size:30px;margin-bottom:9px}
 .upload-zone p{font-size:13px;color:var(--muted);line-height:1.5}
 .upload-zone b{color:var(--burg-lt)}
@@ -726,7 +726,7 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
 }
 
 /* COBRA HOY STRIP */
-.cobra-hoy{background:linear-gradient(135deg,rgba(13,148,136,.18),rgba(245,158,11,.08));border:1px solid rgba(13,148,136,.3);border-radius:14px;padding:16px 22px;margin-bottom:22px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.cobra-hoy{background:linear-gradient(135deg,rgba(30,58,138,.18),rgba(245,158,11,.08));border:1px solid rgba(30,58,138,.3);border-radius:14px;padding:16px 22px;margin-bottom:22px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
 .cy-lbl{font-size:12.5px;font-weight:600;color:var(--text);flex-shrink:0;display:flex;align-items:center;gap:8px}
 .cy-lbl span{font-size:10px;background:var(--burg);color:#fff;padding:3px 9px;border-radius:50px;letter-spacing:.04em;font-weight:700}
 .cy-stats{display:flex;gap:0;flex:1;justify-content:flex-end;flex-wrap:wrap}
@@ -748,7 +748,7 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
 .roi-slider::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--burg-lt);cursor:pointer;box-shadow:0 0 8px var(--burg-glow)}
 .roi-result{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:16px}
 .roi-res-card{background:var(--panel2);border:1px solid var(--border2);border-radius:12px;padding:16px;text-align:center}
-.roi-res-card.highlight{background:linear-gradient(135deg,var(--gold-soft),rgba(13,148,136,.1));border-color:rgba(245,158,11,.3)}
+.roi-res-card.highlight{background:linear-gradient(135deg,var(--gold-soft),rgba(30,58,138,.1));border-color:rgba(245,158,11,.3)}
 .roi-res-v{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--text)}
 .roi-res-v.gold{color:var(--gold)}
 .roi-res-v.green{color:var(--green)}
@@ -790,7 +790,7 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
     <div class="nav-section">Sistema</div>
     <div class="nav-item" data-view="arquitectura"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3" stroke-width="1.7"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83" stroke-width="1.7" stroke-linecap="round"/></svg>Arquitectura</div>
     <div class="nav-item" data-view="automatizaciones"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" stroke-width="1.6" stroke-linejoin="round"/></svg>Automatizaciones<span class="badge-n" style="background:var(--green)">4</span></div>
-    <div class="nav-item" data-view="propuesta" style="margin-top:6px;background:linear-gradient(135deg,rgba(245,158,11,.12),rgba(13,148,136,.08));border:1px solid rgba(245,158,11,.2);color:var(--gold)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-width="1.7"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" stroke-width="1.7" stroke-linecap="round"/></svg>Propuesta &amp; precios</div>
+    <div class="nav-item" data-view="propuesta" style="margin-top:6px;background:linear-gradient(135deg,rgba(245,158,11,.12),rgba(30,58,138,.08));border:1px solid rgba(245,158,11,.2);color:var(--gold)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-width="1.7"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" stroke-width="1.7" stroke-linecap="round"/></svg>Propuesta &amp; precios</div>
     <div class="nav-item" data-view="configuracion"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3" stroke-width="1.7"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" stroke-width="1.7"/></svg>Configuración</div>
     <div class="sidebar-foot"><div class="acct"><div class="acct-av">RC</div><div><div class="acct-name">Real Confort MD</div><div class="acct-role">Plan Premier</div></div></div></div>
   </aside>
@@ -1414,16 +1414,16 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
           <div class="prop-section-title">Lo que recibes con Cobra</div>
         </div>
         <div class="inc-grid">
-          <div class="inc-item" style="border-color:rgba(13,148,136,.25)"><div class="inc-ico">📊</div><div class="inc-body"><h5>Dashboard en tiempo real</h5><p>Panel con cartera completa, KPIs, tasa de recaudo, historial por cliente y actividad de cobros en vivo.</p></div></div>
-          <div class="inc-item" style="border-color:rgba(13,148,136,.25)"><div class="inc-ico">💬</div><div class="inc-body"><h5>WhatsApp Business API</h5><p>Plantillas aprobadas por Meta para cobranza <b>y ventas</b>, envío automático en horarios Ley 2300, tasa de lectura del 84%.</p></div></div>
-          <div class="inc-item" style="border-color:rgba(13,148,136,.25)"><div class="inc-ico">📞</div><div class="inc-body"><h5>Llamadas IA con Dapta</h5><p>Dos agentes en español colombiano: uno de <b>cobranza</b> y uno de <b>ventas</b>. 300 min/mes incluidos.</p></div></div>
-          <div class="inc-item" style="border-color:rgba(13,148,136,.25)"><div class="inc-ico">🏛️</div><div class="inc-body"><h5>Facturación DIAN automática</h5><p>Cada pago genera la FE en Alegra → DIAN valida y devuelve CUFE → cliente recibe copia → AR cerrado. Sin tocar nada.</p></div></div>
-          <div class="inc-item" style="border-color:rgba(13,148,136,.25)"><div class="inc-ico">💳</div><div class="inc-body"><h5>Links de pago únicos</h5><p>Cada cuota tiene su propio link Bold/Wompi. El cliente paga con Nequi, Daviplata o tarjeta en 2 taps.</p></div></div>
+          <div class="inc-item" style="border-color:rgba(30,58,138,.25)"><div class="inc-ico">📊</div><div class="inc-body"><h5>Dashboard en tiempo real</h5><p>Panel con cartera completa, KPIs, tasa de recaudo, historial por cliente y actividad de cobros en vivo.</p></div></div>
+          <div class="inc-item" style="border-color:rgba(30,58,138,.25)"><div class="inc-ico">💬</div><div class="inc-body"><h5>WhatsApp Business API</h5><p>Plantillas aprobadas por Meta para cobranza <b>y ventas</b>, envío automático en horarios Ley 2300, tasa de lectura del 84%.</p></div></div>
+          <div class="inc-item" style="border-color:rgba(30,58,138,.25)"><div class="inc-ico">📞</div><div class="inc-body"><h5>Llamadas IA con Dapta</h5><p>Dos agentes en español colombiano: uno de <b>cobranza</b> y uno de <b>ventas</b>. 300 min/mes incluidos.</p></div></div>
+          <div class="inc-item" style="border-color:rgba(30,58,138,.25)"><div class="inc-ico">🏛️</div><div class="inc-body"><h5>Facturación DIAN automática</h5><p>Cada pago genera la FE en Alegra → DIAN valida y devuelve CUFE → cliente recibe copia → AR cerrado. Sin tocar nada.</p></div></div>
+          <div class="inc-item" style="border-color:rgba(30,58,138,.25)"><div class="inc-ico">💳</div><div class="inc-body"><h5>Links de pago únicos</h5><p>Cada cuota tiene su propio link Bold/Wompi. El cliente paga con Nequi, Daviplata o tarjeta en 2 taps.</p></div></div>
           <div class="inc-item" style="border:1px solid rgba(245,158,11,.35);background:var(--gold-soft)"><div class="inc-ico">🛍️</div><div class="inc-body"><h5 style="color:var(--gold)">Canal de ventas automatizado <span style="font-size:10px;background:rgba(245,158,11,.2);padding:2px 7px;border-radius:20px;margin-left:6px;font-weight:700">NUEVO</span></h5><p>Sofía IA responde consultas de WhatsApp 24/7 — precio, cuotas, colores, garantía. Solo te llega el lead listo para cerrar.</p></div></div>
           <div class="inc-item" style="border:1px solid rgba(245,158,11,.35);background:var(--gold-soft)"><div class="inc-ico">📋</div><div class="inc-body"><h5 style="color:var(--gold)">Resumen diario por WhatsApp <span style="font-size:10px;background:rgba(245,158,11,.2);padding:2px 7px;border-radius:20px;margin-left:6px;font-weight:700">NUEVO</span></h5><p>Cada mañana recibes en tu WhatsApp: recaudo del día, mora activa, promesas pendientes y tareas urgentes. Un tap para el resumen completo.</p></div></div>
-          <div class="inc-item" style="border-color:rgba(13,148,136,.25)"><div class="inc-ico">📈</div><div class="inc-body"><h5>Reportes de recaudo y ventas</h5><p>Evolución de cartera, leads calificados, tasa de cierre, impacto vs. operación manual y proyección de ingresos.</p></div></div>
-          <div class="inc-item" style="border-color:rgba(13,148,136,.25)"><div class="inc-ico">⚖️</div><div class="inc-body"><h5>Cumplimiento Ley 2300</h5><p>Horarios de contacto automatizados, registro de consentimiento, límite de intentos y trazabilidad completa.</p></div></div>
-          <div class="inc-item" style="border-color:rgba(13,148,136,.25)"><div class="inc-ico">🚀</div><div class="inc-body"><h5>Implementación completa</h5><p>Carga de cartera, configuración de las 5 integraciones, agentes IA entrenados, capacitación y soporte el primer mes.</p></div></div>
+          <div class="inc-item" style="border-color:rgba(30,58,138,.25)"><div class="inc-ico">📈</div><div class="inc-body"><h5>Reportes de recaudo y ventas</h5><p>Evolución de cartera, leads calificados, tasa de cierre, impacto vs. operación manual y proyección de ingresos.</p></div></div>
+          <div class="inc-item" style="border-color:rgba(30,58,138,.25)"><div class="inc-ico">⚖️</div><div class="inc-body"><h5>Cumplimiento Ley 2300</h5><p>Horarios de contacto automatizados, registro de consentimiento, límite de intentos y trazabilidad completa.</p></div></div>
+          <div class="inc-item" style="border-color:rgba(30,58,138,.25)"><div class="inc-ico">🚀</div><div class="inc-body"><h5>Implementación completa</h5><p>Carga de cartera, configuración de las 5 integraciones, agentes IA entrenados, capacitación y soporte el primer mes.</p></div></div>
         </div>
       </div>
 
@@ -1826,7 +1826,7 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
               <span class="cfg-integ-badge" style="background:var(--green-bg);color:var(--green)">ACTIVO</span>
             </div>
             <div class="cfg-integ-row">
-              <div class="cfg-integ-icon" style="background:rgba(13,148,136,.12)">💳</div>
+              <div class="cfg-integ-icon" style="background:rgba(30,58,138,.12)">💳</div>
               <div class="cfg-integ-info">
                 <div class="cfg-integ-name">Bold · Links de pago</div>
                 <div class="cfg-integ-status" style="color:var(--green)">Conectado · 0% comisión activo</div>
@@ -2139,7 +2139,7 @@ function openDetail(id){
     const lbl=paid?"Pagada":(i===paidN+1?(c.estado==="mora"?"Vencida":"Próxima"):"Pendiente");
     sched+=`<div class="sch-row ${paid?'paid-row':''}"><span><span class="sch-dot" style="background:${dot}"></span>Cuota ${i} · ${["28 mar","11 abr","28 abr","11 may","28 may","11 jun"][i-1]||"—"}</span><span style="font-weight:600">${COP(c.cuota)} · ${lbl}</span></div>`;
   }
-  const proxAccion=c.estado==="mora"&&c.diasMora>=4?`<div style="background:var(--burg-glow);border:1px solid rgba(13,148,136,.3);border-radius:10px;padding:10px 14px;margin-bottom:16px;font-size:12.5px"><b style="color:var(--burg-lt)">📞 Próxima acción automática:</b> Llamada IA Dapta programada para hoy 9:00 AM — sin que hagas nada</div>`:c.estado==="mora"?`<div style="background:var(--red-bg);border:1px solid rgba(244,84,110,.2);border-radius:10px;padding:10px 14px;margin-bottom:16px;font-size:12.5px"><b style="color:var(--red)">⚠️ Próxima acción automática:</b> WhatsApp de mora enviado · si no responde en 72h → llamada IA</div>`:c.estado==="porvenc"?`<div style="background:var(--amber-bg);border:1px solid rgba(245,158,11,.2);border-radius:10px;padding:10px 14px;margin-bottom:16px;font-size:12.5px"><b style="color:var(--gold)">🔔 Próxima acción automática:</b> Recordatorio WhatsApp en ${rnd(1,3)} días — Cobra lo maneja solo</div>`:"";
+  const proxAccion=c.estado==="mora"&&c.diasMora>=4?`<div style="background:var(--burg-glow);border:1px solid rgba(30,58,138,.3);border-radius:10px;padding:10px 14px;margin-bottom:16px;font-size:12.5px"><b style="color:var(--burg-lt)">📞 Próxima acción automática:</b> Llamada IA Dapta programada para hoy 9:00 AM — sin que hagas nada</div>`:c.estado==="mora"?`<div style="background:var(--red-bg);border:1px solid rgba(244,84,110,.2);border-radius:10px;padding:10px 14px;margin-bottom:16px;font-size:12.5px"><b style="color:var(--red)">⚠️ Próxima acción automática:</b> WhatsApp de mora enviado · si no responde en 72h → llamada IA</div>`:c.estado==="porvenc"?`<div style="background:var(--amber-bg);border:1px solid rgba(245,158,11,.2);border-radius:10px;padding:10px 14px;margin-bottom:16px;font-size:12.5px"><b style="color:var(--gold)">🔔 Próxima acción automática:</b> Recordatorio WhatsApp en ${rnd(1,3)} días — Cobra lo maneja solo</div>`:"";
   document.getElementById("modal").innerHTML=`
     <div class="modal-head">
       <div class="detail-top">
@@ -2891,8 +2891,8 @@ document.addEventListener("click",e=>{
 const ARQ_ENGINES=[
   {
     id:1,icon:"🤝",label:"Promise-to-Pay Engine",
-    color:"rgba(13,148,136,.15)",colorBorder:"rgba(13,148,136,.5)",
-    pill:"CORE",pillColor:"var(--burg-lt)",pillBg:"rgba(13,148,136,.18)",
+    color:"rgba(30,58,138,.15)",colorBorder:"rgba(30,58,138,.5)",
+    pill:"CORE",pillColor:"var(--burg-lt)",pillBg:"rgba(30,58,138,.18)",
     desc:"Convierte promesas verbales en datos operativos estructurados con fecha, monto, confianza y escalación automática.",
     why:"La mayoría de los negocios olvidan las promesas. Los cobradores dependen de memoria y stickies. Eso destruye el rendimiento.",
     cols:[
@@ -2935,8 +2935,8 @@ const ARQ_ENGINES=[
   },
   {
     id:5,icon:"🤖",label:"Automated Arrangement Engine",
-    color:"rgba(13,148,136,.12)",colorBorder:"rgba(13,148,136,.4)",
-    pill:"LATAM",pillColor:"var(--burg-lt)",pillBg:"rgba(13,148,136,.18)",
+    color:"rgba(30,58,138,.12)",colorBorder:"rgba(30,58,138,.4)",
+    pill:"LATAM",pillColor:"var(--burg-lt)",pillBg:"rgba(30,58,138,.18)",
     desc:"Cuando el cliente no puede pagar el total, el sistema ofrece opciones — sin intervención humana.",
     why:"La mayoría de negocios pierden recaudos porque los cobradores responden tarde, nadie hace follow-up, o los arreglos se olvidan.",
     cols:[
@@ -2957,8 +2957,8 @@ const ARQ_ENGINES=[
   },
   {
     id:7,icon:"🧠",label:"AI Memory Layer",
-    color:"rgba(13,148,136,.15)",colorBorder:"rgba(13,148,136,.5)",
-    pill:"MOAT",pillColor:"var(--burg-lt)",pillBg:"rgba(13,148,136,.2)",
+    color:"rgba(30,58,138,.15)",colorBorder:"rgba(30,58,138,.5)",
+    pill:"MOAT",pillColor:"var(--burg-lt)",pillBg:"rgba(30,58,138,.2)",
     desc:"El sistema recuerda tono, excusas, horarios preferidos y patrones emocionales. Las automatizaciones se adaptan solas.",
     why:"Este es el foso competitivo. Con el tiempo construyes inteligencia de deuda conductual que ningún competidor puede copiar fácilmente.",
     cols:[
@@ -3050,7 +3050,7 @@ const VENTAS_LEADS = [
   },
   {
     id:2, name:"Ricardo Mendez", phone:"+57 300 887 1234", initials:"RM",
-    tag:"calificando", tagLabel:"CALIFICANDO", tagColor:"var(--burg-lt)", tagBg:"rgba(13,148,136,.12)",
+    tag:"calificando", tagLabel:"CALIFICANDO", tagColor:"var(--burg-lt)", tagBg:"rgba(30,58,138,.12)",
     sub:"Interesado en colchón doble",
     lastMsg:"¿Tienen garantía?", time:"hace 11 min",
     msgs:[
