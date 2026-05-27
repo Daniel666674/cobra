@@ -371,6 +371,54 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
   .arq-hero{padding:24px 20px}
 }
 
+/* ========= VENTAS IA VIEW ========= */
+.ventas-layout{display:grid;grid-template-columns:320px 1fr;gap:20px;height:calc(100vh - 130px)}
+.ventas-leads{background:var(--panel);border:1px solid var(--border2);border-radius:16px;display:flex;flex-direction:column;overflow:hidden}
+.ventas-leads-head{padding:16px 18px;border-bottom:1px solid var(--border2);display:flex;align-items:center;justify-content:space-between}
+.ventas-leads-title{font-size:13px;font-weight:700}
+.ventas-leads-list{flex:1;overflow-y:auto}
+.vlead{padding:14px 18px;border-bottom:1px solid var(--border2);cursor:pointer;transition:.15s}
+.vlead:hover{background:var(--panel2)}
+.vlead.active{background:var(--panel2);border-left:3px solid var(--burg)}
+.vlead-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.vlead-name{font-size:13.5px;font-weight:600}
+.vlead-time{font-size:11px;color:var(--faint)}
+.vlead-last{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:240px}
+.vlead-tag{font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;margin-top:5px;display:inline-block}
+/* Chat panel */
+.ventas-chat{background:var(--panel);border:1px solid var(--border2);border-radius:16px;display:flex;flex-direction:column;overflow:hidden}
+.ventas-chat-head{padding:16px 20px;border-bottom:1px solid var(--border2);display:flex;align-items:center;gap:12px}
+.ventas-chat-av{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--burg),var(--burg-lt));display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;flex-shrink:0}
+.ventas-chat-info{flex:1}
+.ventas-chat-name{font-size:14px;font-weight:700}
+.ventas-chat-sub{font-size:11.5px;color:var(--muted)}
+.ventas-msgs{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:10px}
+.vmsg{max-width:78%;padding:10px 14px;border-radius:14px;font-size:13px;line-height:1.55}
+.vmsg.bot{background:var(--panel2);border:1px solid var(--border2);align-self:flex-start;border-bottom-left-radius:4px}
+.vmsg.bot .vmsg-sender{font-size:10px;font-weight:700;color:var(--burg-lt);margin-bottom:4px;letter-spacing:.3px}
+.vmsg.user{background:linear-gradient(135deg,rgba(13,148,136,.2),rgba(13,148,136,.12));border:1px solid rgba(13,148,136,.25);align-self:flex-end;border-bottom-right-radius:4px}
+.vmsg-time{font-size:10px;color:var(--faint);margin-top:4px}
+.vhandoff{background:linear-gradient(135deg,rgba(245,158,11,.12),rgba(13,148,136,.08));border:1px solid rgba(245,158,11,.3);border-radius:12px;padding:14px 18px;margin:10px 20px;display:flex;align-items:center;gap:12px}
+.vhandoff-icon{font-size:20px}
+.vhandoff-text{flex:1;font-size:12.5px;line-height:1.5}
+.vhandoff-text b{color:var(--gold)}
+.ventas-input{padding:14px 18px;border-top:1px solid var(--border2);display:flex;gap:10px}
+.ventas-input input{flex:1;background:var(--bg2);border:1px solid var(--border2);border-radius:10px;padding:10px 14px;color:var(--text);font-size:13px;font-family:inherit;outline:none}
+.ventas-input input:focus{border-color:var(--burg)}
+/* Stats bar */
+.ventas-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
+.vstat{background:var(--panel);border:1px solid var(--border2);border-radius:12px;padding:16px 18px}
+.vstat-val{font-size:24px;font-weight:700;margin-bottom:2px}
+.vstat-label{font-size:11.5px;color:var(--muted)}
+.vstat-sub{font-size:11px;color:var(--faint);margin-top:2px}
+.vfunnel{display:flex;align-items:center;gap:6px;margin-top:8px}
+.vfunnel-step{font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px}
+@media(max-width:900px){
+  .ventas-layout{grid-template-columns:1fr;height:auto}
+  .ventas-leads{max-height:280px}
+  .ventas-stats{grid-template-columns:1fr 1fr}
+}
+
 /* ========= SETTINGS VIEW ========= */
 .cfg-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px}
 .cfg-card{background:var(--panel);border:1px solid var(--border2);border-radius:16px;padding:24px}
@@ -727,6 +775,7 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
     <div class="nav-item" data-view="cobros"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke-width="1.7"/></svg>Cobros<span class="badge-n" id="nav-cobros-n">0</span></div>
     <div class="nav-item" data-view="llamadas"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.8 19.8 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0122 16.92z" stroke-width="1.7"/></svg>Llamadas IA</div>
     <div class="nav-item" data-view="onboarding"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 11.08V12a10 10 0 11-5.93-9.14" stroke-width="1.7"/><polyline points="22 4 12 14.01 9 11.01" stroke-width="1.7"/></svg>Inicio rápido<span class="badge-n" style="background:var(--gold);color:var(--bg)">!</span></div>
+    <div class="nav-item" data-view="ventas"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 12V22H4V12" stroke-width="1.7"/><path d="M22 7H2v5h20V7z" stroke-width="1.7"/><path d="M12 22V7" stroke-width="1.7"/><path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z" stroke-width="1.7"/><path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z" stroke-width="1.7"/></svg>Ventas IA<span class="badge-n" style="background:var(--green)">3</span></div>
     <div class="nav-section">Análisis</div>
     <div class="nav-item" data-view="reportes"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M3 3v18h18" stroke-width="1.7"/><path d="M7 14l4-4 3 3 5-6" stroke-width="1.7"/></svg>Recaudo</div>
     <div class="nav-section">Sistema</div>
@@ -1500,6 +1549,74 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
 
     </section>
 
+    <!-- VENTAS IA -->
+    <section class="view" id="view-ventas">
+      <div class="topbar">
+        <div><h1>Ventas IA</h1><div class="sub">Canal automático · responde consultas · califica leads · entrega listos para cerrar</div></div>
+        <div class="top-actions">
+          <button class="btn-g" onclick="toast('Canal de ventas activo en +57 310 000 0000','wa','💬')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke-width="2.2" stroke-linejoin="round"/></svg>
+            Canal activo
+          </button>
+        </div>
+      </div>
+      <div class="content-area">
+
+        <!-- Stats -->
+        <div class="ventas-stats">
+          <div class="vstat">
+            <div class="vstat-val" style="color:var(--green)">24</div>
+            <div class="vstat-label">Consultas hoy</div>
+            <div class="vstat-sub">↑ 8 vs ayer</div>
+          </div>
+          <div class="vstat">
+            <div class="vstat-val" style="color:var(--burg-lt)">91%</div>
+            <div class="vstat-label">Resueltas por IA</div>
+            <div class="vstat-sub">Sin intervención humana</div>
+          </div>
+          <div class="vstat">
+            <div class="vstat-val" style="color:var(--gold)">3</div>
+            <div class="vstat-label">Listos para cerrar</div>
+            <div class="vstat-sub">Calificados hoy</div>
+          </div>
+          <div class="vstat">
+            <div class="vstat-val">4.2h</div>
+            <div class="vstat-label">Tiempo ahorrado</div>
+            <div class="vstat-sub">Equivale a $84,000</div>
+          </div>
+        </div>
+
+        <div class="ventas-layout">
+          <!-- Lead list -->
+          <div class="ventas-leads">
+            <div class="ventas-leads-head">
+              <div class="ventas-leads-title">Conversaciones activas</div>
+              <span style="font-size:11px;color:var(--green);font-weight:700">● 3 en vivo</span>
+            </div>
+            <div class="ventas-leads-list" id="ventas-leads-list"></div>
+          </div>
+
+          <!-- Chat window -->
+          <div class="ventas-chat">
+            <div class="ventas-chat-head" id="ventas-chat-head">
+              <div class="ventas-chat-av" id="ventas-chat-av">?</div>
+              <div class="ventas-chat-info">
+                <div class="ventas-chat-name" id="ventas-chat-name">Selecciona una conversación</div>
+                <div class="ventas-chat-sub" id="ventas-chat-sub">—</div>
+              </div>
+              <button class="btn-ghost" id="ventas-takeover-btn" style="display:none" onclick="ventasTakeover()">👋 Tomar conversación</button>
+            </div>
+            <div class="ventas-msgs" id="ventas-msgs"></div>
+            <div id="ventas-handoff-bar"></div>
+            <div class="ventas-input">
+              <input id="ventas-input-box" placeholder="Responder como Real Confort…" disabled>
+              <button class="btn-g" onclick="ventasSend()" id="ventas-send-btn" disabled>Enviar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- CONFIGURACIÓN -->
     <section class="view" id="view-configuracion">
       <div class="topbar">
@@ -1717,6 +1834,10 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
     <span>Cobros</span>
   </div>
+  <div class="mn-item" id="mn-ventas" onclick="go('ventas')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M20 12V22H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg>
+    <span>Ventas</span>
+  </div>
   <div class="mn-item" id="mn-reportes" onclick="go('reportes')">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg>
     <span>Recaudo</span>
@@ -1846,6 +1967,7 @@ function go(view){
   if(view==="automatizaciones"){renderAutomatizaciones();}
   if(view==="arquitectura"){renderArquitectura();}
   if(view==="configuracion"){setTimeout(renderCfgPreview,100);}
+  if(view==="ventas"){renderVentas();if(!ventasActive)setTimeout(()=>ventasOpen(1),80);}
   if(view==="panel"){renderHoy();setTimeout(animBars,80);}
   try{window.scrollTo(0,0);}catch(e){}
 }
@@ -2640,6 +2762,152 @@ function showArqDetail(id){
   setTimeout(()=>det.scrollIntoView({behavior:"smooth",block:"nearest"}),80);
 }
 
+// ============ VENTAS IA ============
+const VENTAS_LEADS = [
+  {
+    id:1, name:"Camila Torres", phone:"+57 312 445 6789", initials:"CT",
+    tag:"listo", tagLabel:"LISTO PARA CERRAR", tagColor:"var(--gold)", tagBg:"var(--gold-soft)",
+    sub:"Interesada en sala completa · cuotas",
+    lastMsg:"¿Cuándo me pueden entregar?", time:"hace 2 min",
+    msgs:[
+      {from:"user", text:"Buenas tardes, vi el aviso de la sala en Instagram. ¿Cuánto vale?", time:"2:14 PM"},
+      {from:"bot",  text:"¡Hola Camila! 👋 Bienvenida a Real Confort. La sala completa que viste está en *$1.850.000*.\n\n¿Prefieres pagarla de contado o en cuotas mensuales?", time:"2:14 PM"},
+      {from:"user", text:"En cuotas, ¿cómo funciona eso?", time:"2:15 PM"},
+      {from:"bot",  text:"¡Claro! Manejamos crédito directo sin banco:\n\n💳 *Plan 6 meses:* $340,000/mes\n💳 *Plan 12 meses:* $185,000/mes\n💳 *Plan 18 meses:* $135,000/mes\n\nSolo necesitas tu cédula y un codeudor. ¿Cuál plan te acomoda más?", time:"2:15 PM"},
+      {from:"user", text:"El de 12 meses está bien. ¿Qué colores tienen?", time:"2:17 PM"},
+      {from:"bot",  text:"Tenemos en *gris oxford, beige y terracota* 🎨 Los tres en stock disponible para entrega esta semana.\n\n¿Quieres que un asesor te muestre fotos y confirme disponibilidad para tu dirección?", time:"2:17 PM"},
+      {from:"user", text:"¿Cuándo me pueden entregar?", time:"2:19 PM"},
+    ],
+    handoff:true,
+    handoffMsg:"🎯 Camila está lista para cerrar — pregunta por entrega. Intervén para confirmar fecha y separar con abono."
+  },
+  {
+    id:2, name:"Ricardo Mendez", phone:"+57 300 887 1234", initials:"RM",
+    tag:"calificando", tagLabel:"CALIFICANDO", tagColor:"var(--burg-lt)", tagBg:"rgba(13,148,136,.12)",
+    sub:"Interesado en colchón doble",
+    lastMsg:"¿Tienen garantía?", time:"hace 11 min",
+    msgs:[
+      {from:"user", text:"Hola buenas, ¿tienen colchones dobles?", time:"1:55 PM"},
+      {from:"bot",  text:"¡Hola Ricardo! Sí, manejamos varias referencias dobles 😊\n\n¿Buscas algo en especial? Tenemos desde *$320,000* en espuma y hasta *$1.200,000* en resortes ortopédicos con memory foam.", time:"1:55 PM"},
+      {from:"user", text:"¿Cuál es la diferencia entre los dos?", time:"1:58 PM"},
+      {from:"bot",  text:"Buena pregunta 👍\n\n*Espuma alta densidad* → firme, económico, ideal si duermes boca arriba.\n*Resortes + memory foam* → se adapta a tu cuerpo, reduce puntos de presión, mejor para dolor de espalda.\n\n¿Tienes alguna preferencia o alguna molestia durmiendo?", time:"1:58 PM"},
+      {from:"user", text:"A veces me duele la espalda. ¿Tienen garantía?", time:"2:06 PM"},
+    ],
+    handoff:false
+  },
+  {
+    id:3, name:"Paola Ríos", phone:"+57 321 556 9870", initials:"PR",
+    tag:"nuevo", tagLabel:"NUEVO LEAD", tagColor:"var(--green)", tagBg:"var(--green-bg)",
+    sub:"Pregunta por comedor",
+    lastMsg:"Vi el aviso en Facebook", time:"hace 23 min",
+    msgs:[
+      {from:"user", text:"Hola vi el aviso en Facebook del comedor de 6 sillas, ¿aún está disponible?", time:"1:44 PM"},
+      {from:"bot",  text:"¡Hola Paola! 👋 Sí, el comedor de 6 sillas está disponible. Tenemos en *madera natural* y *wengue oscuro*.\n\nEl precio es *$980,000* de contado o desde *$92,000/mes* en cuotas.\n\n¿Cuál referencia te llamó la atención?", time:"1:44 PM"},
+    ],
+    handoff:false
+  },
+];
+
+let ventasActive = null;
+let ventasTakenOver = false;
+
+function renderVentas(){
+  const list = document.getElementById("ventas-leads-list");
+  if(!list) return;
+  list.innerHTML = VENTAS_LEADS.map(l=>`
+    <div class="vlead${ventasActive===l.id?' active':''}" onclick="ventasOpen(${l.id})">
+      <div class="vlead-top">
+        <div class="vlead-name">${l.name}</div>
+        <div class="vlead-time">${l.time}</div>
+      </div>
+      <div class="vlead-last">${l.lastMsg}</div>
+      <span class="vlead-tag" style="color:${l.tagColor};background:${l.tagBg}">${l.tagLabel}</span>
+    </div>`).join('');
+}
+
+function ventasOpen(id){
+  ventasActive = id;
+  ventasTakenOver = false;
+  const lead = VENTAS_LEADS.find(l=>l.id===id);
+  renderVentas();
+
+  document.getElementById("ventas-chat-av").textContent   = lead.initials;
+  document.getElementById("ventas-chat-name").textContent = lead.name;
+  document.getElementById("ventas-chat-sub").textContent  = lead.phone + " · " + lead.sub;
+
+  const takeover = document.getElementById("ventas-takeover-btn");
+  takeover.style.display = "block";
+  takeover.textContent = "👋 Tomar conversación";
+
+  const msgs = document.getElementById("ventas-msgs");
+  msgs.innerHTML = lead.msgs.map(m=>`
+    <div class="vmsg ${m.from==='bot'?'bot':'user'}">
+      ${m.from==='bot'?'<div class="vmsg-sender">🤖 Cobra IA</div>':''}
+      ${m.text.replace(/\*(.*?)\*/g,'<b>$1</b>').replace(/\n/g,'<br>')}
+      <div class="vmsg-time">${m.time}</div>
+    </div>`).join('');
+
+  const bar = document.getElementById("ventas-handoff-bar");
+  if(lead.handoff){
+    bar.innerHTML=`<div class="vhandoff">
+      <div class="vhandoff-icon">🎯</div>
+      <div class="vhandoff-text"><b>Lead calificado — listo para cerrar.</b><br>${lead.handoffMsg}</div>
+      <button class="btn-g" onclick="ventasTakeover()" style="flex-shrink:0">Cerrar venta</button>
+    </div>`;
+  } else {
+    bar.innerHTML='';
+  }
+
+  document.getElementById("ventas-input-box").disabled = true;
+  document.getElementById("ventas-send-btn").disabled  = true;
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function ventasTakeover(){
+  if(!ventasActive) return;
+  ventasTakenOver = true;
+  const lead = VENTAS_LEADS.find(l=>l.id===ventasActive);
+  document.getElementById("ventas-input-box").disabled = false;
+  document.getElementById("ventas-send-btn").disabled  = false;
+  document.getElementById("ventas-input-box").placeholder = `Respondiendo como Real Confort a ${lead.name}…`;
+  document.getElementById("ventas-takeover-btn").textContent = "✅ Tomado";
+  document.getElementById("ventas-takeover-btn").style.opacity = ".5";
+  document.getElementById("ventas-takeover-btn").disabled = true;
+
+  // Add system note
+  const msgs = document.getElementById("ventas-msgs");
+  const note = document.createElement("div");
+  note.style.cssText="text-align:center;font-size:11px;color:var(--gold);padding:6px;background:var(--gold-soft);border-radius:8px;margin:4px 0";
+  note.textContent="— Asesor tomó la conversación —";
+  msgs.appendChild(note);
+  msgs.scrollTop = msgs.scrollHeight;
+  document.getElementById("ventas-input-box").focus();
+}
+
+function ventasSend(){
+  const box = document.getElementById("ventas-input-box");
+  const text = box.value.trim();
+  if(!text) return;
+  const msgs = document.getElementById("ventas-msgs");
+  const msg = document.createElement("div");
+  msg.className = "vmsg user";
+  msg.innerHTML = `${text}<div class="vmsg-time">ahora</div>`;
+  msgs.appendChild(msg);
+  box.value = "";
+  msgs.scrollTop = msgs.scrollHeight;
+  // simulate lead response
+  if(ventasActive===1){
+    setTimeout(()=>{
+      const r = document.createElement("div");
+      r.className="vmsg user";
+      r.innerHTML=`Perfecto, el beige me gusta. ¿Puedo separarlo con $100,000?<div class="vmsg-time">ahora</div>`;
+      msgs.appendChild(r);
+      msgs.scrollTop=msgs.scrollHeight;
+      toast("Camila Torres quiere separar — ¡cierra la venta!","","🎉");
+    },2200);
+  }
+}
+
 // ============ CONFIGURACIÓN ============
 function buildWAPreview(type="full"){
   const mora  = credits.filter(c=>c.estado==="mora");
@@ -2704,6 +2972,10 @@ renderSinCobra();
 calcROI();
 obSetProgress();
 setTimeout(animBars,200);
+// ventas enter key
+document.addEventListener("keydown",e=>{
+  if(e.key==="Enter"&&document.activeElement.id==="ventas-input-box")ventasSend();
+});
 </script>
 </body>
 </html>
