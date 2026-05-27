@@ -8,18 +8,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#060912;--bg2:#0c1224;--panel:#111b35;--panel2:#192140;
-  --burg:#5046e4;--burg-lt:#7b6eff;--burg-glow:rgba(80,70,228,.28);
+  --bg:#05100f;--bg2:#091716;--panel:#0e201e;--panel2:#142a28;
+  --burg:#0d9488;--burg-lt:#2dd4bf;--burg-glow:rgba(13,148,136,.28);
   --gold:#f59e0b;--gold-dk:#d97706;--gold-soft:rgba(245,158,11,.13);
-  --text:#eef2ff;--muted:#8b9fc4;--faint:#566380;
+  --text:#e8faf8;--muted:#7ab5af;--faint:#3d7a74;
   --green:#10d9a0;--green-bg:rgba(16,217,160,.12);
   --red:#f4546e;--red-bg:rgba(244,84,110,.12);
   --amber:#f59e0b;--amber-bg:rgba(245,158,11,.12);
-  --border:rgba(80,70,228,.22);--border2:rgba(238,242,255,.07);
+  --border:rgba(13,148,136,.22);--border2:rgba(232,250,248,.07);
 }
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;
-  background-image:radial-gradient(ellipse 80% 50% at 20% -10%,rgba(80,70,228,.16),transparent 60%),radial-gradient(ellipse 60% 40% at 100% 0%,rgba(245,158,11,.06),transparent 55%);
+  background-image:radial-gradient(ellipse 80% 50% at 20% -10%,rgba(13,148,136,.14),transparent 60%),radial-gradient(ellipse 60% 40% at 100% 0%,rgba(245,158,11,.06),transparent 55%);
   background-attachment:fixed}
 ::selection{background:var(--burg);color:#fff}
 ::-webkit-scrollbar{width:9px;height:9px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--panel2);border-radius:10px}::-webkit-scrollbar-thumb:hover{background:var(--burg)}
@@ -36,7 +36,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .nav-section{font-size:9px;letter-spacing:.18em;color:var(--faint);text-transform:uppercase;padding:0 10px;margin:16px 0 8px}
 .nav-item{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:9px;color:var(--muted);font-size:13.5px;font-weight:500;cursor:pointer;transition:all .2s;margin-bottom:2px}
 .nav-item:hover{background:var(--panel);color:var(--text)}
-.nav-item.active{background:linear-gradient(135deg,rgba(122,31,43,.4),rgba(168,53,69,.15));color:var(--gold);box-shadow:inset 0 0 0 1px var(--border)}
+.nav-item.active{background:linear-gradient(135deg,rgba(13,148,136,.2),rgba(13,148,136,.08));color:var(--gold);box-shadow:inset 0 0 0 1px var(--border)}
 .nav-item.active svg{stroke:var(--gold)}
 .nav-item svg{flex-shrink:0;stroke:var(--muted);transition:stroke .2s}
 .nav-item .badge-n{margin-left:auto;background:var(--burg);color:#fff;font-size:10px;font-weight:700;padding:1px 7px;border-radius:20px}
@@ -133,7 +133,7 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
 .canal{display:flex;gap:6px}
 .cn{width:26px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;background:var(--panel2);border:1px solid var(--border2);font-size:12px}
 .cn.sent{background:var(--green-bg);border-color:rgba(82,196,122,.3)}
-.cn.voice{background:var(--burg-glow);border-color:rgba(168,53,69,.4)}
+.cn.voice{background:var(--burg-glow);border-color:rgba(13,148,136,.3)}
 .row-act{background:#25d366;color:#fff;border:none;padding:7px 13px;border-radius:8px;font-size:11.5px;font-weight:700;cursor:pointer;transition:all .2s;font-family:'DM Sans';white-space:nowrap}
 .row-act:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(37,211,102,.35)}
 .row-act.paid{background:transparent;border:1px solid var(--green);color:var(--green);cursor:default}
@@ -256,9 +256,9 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
 .afl-step{background:var(--panel2);border:1px solid var(--border2);border-radius:9px;padding:9px 13px;font-size:11.5px;display:flex;align-items:center;gap:7px;flex:1;min-width:110px}
 .afl-arrow{color:var(--gold);font-size:14px;flex-shrink:0}
 /* ========= PROPUESTA VIEW ========= */
-.prop-hero{background:linear-gradient(135deg,rgba(80,70,228,.22) 0%,rgba(245,158,11,.1) 100%);border:1px solid rgba(80,70,228,.3);border-radius:20px;padding:40px 44px;margin-bottom:28px;position:relative;overflow:hidden}
-.prop-hero::after{content:'';position:absolute;top:-60px;right:-60px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(80,70,228,.18),transparent 70%);pointer-events:none}
-.prop-hero-tag{display:inline-flex;align-items:center;gap:8px;background:var(--burg-glow);border:1px solid rgba(80,70,228,.35);color:var(--burg-lt);font-size:11px;font-weight:700;letter-spacing:.1em;padding:6px 14px;border-radius:50px;margin-bottom:16px;text-transform:uppercase}
+.prop-hero{background:linear-gradient(135deg,rgba(13,148,136,.22) 0%,rgba(245,158,11,.1) 100%);border:1px solid rgba(13,148,136,.3);border-radius:20px;padding:40px 44px;margin-bottom:28px;position:relative;overflow:hidden}
+.prop-hero::after{content:'';position:absolute;top:-60px;right:-60px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(13,148,136,.18),transparent 70%);pointer-events:none}
+.prop-hero-tag{display:inline-flex;align-items:center;gap:8px;background:var(--burg-glow);border:1px solid rgba(13,148,136,.35);color:var(--burg-lt);font-size:11px;font-weight:700;letter-spacing:.1em;padding:6px 14px;border-radius:50px;margin-bottom:16px;text-transform:uppercase}
 .prop-hero h2{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:700;line-height:1.15;margin-bottom:12px}
 .prop-hero h2 span{color:var(--gold)}
 .prop-hero p{font-size:15px;color:var(--muted);max-width:580px;line-height:1.65}
@@ -288,7 +288,7 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
 .how-rate{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--green);background:var(--green-bg);padding:4px 11px;border-radius:50px;margin-top:7px}
 .inc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .inc-item{background:var(--panel2);border:1px solid var(--border2);border-radius:12px;padding:16px 18px;display:flex;align-items:flex-start;gap:12px;transition:border-color .2s}
-.inc-item:hover{border-color:rgba(80,70,228,.3)}
+.inc-item:hover{border-color:rgba(13,148,136,.3)}
 .inc-ico{font-size:20px;flex-shrink:0;margin-top:1px}
 .inc-body h5{font-size:13px;font-weight:700;margin-bottom:3px}
 .inc-body p{font-size:11.5px;color:var(--muted);line-height:1.45}
@@ -300,7 +300,7 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
 .intg-mini p{font-size:11.5px;color:var(--muted);line-height:1.45}
 .intg-mini-tag{font-size:9.5px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.08em;margin-top:8px}
 .price-layout{display:grid;grid-template-columns:1.4fr 1fr;gap:20px;align-items:start}
-.price-main{background:linear-gradient(160deg,var(--panel),var(--bg2));border:1px solid rgba(80,70,228,.35);border-radius:18px;padding:28px;position:relative;overflow:hidden}
+.price-main{background:linear-gradient(160deg,var(--panel),var(--bg2));border:1px solid rgba(13,148,136,.35);border-radius:18px;padding:28px;position:relative;overflow:hidden}
 .price-main::before{content:'PLAN PREMIER';position:absolute;top:18px;right:18px;font-size:9px;letter-spacing:.14em;font-weight:800;color:var(--gold);background:var(--gold-soft);padding:5px 12px;border-radius:50px;border:1px solid rgba(245,158,11,.25)}
 .price-block{padding-bottom:20px;margin-bottom:20px;border-bottom:1px solid var(--border2)}
 .price-block:last-of-type{border:none;margin:0;padding:0}
@@ -311,7 +311,7 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
 .price-inc-list{display:flex;flex-direction:column;gap:9px;margin-top:4px}
 .pil{display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.4}
 .pil i{width:18px;height:18px;border-radius:50%;background:var(--green-bg);color:var(--green);display:flex;align-items:center;justify-content:center;font-size:10px;font-style:normal;flex-shrink:0;margin-top:1px}
-.price-roi-box{background:linear-gradient(135deg,rgba(245,158,11,.1),rgba(80,70,228,.08));border:1px solid rgba(245,158,11,.25);border-radius:14px;padding:22px}
+.price-roi-box{background:linear-gradient(135deg,rgba(245,158,11,.1),rgba(13,148,136,.08));border:1px solid rgba(245,158,11,.25);border-radius:14px;padding:22px}
 .price-roi-title{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);font-weight:700;margin-bottom:14px}
 .price-roi-row{display:flex;justify-content:space-between;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--border2);font-size:13px;color:var(--muted)}
 .price-roi-row:last-child{border:none}
@@ -328,8 +328,8 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
 .btn-white{background:#fff;color:var(--burg);border:none;padding:14px 28px;border-radius:10px;font-size:14px;font-weight:800;cursor:pointer;font-family:'DM Sans';transition:all .2s;display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
 .btn-white:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,.25)}
 /* ========= ARQUITECTURA VIEW ========= */
-.arq-hero{background:linear-gradient(135deg,rgba(80,70,228,.12),rgba(16,217,160,.05));border:1px solid var(--border);border-radius:18px;padding:36px 40px;margin-bottom:28px;position:relative;overflow:hidden}
-.arq-hero::before{content:'';position:absolute;top:-60px;right:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(80,70,228,.18),transparent 70%)}
+.arq-hero{background:linear-gradient(135deg,rgba(13,148,136,.12),rgba(16,217,160,.05));border:1px solid var(--border);border-radius:18px;padding:36px 40px;margin-bottom:28px;position:relative;overflow:hidden}
+.arq-hero::before{content:'';position:absolute;top:-60px;right:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(13,148,136,.18),transparent 70%)}
 .arq-hero-tag{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--burg-lt);margin-bottom:12px}
 .arq-hero-title{font-size:26px;font-weight:700;line-height:1.2;margin-bottom:10px}
 .arq-hero-title span{color:var(--green)}
@@ -341,7 +341,7 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
 .arq-phil-card .ph-val{font-size:14px;font-weight:600;color:var(--text)}
 .arq-engines{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:28px}
 .arq-engine{background:var(--panel);border:1px solid var(--border2);border-radius:16px;padding:22px;cursor:pointer;transition:.2s;position:relative;overflow:hidden}
-.arq-engine:hover{border-color:var(--border);transform:translateY(-2px);box-shadow:0 8px 30px rgba(80,70,228,.12)}
+.arq-engine:hover{border-color:var(--border);transform:translateY(-2px);box-shadow:0 8px 30px rgba(13,148,136,.12)}
 .arq-engine.active-engine{border-color:var(--burg);background:var(--panel2)}
 .arq-engine-num{font-size:11px;font-weight:700;letter-spacing:1px;color:var(--faint);margin-bottom:10px}
 .arq-engine-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;font-size:18px}
@@ -359,7 +359,7 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
 .arq-det-col ul{list-style:none;display:flex;flex-direction:column;gap:8px}
 .arq-det-col ul li{font-size:13px;color:var(--muted);padding-left:18px;position:relative;line-height:1.5}
 .arq-det-col ul li::before{content:'→';position:absolute;left:0;color:var(--burg-lt);font-size:11px;top:1px}
-.arq-moat{background:linear-gradient(135deg,rgba(245,158,11,.08),rgba(80,70,228,.06));border:1px solid rgba(245,158,11,.2);border-radius:16px;padding:24px 28px}
+.arq-moat{background:linear-gradient(135deg,rgba(245,158,11,.08),rgba(13,148,136,.06));border:1px solid rgba(245,158,11,.2);border-radius:16px;padding:24px 28px}
 .arq-moat-title{font-size:16px;font-weight:700;color:var(--gold);margin-bottom:8px}
 .arq-moat-body{font-size:13.5px;color:var(--muted);line-height:1.7}
 .arq-moat-body strong{color:var(--text)}
@@ -370,6 +370,45 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
   .arq-det-body{grid-template-columns:1fr}
   .arq-hero{padding:24px 20px}
 }
+
+/* ========= SETTINGS VIEW ========= */
+.cfg-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px}
+.cfg-card{background:var(--panel);border:1px solid var(--border2);border-radius:16px;padding:24px}
+.cfg-card-title{font-size:13px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--burg-lt);margin-bottom:18px;display:flex;align-items:center;gap:8px}
+.cfg-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border2)}
+.cfg-row:last-child{border-bottom:none;padding-bottom:0}
+.cfg-row-label{font-size:13.5px;font-weight:500}
+.cfg-row-sub{font-size:11.5px;color:var(--muted);margin-top:2px}
+.cfg-input{background:var(--bg2);border:1px solid var(--border2);border-radius:8px;padding:8px 12px;color:var(--text);font-size:13px;font-family:inherit;width:220px;outline:none;transition:.2s}
+.cfg-input:focus{border-color:var(--burg);box-shadow:0 0 0 3px var(--burg-glow)}
+.cfg-select{background:var(--bg2);border:1px solid var(--border2);border-radius:8px;padding:8px 12px;color:var(--text);font-size:13px;font-family:inherit;outline:none;cursor:pointer}
+.cfg-select:focus{border-color:var(--burg)}
+/* Toggle switch */
+.tog{position:relative;width:40px;height:22px;flex-shrink:0}
+.tog input{opacity:0;width:0;height:0;position:absolute}
+.tog-slider{position:absolute;inset:0;background:var(--bg2);border:1px solid var(--border2);border-radius:20px;transition:.25s;cursor:pointer}
+.tog-slider::before{content:'';position:absolute;left:3px;top:3px;width:14px;height:14px;background:var(--faint);border-radius:50%;transition:.25s}
+.tog input:checked+.tog-slider{background:var(--burg);border-color:var(--burg)}
+.tog input:checked+.tog-slider::before{transform:translateX(18px);background:#fff}
+/* WA Report button */
+.wa-report-btn{display:flex;align-items:center;gap:14px;background:linear-gradient(135deg,rgba(37,211,102,.12),rgba(13,148,136,.08));border:1px solid rgba(37,211,102,.3);border-radius:16px;padding:20px 24px;cursor:pointer;transition:.2s;width:100%;text-align:left;margin-bottom:16px}
+.wa-report-btn:hover{background:linear-gradient(135deg,rgba(37,211,102,.2),rgba(13,148,136,.12));transform:translateY(-1px);box-shadow:0 8px 24px rgba(37,211,102,.1)}
+.wa-report-icon{width:48px;height:48px;background:rgba(37,211,102,.15);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.wa-report-text{flex:1}
+.wa-report-title{font-size:15px;font-weight:700;color:#25d366;margin-bottom:4px}
+.wa-report-sub{font-size:12.5px;color:var(--muted)}
+.wa-report-arrow{font-size:20px;color:rgba(37,211,102,.5)}
+.cfg-integ-row{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border2)}
+.cfg-integ-row:last-child{border-bottom:none}
+.cfg-integ-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.cfg-integ-info{flex:1}
+.cfg-integ-name{font-size:13.5px;font-weight:600}
+.cfg-integ-status{font-size:11.5px;margin-top:2px}
+.cfg-integ-badge{font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px}
+.cfg-full{grid-column:1/-1}
+.cfg-hours{display:flex;align-items:center;gap:10px}
+.cfg-preview{background:var(--bg2);border:1px solid var(--border2);border-radius:12px;padding:16px;font-size:12.5px;color:var(--muted);line-height:1.7;white-space:pre-wrap;font-family:monospace}
+@media(max-width:860px){.cfg-grid{grid-template-columns:1fr}}
 
 /* ACTIVITY FEED */
 .feed-row{display:flex;align-items:center;gap:13px;padding:13px 0;border-bottom:1px solid var(--border2)}
@@ -399,14 +438,14 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
 .notif-item{display:flex;gap:11px;padding:11px 16px;border-bottom:1px solid var(--border2);cursor:pointer;transition:background .15s;position:relative}
 .notif-item:last-child{border:none}
 .notif-item:hover{background:var(--panel2)}
-.notif-item.unread{background:rgba(80,70,228,.07)}
+.notif-item.unread{background:rgba(13,148,136,.07)}
 .notif-item.unread::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--burg-lt);border-radius:0 2px 2px 0}
 .notif-ico{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;margin-top:1px}
 .notif-msg{font-size:12px;line-height:1.45;color:var(--muted)}
 .notif-item.unread .notif-msg{color:var(--text);font-weight:500}
 .notif-t{font-size:10px;color:var(--faint);margin-top:3px}
 /* ======= SIN COBRA WIDGET ======= */
-.sin-cobra{background:linear-gradient(135deg,rgba(244,84,110,.07),rgba(80,70,228,.05));border:1px solid rgba(244,84,110,.2);border-radius:14px;padding:15px 20px;margin-bottom:20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.sin-cobra{background:linear-gradient(135deg,rgba(244,84,110,.07),rgba(13,148,136,.05));border:1px solid rgba(244,84,110,.2);border-radius:14px;padding:15px 20px;margin-bottom:20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 .sc-label{font-size:12px;font-weight:700;color:var(--red);flex-shrink:0;white-space:nowrap}
 .sc-stats{display:flex;gap:0;flex:1;justify-content:flex-end;flex-wrap:wrap}
 .sc-s{display:flex;flex-direction:column;align-items:center;padding:0 16px;border-left:1px solid rgba(244,84,110,.15)}
@@ -441,7 +480,7 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
 .pay-method-sub{font-size:10.5px;color:#7d8590;margin-top:1px}
 .pay-secure{text-align:center;font-size:10.5px;color:#484f58;padding:14px 0 4px;display:flex;align-items:center;justify-content:center;gap:5px}
 /* ======= ONBOARDING ======= */
-.ob-hero{background:linear-gradient(135deg,rgba(80,70,228,.15),rgba(16,217,160,.07));border:1px solid rgba(80,70,228,.25);border-radius:16px;padding:28px 32px;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.ob-hero{background:linear-gradient(135deg,rgba(13,148,136,.15),rgba(16,217,160,.07));border:1px solid rgba(13,148,136,.25);border-radius:16px;padding:28px 32px;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
 .ob-hero h2{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;margin-bottom:5px}
 .ob-hero p{font-size:13.5px;color:var(--muted);max-width:420px;line-height:1.55}
 .ob-progress-wrap{margin-bottom:24px}
@@ -452,11 +491,11 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
 .ob-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--burg),var(--gold));transition:width .6s ease}
 .ob-steps{display:flex;flex-direction:column;gap:14px}
 .ob-step{background:linear-gradient(160deg,var(--panel),var(--bg2));border:1px solid var(--border2);border-radius:15px;overflow:hidden;transition:all .3s}
-.ob-step.active{border-color:rgba(80,70,228,.4);box-shadow:0 0 0 1px rgba(80,70,228,.15),0 8px 24px rgba(0,0,0,.2)}
+.ob-step.active{border-color:rgba(13,148,136,.4);box-shadow:0 0 0 1px rgba(13,148,136,.15),0 8px 24px rgba(0,0,0,.2)}
 .ob-step.done{border-color:rgba(16,217,160,.3)}
 .ob-step-hd{display:flex;align-items:center;gap:14px;padding:18px 20px;cursor:pointer}
 .ob-num{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex-shrink:0;background:var(--panel2);border:1px solid var(--border2);color:var(--faint);transition:all .3s}
-.ob-step.active .ob-num{background:var(--burg-glow);border-color:rgba(80,70,228,.4);color:var(--burg-lt)}
+.ob-step.active .ob-num{background:var(--burg-glow);border-color:rgba(13,148,136,.4);color:var(--burg-lt)}
 .ob-step.done .ob-num{background:var(--green-bg);border-color:rgba(16,217,160,.3);color:var(--green);font-size:17px}
 .ob-step-info h4{font-size:14.5px;font-weight:700;margin-bottom:2px}
 .ob-step-info p{font-size:12px;color:var(--muted)}
@@ -468,7 +507,7 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
 .ob-step.active .ob-step-body{display:block;padding-top:18px}
 .ob-step.done .ob-step-body{display:block;padding-top:18px}
 .upload-zone{border:2px dashed var(--border2);border-radius:12px;padding:28px;text-align:center;cursor:pointer;transition:all .2s;margin-bottom:14px}
-.upload-zone:hover,.upload-zone.dragover{border-color:rgba(80,70,228,.5);background:rgba(80,70,228,.05)}
+.upload-zone:hover,.upload-zone.dragover{border-color:rgba(13,148,136,.5);background:rgba(13,148,136,.05)}
 .upload-zone-ico{font-size:30px;margin-bottom:9px}
 .upload-zone p{font-size:13px;color:var(--muted);line-height:1.5}
 .upload-zone b{color:var(--burg-lt)}
@@ -630,7 +669,7 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
 }
 
 /* COBRA HOY STRIP */
-.cobra-hoy{background:linear-gradient(135deg,rgba(80,70,228,.18),rgba(245,158,11,.08));border:1px solid rgba(80,70,228,.3);border-radius:14px;padding:16px 22px;margin-bottom:22px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.cobra-hoy{background:linear-gradient(135deg,rgba(13,148,136,.18),rgba(245,158,11,.08));border:1px solid rgba(13,148,136,.3);border-radius:14px;padding:16px 22px;margin-bottom:22px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
 .cy-lbl{font-size:12.5px;font-weight:600;color:var(--text);flex-shrink:0;display:flex;align-items:center;gap:8px}
 .cy-lbl span{font-size:10px;background:var(--burg);color:#fff;padding:3px 9px;border-radius:50px;letter-spacing:.04em;font-weight:700}
 .cy-stats{display:flex;gap:0;flex:1;justify-content:flex-end;flex-wrap:wrap}
@@ -652,7 +691,7 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
 .roi-slider::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--burg-lt);cursor:pointer;box-shadow:0 0 8px var(--burg-glow)}
 .roi-result{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:16px}
 .roi-res-card{background:var(--panel2);border:1px solid var(--border2);border-radius:12px;padding:16px;text-align:center}
-.roi-res-card.highlight{background:linear-gradient(135deg,var(--gold-soft),rgba(80,70,228,.1));border-color:rgba(245,158,11,.3)}
+.roi-res-card.highlight{background:linear-gradient(135deg,var(--gold-soft),rgba(13,148,136,.1));border-color:rgba(245,158,11,.3)}
 .roi-res-v{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--text)}
 .roi-res-v.gold{color:var(--gold)}
 .roi-res-v.green{color:var(--green)}
@@ -693,7 +732,8 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
     <div class="nav-section">Sistema</div>
     <div class="nav-item" data-view="arquitectura"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3" stroke-width="1.7"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83" stroke-width="1.7" stroke-linecap="round"/></svg>Arquitectura</div>
     <div class="nav-item" data-view="automatizaciones"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" stroke-width="1.6" stroke-linejoin="round"/></svg>Automatizaciones<span class="badge-n" style="background:var(--green)">4</span></div>
-    <div class="nav-item" data-view="propuesta" style="margin-top:6px;background:linear-gradient(135deg,rgba(245,158,11,.12),rgba(80,70,228,.08));border:1px solid rgba(245,158,11,.2);color:var(--gold)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-width="1.7"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" stroke-width="1.7" stroke-linecap="round"/></svg>Propuesta &amp; precios</div>
+    <div class="nav-item" data-view="propuesta" style="margin-top:6px;background:linear-gradient(135deg,rgba(245,158,11,.12),rgba(13,148,136,.08));border:1px solid rgba(245,158,11,.2);color:var(--gold)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-width="1.7"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" stroke-width="1.7" stroke-linecap="round"/></svg>Propuesta &amp; precios</div>
+    <div class="nav-item" data-view="configuracion"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3" stroke-width="1.7"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" stroke-width="1.7"/></svg>Configuración</div>
     <div class="sidebar-foot"><div class="acct"><div class="acct-av">RC</div><div><div class="acct-name">Real Confort MD</div><div class="acct-role">Plan Premier</div></div></div></div>
   </aside>
 
@@ -1460,6 +1500,194 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
 
     </section>
 
+    <!-- CONFIGURACIÓN -->
+    <section class="view" id="view-configuracion">
+      <div class="topbar">
+        <div><h1>Configuración</h1><div class="sub">Negocio · integraciones · notificaciones · compliance</div></div>
+        <div class="top-actions">
+          <button class="btn-g" onclick="cfgSave()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z" stroke-width="2.2"/><polyline points="17 21 17 13 7 13 7 21" stroke-width="2.2"/><polyline points="7 3 7 8 15 8" stroke-width="2.2"/></svg>
+            Guardar cambios
+          </button>
+        </div>
+      </div>
+      <div class="content-area">
+
+        <!-- WA REPORT BUTTON — prominent, first thing owner sees -->
+        <button class="wa-report-btn" onclick="sendWAReport()">
+          <div class="wa-report-icon">📊</div>
+          <div class="wa-report-text">
+            <div class="wa-report-title">Recibir resumen por WhatsApp ahora</div>
+            <div class="wa-report-sub">Te llega al +57 300 123 4567 — recaudo del día, mora activa, promesas pendientes y próximas acciones</div>
+          </div>
+          <div class="wa-report-arrow">→</div>
+        </button>
+
+        <!-- Report options row -->
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px">
+          <button class="btn-ghost" onclick="sendWAReport('recaudo')">💰 Solo recaudo</button>
+          <button class="btn-ghost" onclick="sendWAReport('mora')">⚠️ Solo mora activa</button>
+          <button class="btn-ghost" onclick="sendWAReport('promesas')">🤝 Promesas pendientes</button>
+          <button class="btn-ghost" onclick="sendWAReport('hoy')">📋 Tareas de hoy</button>
+        </div>
+
+        <div class="cfg-grid">
+
+          <!-- Perfil del negocio -->
+          <div class="cfg-card">
+            <div class="cfg-card-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" stroke-width="2"/><polyline points="9 22 9 12 15 12 15 22" stroke-width="2"/></svg>Negocio</div>
+            <div class="cfg-row">
+              <div><div class="cfg-row-label">Nombre</div></div>
+              <input class="cfg-input" value="Real Confort MD" id="cfg-name">
+            </div>
+            <div class="cfg-row">
+              <div><div class="cfg-row-label">WhatsApp dueño</div><div class="cfg-row-sub">Recibe los reportes aquí</div></div>
+              <input class="cfg-input" value="+57 300 123 4567" id="cfg-owner-wa">
+            </div>
+            <div class="cfg-row">
+              <div><div class="cfg-row-label">Ciudad</div></div>
+              <input class="cfg-input" value="Bogotá" id="cfg-city">
+            </div>
+            <div class="cfg-row">
+              <div><div class="cfg-row-label">NIT</div></div>
+              <input class="cfg-input" value="900.123.456-7" id="cfg-nit">
+            </div>
+          </div>
+
+          <!-- Notificaciones automáticas -->
+          <div class="cfg-card">
+            <div class="cfg-card-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0" stroke-width="2"/></svg>Notificaciones automáticas</div>
+            <div class="cfg-row">
+              <div><div class="cfg-row-label">Resumen diario (7 AM)</div><div class="cfg-row-sub">Cartera del día por WhatsApp</div></div>
+              <label class="tog"><input type="checkbox" checked id="tog-daily"><span class="tog-slider"></span></label>
+            </div>
+            <div class="cfg-row">
+              <div><div class="cfg-row-label">Alerta pago recibido</div><div class="cfg-row-sub">WA inmediato al confirmar</div></div>
+              <label class="tog"><input type="checkbox" checked id="tog-pay"><span class="tog-slider"></span></label>
+            </div>
+            <div class="cfg-row">
+              <div><div class="cfg-row-label">Promesa rota</div><div class="cfg-row-sub">Aviso cuando cliente incumple</div></div>
+              <label class="tog"><input type="checkbox" checked id="tog-broken"><span class="tog-slider"></span></label>
+            </div>
+            <div class="cfg-row">
+              <div><div class="cfg-row-label">Resumen semanal (lunes)</div><div class="cfg-row-sub">Métricas de la semana</div></div>
+              <label class="tog"><input type="checkbox" id="tog-weekly"><span class="tog-slider"></span></label>
+            </div>
+            <div class="cfg-row">
+              <div><div class="cfg-row-label">Cliente en riesgo alto</div><div class="cfg-row-sub">Score &gt; 75 → aviso inmediato</div></div>
+              <label class="tog"><input type="checkbox" checked id="tog-risk"><span class="tog-slider"></span></label>
+            </div>
+          </div>
+
+          <!-- Compliance Ley 2300 -->
+          <div class="cfg-card">
+            <div class="cfg-card-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke-width="2"/></svg>Compliance · Ley 2300</div>
+            <div class="cfg-row">
+              <div><div class="cfg-row-label">Horario de contacto</div><div class="cfg-row-sub">Solo se envían mensajes en este rango</div></div>
+              <div class="cfg-hours">
+                <select class="cfg-select" id="cfg-h-start">
+                  <option value="7" selected>7 AM</option><option value="8">8 AM</option><option value="9">9 AM</option>
+                </select>
+                <span style="color:var(--muted)">–</span>
+                <select class="cfg-select" id="cfg-h-end">
+                  <option value="19">7 PM</option><option value="20" selected>8 PM</option>
+                </select>
+              </div>
+            </div>
+            <div class="cfg-row">
+              <div><div class="cfg-row-label">Máx. contactos por día</div><div class="cfg-row-sub">Por canal por cliente</div></div>
+              <select class="cfg-select" id="cfg-max-c">
+                <option value="1">1</option><option value="2" selected>2</option><option value="3">3</option>
+              </select>
+            </div>
+            <div class="cfg-row">
+              <div><div class="cfg-row-label">Guardar log de auditoría</div><div class="cfg-row-sub">Historial completo exportable</div></div>
+              <label class="tog"><input type="checkbox" checked><span class="tog-slider"></span></label>
+            </div>
+            <div class="cfg-row">
+              <div><div class="cfg-row-label">Bloquear domingos</div></div>
+              <label class="tog"><input type="checkbox" checked><span class="tog-slider"></span></label>
+            </div>
+          </div>
+
+          <!-- Integraciones -->
+          <div class="cfg-card">
+            <div class="cfg-card-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71" stroke-width="2"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71" stroke-width="2"/></svg>Integraciones</div>
+            <div class="cfg-integ-row">
+              <div class="cfg-integ-icon" style="background:rgba(37,211,102,.12)">💬</div>
+              <div class="cfg-integ-info">
+                <div class="cfg-integ-name">WhatsApp Business API</div>
+                <div class="cfg-integ-status" style="color:var(--green)">Conectado · +57 310 000 0000</div>
+              </div>
+              <span class="cfg-integ-badge" style="background:var(--green-bg);color:var(--green)">ACTIVO</span>
+            </div>
+            <div class="cfg-integ-row">
+              <div class="cfg-integ-icon" style="background:rgba(245,158,11,.12)">🧾</div>
+              <div class="cfg-integ-info">
+                <div class="cfg-integ-name">Alegra · Factura Electrónica</div>
+                <div class="cfg-integ-status" style="color:var(--green)">Conectado · realconfort@alegra.co</div>
+              </div>
+              <span class="cfg-integ-badge" style="background:var(--green-bg);color:var(--green)">ACTIVO</span>
+            </div>
+            <div class="cfg-integ-row">
+              <div class="cfg-integ-icon" style="background:rgba(13,148,136,.12)">💳</div>
+              <div class="cfg-integ-info">
+                <div class="cfg-integ-name">Bold · Links de pago</div>
+                <div class="cfg-integ-status" style="color:var(--green)">Conectado · 0% comisión activo</div>
+              </div>
+              <span class="cfg-integ-badge" style="background:var(--green-bg);color:var(--green)">ACTIVO</span>
+            </div>
+            <div class="cfg-integ-row">
+              <div class="cfg-integ-icon" style="background:rgba(244,84,110,.1)">📞</div>
+              <div class="cfg-integ-info">
+                <div class="cfg-integ-name">Dapta · Llamadas IA</div>
+                <div class="cfg-integ-status" style="color:var(--muted)">No configurado</div>
+              </div>
+              <span class="cfg-integ-badge" style="background:var(--red-bg);color:var(--red)">PENDIENTE</span>
+            </div>
+          </div>
+
+          <!-- Escalation settings -->
+          <div class="cfg-card cfg-full">
+            <div class="cfg-card-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="13 17 18 12 13 7" stroke-width="2"/><polyline points="6 17 11 12 6 7" stroke-width="2"/></svg>Motor de escalación automática</div>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
+              <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:12px;padding:16px">
+                <div style="font-size:11px;font-weight:700;color:var(--gold);letter-spacing:.5px;margin-bottom:8px">ETAPA 1 · D−3</div>
+                <div style="font-size:13px;font-weight:600;margin-bottom:4px">Recordatorio preventivo</div>
+                <div style="font-size:12px;color:var(--muted);margin-bottom:10px">WA amigable + link de pago</div>
+                <label class="tog"><input type="checkbox" checked><span class="tog-slider"></span></label>
+              </div>
+              <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:12px;padding:16px">
+                <div style="font-size:11px;font-weight:700;color:var(--amber);letter-spacing:.5px;margin-bottom:8px">ETAPA 2 · D+1</div>
+                <div style="font-size:13px;font-weight:600;margin-bottom:4px">Aviso de mora</div>
+                <div style="font-size:12px;color:var(--muted);margin-bottom:10px">WA urgente + opciones de arreglo</div>
+                <label class="tog"><input type="checkbox" checked><span class="tog-slider"></span></label>
+              </div>
+              <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:12px;padding:16px">
+                <div style="font-size:11px;font-weight:700;color:var(--red);letter-spacing:.5px;margin-bottom:8px">ETAPA 3 · D+4</div>
+                <div style="font-size:13px;font-weight:600;margin-bottom:4px">Llamada IA Dapta</div>
+                <div style="font-size:12px;color:var(--muted);margin-bottom:10px">Voz colombiana · guión adaptativo</div>
+                <label class="tog"><input type="checkbox" checked><span class="tog-slider"></span></label>
+              </div>
+              <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:12px;padding:16px">
+                <div style="font-size:11px;font-weight:700;color:var(--faint);letter-spacing:.5px;margin-bottom:8px">ETAPA 4 · D+10</div>
+                <div style="font-size:13px;font-weight:600;margin-bottom:4px">Colector humano</div>
+                <div style="font-size:12px;color:var(--muted);margin-bottom:10px">Alerta + asignación manual</div>
+                <label class="tog"><input type="checkbox" checked><span class="tog-slider"></span></label>
+              </div>
+            </div>
+          </div>
+
+          <!-- WA message template preview -->
+          <div class="cfg-card cfg-full">
+            <div class="cfg-card-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke-width="2"/></svg>Vista previa · Mensaje WA de reporte</div>
+            <div class="cfg-preview" id="cfg-wa-preview"></div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
   </main>
 </div>
 
@@ -1493,9 +1721,9 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg>
     <span>Recaudo</span>
   </div>
-  <div class="mn-item" id="mn-arquitectura" onclick="go('arquitectura')">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83" stroke-linecap="round"/></svg>
-    <span>Sistema</span>
+  <div class="mn-item" id="mn-configuracion" onclick="go('configuracion')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" stroke-linecap="round"/></svg>
+    <span>Config</span>
   </div>
 </nav>
 
@@ -1617,6 +1845,7 @@ function go(view){
   if(view==="reportes"){setTimeout(animBars,80);setTimeout(calcROI,50);setTimeout(renderAging,100);}
   if(view==="automatizaciones"){renderAutomatizaciones();}
   if(view==="arquitectura"){renderArquitectura();}
+  if(view==="configuracion"){setTimeout(renderCfgPreview,100);}
   if(view==="panel"){renderHoy();setTimeout(animBars,80);}
   try{window.scrollTo(0,0);}catch(e){}
 }
@@ -1709,7 +1938,7 @@ function openDetail(id){
     const lbl=paid?"Pagada":(i===paidN+1?(c.estado==="mora"?"Vencida":"Próxima"):"Pendiente");
     sched+=`<div class="sch-row ${paid?'paid-row':''}"><span><span class="sch-dot" style="background:${dot}"></span>Cuota ${i} · ${["28 mar","11 abr","28 abr","11 may","28 may","11 jun"][i-1]||"—"}</span><span style="font-weight:600">${COP(c.cuota)} · ${lbl}</span></div>`;
   }
-  const proxAccion=c.estado==="mora"&&c.diasMora>=4?`<div style="background:var(--burg-glow);border:1px solid rgba(80,70,228,.3);border-radius:10px;padding:10px 14px;margin-bottom:16px;font-size:12.5px"><b style="color:var(--burg-lt)">📞 Próxima acción automática:</b> Llamada IA Dapta programada para hoy 9:00 AM — sin que hagas nada</div>`:c.estado==="mora"?`<div style="background:var(--red-bg);border:1px solid rgba(244,84,110,.2);border-radius:10px;padding:10px 14px;margin-bottom:16px;font-size:12.5px"><b style="color:var(--red)">⚠️ Próxima acción automática:</b> WhatsApp de mora enviado · si no responde en 72h → llamada IA</div>`:c.estado==="porvenc"?`<div style="background:var(--amber-bg);border:1px solid rgba(245,158,11,.2);border-radius:10px;padding:10px 14px;margin-bottom:16px;font-size:12.5px"><b style="color:var(--gold)">🔔 Próxima acción automática:</b> Recordatorio WhatsApp en ${rnd(1,3)} días — Cobra lo maneja solo</div>`:"";
+  const proxAccion=c.estado==="mora"&&c.diasMora>=4?`<div style="background:var(--burg-glow);border:1px solid rgba(13,148,136,.3);border-radius:10px;padding:10px 14px;margin-bottom:16px;font-size:12.5px"><b style="color:var(--burg-lt)">📞 Próxima acción automática:</b> Llamada IA Dapta programada para hoy 9:00 AM — sin que hagas nada</div>`:c.estado==="mora"?`<div style="background:var(--red-bg);border:1px solid rgba(244,84,110,.2);border-radius:10px;padding:10px 14px;margin-bottom:16px;font-size:12.5px"><b style="color:var(--red)">⚠️ Próxima acción automática:</b> WhatsApp de mora enviado · si no responde en 72h → llamada IA</div>`:c.estado==="porvenc"?`<div style="background:var(--amber-bg);border:1px solid rgba(245,158,11,.2);border-radius:10px;padding:10px 14px;margin-bottom:16px;font-size:12.5px"><b style="color:var(--gold)">🔔 Próxima acción automática:</b> Recordatorio WhatsApp en ${rnd(1,3)} días — Cobra lo maneja solo</div>`:"";
   document.getElementById("modal").innerHTML=`
     <div class="modal-head">
       <div class="detail-top">
@@ -2273,8 +2502,8 @@ document.addEventListener("click",e=>{
 const ARQ_ENGINES=[
   {
     id:1,icon:"🤝",label:"Promise-to-Pay Engine",
-    color:"rgba(80,70,228,.15)",colorBorder:"rgba(80,70,228,.5)",
-    pill:"CORE",pillColor:"var(--burg-lt)",pillBg:"rgba(80,70,228,.18)",
+    color:"rgba(13,148,136,.15)",colorBorder:"rgba(13,148,136,.5)",
+    pill:"CORE",pillColor:"var(--burg-lt)",pillBg:"rgba(13,148,136,.18)",
     desc:"Convierte promesas verbales en datos operativos estructurados con fecha, monto, confianza y escalación automática.",
     why:"La mayoría de los negocios olvidan las promesas. Los cobradores dependen de memoria y stickies. Eso destruye el rendimiento.",
     cols:[
@@ -2317,8 +2546,8 @@ const ARQ_ENGINES=[
   },
   {
     id:5,icon:"🤖",label:"Automated Arrangement Engine",
-    color:"rgba(80,70,228,.12)",colorBorder:"rgba(80,70,228,.4)",
-    pill:"LATAM",pillColor:"var(--burg-lt)",pillBg:"rgba(80,70,228,.18)",
+    color:"rgba(13,148,136,.12)",colorBorder:"rgba(13,148,136,.4)",
+    pill:"LATAM",pillColor:"var(--burg-lt)",pillBg:"rgba(13,148,136,.18)",
     desc:"Cuando el cliente no puede pagar el total, el sistema ofrece opciones — sin intervención humana.",
     why:"La mayoría de negocios pierden recaudos porque los cobradores responden tarde, nadie hace follow-up, o los arreglos se olvidan.",
     cols:[
@@ -2339,8 +2568,8 @@ const ARQ_ENGINES=[
   },
   {
     id:7,icon:"🧠",label:"AI Memory Layer",
-    color:"rgba(80,70,228,.15)",colorBorder:"rgba(80,70,228,.5)",
-    pill:"MOAT",pillColor:"var(--burg-lt)",pillBg:"rgba(80,70,228,.2)",
+    color:"rgba(13,148,136,.15)",colorBorder:"rgba(13,148,136,.5)",
+    pill:"MOAT",pillColor:"var(--burg-lt)",pillBg:"rgba(13,148,136,.2)",
     desc:"El sistema recuerda tono, excusas, horarios preferidos y patrones emocionales. Las automatizaciones se adaptan solas.",
     why:"Este es el foso competitivo. Con el tiempo construyes inteligencia de deuda conductual que ningún competidor puede copiar fácilmente.",
     cols:[
@@ -2410,6 +2639,61 @@ function showArqDetail(id){
   // scroll detail into view
   setTimeout(()=>det.scrollIntoView({behavior:"smooth",block:"nearest"}),80);
 }
+
+// ============ CONFIGURACIÓN ============
+function buildWAPreview(type="full"){
+  const mora  = credits.filter(c=>c.estado==="mora");
+  const prom  = credits.filter(c=>c.estado==="porvenc");
+  const pago  = credits.filter(c=>c.estado==="pagado");
+  const totalMora = mora.reduce((s,c)=>s+c.cuota,0);
+  const recMes = state.recaudado||pago.reduce((s,c)=>s+c.cuota,0);
+  const d = new Date();
+  const fecha = d.toLocaleDateString('es-CO',{weekday:'long',day:'numeric',month:'long'});
+
+  const msgs={
+    full:`📊 *Resumen Cobra · ${fecha}*\n\n` +
+      `💰 Recaudado hoy: *${COP(recMes)}*\n` +
+      `⚠️ En mora activa: *${mora.length} clientes* (${COP(totalMora)})\n` +
+      `🔔 Por vencer (5 días): *${prom.length} clientes*\n` +
+      `✅ Pagados este mes: *${pago.length} créditos*\n\n` +
+      `📋 *Próximas acciones automáticas:*\n` +
+      `• ${mora.filter(c=>c.diasMora>=4).length} llamadas IA programadas hoy\n` +
+      `• ${prom.length} recordatorios WA en D-3\n` +
+      `• 2 promesas de pago por confirmar\n\n` +
+      `_Cobra · Real Confort MD_`,
+    recaudo:`💰 *Recaudo · ${fecha}*\n\n` +
+      `Recaudado hoy: *${COP(recMes)}*\n` +
+      `Pagos confirmados: *${pago.length}*\n` +
+      `Efectividad: *${Math.round(pago.length/(credits.length||1)*100)}%*\n\n_Cobra_`,
+    mora:`⚠️ *Mora activa · ${fecha}*\n\n` +
+      mora.slice(0,5).map(c=>`• ${c.nombre} — ${COP(c.cuota)} — ${c.diasMora}d`).join('\n') +
+      (mora.length>5?`\n…y ${mora.length-5} más`:'')+`\n\nTotal: *${COP(totalMora)}*\n\n_Cobra_`,
+    promesas:`🤝 *Promesas pendientes · ${fecha}*\n\n` +
+      `• Jorge R. → paga viernes $120,000\n• Sandra L. → paga lunes $95,000\n• Carlos M. → confirmando monto\n\n` +
+      `Confianza promedio: *74%*\n\n_Cobra_`,
+    hoy:`📋 *Tareas de hoy · ${fecha}*\n\n` +
+      `□ Llamada IA → ${mora.filter(c=>c.diasMora>=4).length} clientes mora grave\n` +
+      `□ WA recordatorio → ${prom.length} por vencer\n` +
+      `□ Confirmar promesas → 2 pendientes\n` +
+      `□ Revisar score alto → ${credits.filter(c=>c.riesgo==="alto").length} clientes\n\n_Cobra_`,
+  };
+  return msgs[type]||msgs.full;
+}
+function sendWAReport(type="full"){
+  const preview=buildWAPreview(type);
+  const el=document.getElementById("cfg-wa-preview");
+  if(el)el.textContent=preview;
+  toast(`Resumen enviado a +57 300 123 4567 por WhatsApp`,"wa","💬");
+}
+function renderCfgPreview(){
+  const el=document.getElementById("cfg-wa-preview");
+  if(el)el.textContent=buildWAPreview("full");
+}
+function cfgSave(){
+  toast("Configuración guardada","","✅");
+}
+// wire go() for configuracion
+const _goOrig=go;
 
 renderKPIs();renderHoy();renderCobros();
 renderAutomatizaciones();
