@@ -155,7 +155,7 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
 .wa-tabs{display:flex;background:#111d25;border-bottom:1px solid rgba(255,255,255,.06)}
 .wa-tab{flex:1;padding:9px 8px;font-size:10.5px;font-weight:600;color:#8696a0;cursor:pointer;text-align:center;border-bottom:2px solid transparent;transition:all .2s;line-height:1.3;font-family:'DM Sans'}
 .wa-tab.active{color:#25d366;border-bottom-color:#25d366;background:rgba(37,211,102,.06)}
-.wa-body{padding:14px 14px 10px;background:#0b141a;flex:1;min-height:210px;max-height:270px;display:flex;flex-direction:column;gap:9px;overflow-y:auto}
+.wa-body{padding:14px 14px 10px;background:#0b141a;flex:1;min-height:210px;max-height:320px;display:flex;flex-direction:column;gap:9px;overflow-y:auto}
 .wa-msg{max-width:84%;background:#005c4b;color:#e9edef;padding:9px 12px;border-radius:10px 10px 10px 2px;font-size:12.5px;line-height:1.5;align-self:flex-start;box-shadow:0 1px 2px rgba(0,0,0,.2)}
 .wa-msg.out{background:#1f2c34;align-self:flex-end;border-radius:10px 10px 2px 10px}
 .wa-time{font-size:9px;color:rgba(233,237,239,.5);display:block;text-align:right;margin-top:3px}
@@ -166,6 +166,15 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
 .wa-input::placeholder{color:#8696a0}
 .wa-send{width:34px;height:34px;border-radius:50%;background:#25d366;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
 .wa-send:hover{background:#1da850;transform:scale(1.08)}
+/* Typing indicator */
+.wa-typing-bubble{align-self:flex-start;background:#005c4b;border-radius:10px 10px 10px 2px;padding:10px 14px;display:flex;gap:5px;align-items:center;box-shadow:0 1px 2px rgba(0,0,0,.2)}
+.wa-typing-bubble span{width:7px;height:7px;background:rgba(233,237,239,.55);border-radius:50%;display:inline-block;animation:waBounce .9s infinite}
+.wa-typing-bubble span:nth-child(2){animation-delay:.18s}
+.wa-typing-bubble span:nth-child(3){animation-delay:.36s}
+@keyframes waBounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
+.wa-system-note{text-align:center;font-size:10.5px;color:rgba(134,150,160,.8);padding:3px 12px;background:rgba(0,0,0,.25);border-radius:20px;align-self:center;margin:2px 0}
+/* ventas chat upgrade */
+.vmsg.typing{background:#075e54;border:none}
 
 /* CALL LOG */
 .call-row{display:flex;align-items:center;gap:14px;padding:15px;border-bottom:1px solid var(--border2)}
@@ -2284,64 +2293,247 @@ function renderAutomatizaciones(){
 }
 
 // ============ WA CONVERSATIONS ============
+// ============ INTERACTIVE WA ENGINE ============
+// ── Intent detector ────────────────────────────────────────────────────────
+function waIntent(raw){
+  const t=raw.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");
+  if(/pague|ya pagu|ya lo hice|ya transf|ya consign|nequi|daviplata|hice el pago|realice el pago|ya cancele/.test(t)) return "paid";
+  if(/no (puedo|tengo|hay)|sin plata|apretad|dificil|complicad|problema|no alcanzo|quedo mal|no me alcanza/.test(t)) return "cantpay";
+  if(/viernes|lunes|martes|mier|jueves|sabado|manana|pasado manana|semana|quincen|fin de mes|el \d+|el dia/.test(t)) return "promise";
+  if(/cuanto|cuánto|valor|precio|cuota|debo|monto|saldo|total/.test(t)) return "amount";
+  if(/link|como pag|donde pag|metodo|metodos|formas de pago/.test(t)) return "paylink";
+  if(/stop|no me (llame|contacte|escriba|moleste|vuelva|siga)|retira|no quiero|basta|queja|denuncia|acoso|siic|ley/.test(t)) return "complaint";
+  if(/parcial|abono|parte|mitad|acuerdo|arreglo|cuota.*cuota|dos pagos|dividir/.test(t)) return "arrangement";
+  if(/gracias|ok|dale|listo|entend|claro|perfecto|bien|de acuerdo|okey|excelente|genial/.test(t)) return "ack";
+  if(/hola|buenos|buenas|saludos|buen dia/.test(t)) return "greeting";
+  // sales-specific
+  if(/color|gris|beige|cafe|negro|blanco|azul|terracota|madera|wengu/.test(t)) return "colors";
+  if(/garantia|años de garantia|meses de garantia|daño|defecto|falla/.test(t)) return "warranty";
+  if(/entrega|despacho|domicilio|envio|cuando llega|cuando me llega/.test(t)) return "delivery";
+  if(/credito|financ|mensual|plazo|cuotas|sin banco|cuantos meses/.test(t)) return "credit";
+  if(/caro|costoso|mucho|rebaja|descuento|muy caro|no tengo eso|no alcanzo/.test(t)) return "expensive";
+  if(/quiero|me lo llevo|lo compro|separar|apartarlo|separo|me quedo|lo tomo/.test(t)) return "wantit";
+  if(/foto|imagen|ver|catalogo|muestra|muestrame|envia foto/.test(t)) return "photos";
+  return "default";
+}
+
+// ── Cobros context & replies (Valeria) ────────────────────────────────────
+const COBROS_CTX=[
+  {firstName:"María",cuota:150000,producto:"Colchón Doble",diasMora:0,link:"pago.realconfort.co/4421",color:"#128c7e"},
+  {firstName:"Jorge",cuota:120000,producto:"Sala completa",diasMora:6,link:"pago.realconfort.co/1032",color:"#075e54"},
+  {firstName:"Sandra",cuota:110000,producto:"Cama doble",diasMora:-3,link:"pago.realconfort.co/1008",color:"#128c7e"},
+];
+function cobrosReply(intent,ctx){
+  const {firstName,cuota,producto,diasMora,link}=ctx;
+  const cop=n=>"$"+n.toLocaleString("es-CO");
+  const t=new Date().toLocaleTimeString("es-CO",{hour:"2-digit",minute:"2-digit"});
+  switch(intent){
+    case "paid":
+      return {
+        msgs:[
+          {text:`¡Excelente ${firstName}! 🎉 Verificando tu pago...`,delay:800},
+          {text:`✅ *Pago confirmado · ${cop(cuota)}*\n\nAlegra generó tu factura electrónica — DIAN la validó en 8 segundos. Te llega al correo ahora mismo 🧾`,delay:3200,tag:"FE-"+(1200+Math.floor(Math.random()*99))+" · DIAN ✓",triggerPay:true},
+        ]
+      };
+    case "cantpay":
+      return {msgs:[
+        {text:`Entendemos ${firstName}, tranquilo/a 🙏\n\n¿Puedes hacer un abono parcial hoy? Cualquier valor ayuda.\n\nTambién podemos dividirlo en dos pagos esta semana. ¿Cuánto podrías abonar hoy?`,delay:1200},
+      ]};
+    case "promise":
+      return {msgs:[
+        {text:`Perfecto ${firstName}, registramos tu compromiso de pago 📋✅\n\nTe enviamos el link el día acordado para que sea más fácil:\n👉 ${link}\n\n¡Gracias por avisarnos! 🤝`,delay:1100,tag:"Acuerdo registrado · Cobra monitorea"},
+      ]};
+    case "amount":
+      return {msgs:[
+        {text:diasMora>0
+          ?`Tu cuota de *${cop(cuota)}* para tu ${producto} lleva *${diasMora} días* vencida ${firstName}.\n\nPaga aquí 👉 ${link}\n\nAceptamos Nequi, Daviplata, tarjeta o efectivo 🏪`
+          :`Tu próxima cuota es *${cop(cuota)}* para tu ${producto}, ${firstName}${diasMora<0?` — vence en ${Math.abs(diasMora)} días`:""}.\n\nPaga cuando quieras 👉 ${link}`,delay:900},
+      ]};
+    case "paylink":
+      return {msgs:[
+        {text:`Aquí tu link de pago ${firstName} 👉\n${link}\n\n✓ Nequi  ✓ Daviplata\n✓ Tarjeta débito/crédito\n✓ PSE\n\n¡Rápido y seguro! 🔒`,delay:800},
+      ]};
+    case "arrangement":
+      return {msgs:[
+        {text:`Claro ${firstName}, hacemos el acuerdo ahora mismo 📋\n\nDime:\n1️⃣ ¿Cuánto puedes abonar esta semana?\n2️⃣ ¿Y el resto para cuándo?\n\nRegistramos el plan y te mandamos los links en cada fecha 🤝`,delay:1000},
+      ]};
+    case "complaint":
+      return {msgs:[
+        {text:`${firstName}, operamos bajo la *Ley 2300 de 2023* y respetamos todos los límites legales de contacto.\n\nSi tienes una queja formal, la recibimos en administracion@realconfort.co.\n\nSiempre buscamos la mejor solución para ti 🙏`,delay:1100},
+      ]};
+    case "ack":
+      return {msgs:[{text:`¡Con mucho gusto ${firstName}! Para cualquier duda estamos aquí 😊`,delay:700}]};
+    case "greeting":
+      return {msgs:[{text:`¡Hola ${firstName}! 👋 Soy Valeria de Real Confort MD. ¿En qué te puedo ayudar?`,delay:800}]};
+    default:
+      return {msgs:[
+        {text:diasMora>0
+          ?`${firstName}, recuerda que tienes una cuota de *${cop(cuota)}* vencida hace ${diasMora} días.\n\n¿Puedo ayudarte con el pago? 👉 ${link}`
+          :`¡Hola ${firstName}! 😊 Soy Valeria. ¿Tienes alguna duda sobre tu crédito o cuota?`,delay:1000},
+      ]};
+  }
+}
+
+// ── Ventas context & replies (Sofía) ──────────────────────────────────────
+const VENTAS_CTX=[
+  {firstName:"Camila",producto:"Sala completa",precio:1850000,c6:340000,c12:185000,c18:135000,colores:"gris oxford, beige y terracota",garantia:"1 año",entrega:"2 a 4 días hábiles",id:1},
+  {firstName:"Ricardo",producto:"Colchón Resortex doble",precio:1200000,c6:220000,c12:120000,c18:88000,colores:"blanco y gris claro",garantia:"5 años Resortex",entrega:"1 a 2 días hábiles",id:2},
+  {firstName:"Paola",producto:"Comedor 6 sillas",precio:980000,c6:185000,c12:98000,c18:72000,colores:"madera natural y wengue oscuro",garantia:"1 año",entrega:"3 a 5 días hábiles",id:3},
+];
+function ventasReply(intent,ctx){
+  const {firstName,producto,precio,c6,c12,c18,colores,garantia,entrega}=ctx;
+  const cop=n=>"$"+n.toLocaleString("es-CO");
+  switch(intent){
+    case "amount":
+    case "credit":
+      return {msgs:[
+        {text:`¡Claro ${firstName}! El ${producto} está en *${cop(precio)}* de contado 😊\n\nCreédito directo sin banco:\n💳 6 meses: *${cop(c6)}/mes*\n💳 12 meses: *${cop(c12)}/mes*\n💳 18 meses: *${cop(c18)}/mes*\n\nSolo tu cédula, sin historial. ¿Cuál te acomoda más?`,delay:1100},
+      ]};
+    case "colors":
+      return {msgs:[{text:`Para el ${producto} tenemos en *${colores}* 🎨\n\n¡Los tres en stock disponible esta semana! ¿Cuál te llama la atención ${firstName}?`,delay:900}]};
+    case "warranty":
+      return {msgs:[{text:`El ${producto} tiene *garantía de ${garantia}* contra defectos de fabricación 🛡️\n\nCubre cualquier falla que no sea por mal uso. ¿Alguna otra pregunta ${firstName}?`,delay:900}]};
+    case "delivery":
+      return {msgs:[{text:`Entregamos en *${entrega}* ${firstName} 🚚\n\nDentro de Bogotá sin costo adicional. ¿En qué zona o barrio estás?`,delay:800}]};
+    case "expensive":
+      return {msgs:[
+        {text:`Entiendo ${firstName} 😊 El plan de 18 meses lo deja en solo *${cop(c18)}/mes* — menos que muchas suscripciones del mes.\n\n¿O buscas algo en otro rango de precio? Cuéntame tu presupuesto y te busco opciones 🙌`,delay:1100},
+      ]};
+    case "wantit":
+      return {msgs:[
+        {text:`¡Qué buena decisión ${firstName}! 🎉\n\nPara separarlo solo necesitas un abono de *$50.000* y lo apartamos 3 días para ti.\n\nUn asesor te contacta en los próximos minutos para confirmar todo 🤝`,delay:900,handoff:true},
+      ]};
+    case "photos":
+      return {msgs:[{text:`¡Claro ${firstName}! Aquí el catálogo con fotos del ${producto} 📸\n\nhttps://realconfort.co/catalogo\n\n¿Ves alguno que te llame la atención?`,delay:800}]};
+    case "paid":
+      return {msgs:[{text:`¡Perfecto ${firstName}! 🎉 Confirmamos tu abono. Un asesor se comunica para coordinar la entrega del ${producto}.\n\n¡Gracias por elegirnos! 🛏️`,delay:900,handoff:true}]};
+    case "greeting":
+      return {msgs:[{text:`¡Hola ${firstName}! 👋 Soy Sofía de Real Confort MD. ¿Te interesa el ${producto}? Con gusto te ayudo 😊`,delay:700}]};
+    case "ack":
+      return {msgs:[{text:`¡Perfecto ${firstName}! Para cualquier otra pregunta aquí estoy 😊`,delay:600}]};
+    case "complaint":
+      return {msgs:[{text:`Entendido ${firstName}, no te volvemos a contactar. Que estés muy bien 🙏`,delay:700}]};
+    default:
+      return {msgs:[{text:`¡Hola ${firstName}! 😊 Puedo ayudarte con precio, colores, crédito o entrega del ${producto}. ¿Qué quieres saber?`,delay:900}]};
+  }
+}
+
+// ── UI helpers ─────────────────────────────────────────────────────────────
+function waAddMsg(bodyId,isOut,html,tag,ticks,system){
+  const body=document.getElementById(bodyId);if(!body)return;
+  if(system){
+    const n=document.createElement("div");n.className="wa-system-note";n.textContent=html;body.appendChild(n);
+  } else {
+    const n=document.createElement("div");n.className="wa-msg"+(isOut?" out":"");
+    const tagHtml=tag?`<div class="wa-tag">${tag}</div>`:"";
+    const tickHtml=ticks&&isOut?` <span style="color:#53bdeb">${ticks}</span>`:"";
+    const timeColor=isOut?"":" color:rgba(233,237,239,.45);";
+    const now=new Date().toLocaleTimeString("es-CO",{hour:"2-digit",minute:"2-digit"});
+    n.innerHTML=`${tagHtml}${html.replace(/\*(.*?)\*/g,"<b>$1</b>").replace(/\n/g,"<br>")}<span class="wa-time" style="${timeColor}">${now}${tickHtml}</span>`;
+    body.appendChild(n);
+  }
+  body.scrollTop=body.scrollHeight;
+}
+function waShowTyping(bodyId){
+  const body=document.getElementById(bodyId);if(!body)return null;
+  const t=document.createElement("div");t.className="wa-typing-bubble";t.id="wa-typ-"+bodyId;
+  t.innerHTML="<span></span><span></span><span></span>";body.appendChild(t);body.scrollTop=body.scrollHeight;return t;
+}
+function waHideTyping(bodyId){const t=document.getElementById("wa-typ-"+bodyId);if(t)t.remove();}
+function waLockInput(lock,inputId="wa-input",sendId="wa-send"){
+  const i=document.getElementById(inputId);const s=document.getElementById(sendId);
+  if(i)i.disabled=lock,i.style.opacity=lock?".5":"1";
+  if(s)s.disabled=lock,s.style.opacity=lock?".5":"1";
+}
+
+// ── Cobros conversations ────────────────────────────────────────────────────
 let currentConv=0;
 const conversations=[
   {
-    name:"María Rodríguez",phone:"+57 314 ••• 2281",estado:"pagado",
+    name:"María Rodríguez",phone:"+57 314 ••• 2281",estado:"pagado",ctx:COBROS_CTX[0],
     msgs:[
-      {out:true,tag:"Recordatorio · día -3",text:"Hola María 👋 Te recordamos que tu cuota de <b>$150.000</b> vence el <b>28 de mayo</b>. Paga aquí 👉 <span class='wa-link'>pago.realconfort.co/4421</span> o en el local. ¡Gracias! 🛏️",time:"9:02 a.m.",ticks:"✓✓"},
+      {out:true,tag:"Recordatorio · día -3",text:"Hola María 👋 Tu cuota de <b>$150.000</b> vence el <b>28 de mayo</b>. Paga aquí 👉 <span class='wa-link'>pago.realconfort.co/4421</span> 🛏️",time:"9:02 a.m.",ticks:"✓✓"},
+      {out:false,text:"Hola, ¿cuánto debo exactamente?",time:"9:30 a.m."},
+      {out:true,text:"Tu cuota es de <b>$150.000</b> para tu Colchón Doble, María. Vence el 28 de mayo. Paga aquí 👉 <span class='wa-link'>pago.realconfort.co/4421</span> — Nequi, Daviplata o tarjeta 💳",time:"9:31 a.m.",ticks:"✓✓"},
       {out:false,text:"Listo, ya pagué por Nequi 🙏",time:"9:48 a.m."},
-      {out:true,text:"¡Perfecto María! Recibido ✅ Tu próxima cuota es el <b>11 de junio</b>. ¡Gracias por tu pago! 😊",time:"9:49 a.m.",ticks:"✓✓"},
-      {out:false,text:"Gracias a ustedes, muy bien el servicio 🌟",time:"9:51 a.m."},
-      {out:true,text:"¡Con gusto! Recuerda que siempre puedes pagar con el link o en el local 🛏️",time:"9:52 a.m.",ticks:"✓✓"},
+      {out:true,tag:"FE-1204 · DIAN ✓",text:"¡Pago confirmado! ✅ Tu factura electrónica DIAN ya está en tu correo. Próxima cuota: <b>28 de junio</b>. ¡Gracias María! 😊",time:"9:49 a.m.",ticks:"✓✓"},
     ]
   },
   {
-    name:"Jorge Gutiérrez",phone:"+57 310 ••• 9043",estado:"mora",diasMora:6,
+    name:"Jorge Gutiérrez",phone:"+57 310 ••• 9043",estado:"mora",diasMora:6,ctx:COBROS_CTX[1],
     msgs:[
-      {out:true,tag:"Aviso de mora · día +1",text:"Hola Jorge 🔔 Tu cuota de <b>$120.000</b> venció el <b>20 de mayo</b>. Por favor realiza tu pago lo antes posible 👉 <span class='wa-link'>pago.realconfort.co/1032</span>",time:"8:01 a.m.",ticks:"✓✓"},
+      {out:true,tag:"Aviso de mora · día +1",text:"Hola Jorge 🔔 Tu cuota de <b>$120.000</b> venció el <b>20 de mayo</b>. Paga aquí 👉 <span class='wa-link'>pago.realconfort.co/1032</span>",time:"8:01 a.m.",ticks:"✓✓"},
       {out:false,text:"Disculpe, he tenido problemas esta semana 😔",time:"10:23 a.m."},
-      {out:true,text:"Entendemos Jorge. ¿Puedes realizarlo esta semana? Puedes pagar en cuotas parciales si prefieres.",time:"10:24 a.m.",ticks:"✓✓"},
+      {out:true,text:"Entendemos Jorge. ¿Puedes hacer un abono parcial? Podemos dividirlo en dos pagos si prefieres.",time:"10:24 a.m.",ticks:"✓✓"},
       {out:false,text:"Sí, puedo pagar el viernes $60.000 y el resto el lunes.",time:"10:31 a.m."},
-      {out:true,tag:"Acuerdo de pago registrado ✅",text:"¡Perfecto! Registramos tu acuerdo: <b>$60.000 el viernes 30 mayo</b> y <b>$60.000 el lunes 2 junio</b>. Te enviaremos los links de pago cada día 👍",time:"10:32 a.m.",ticks:"✓✓"},
-      {out:false,text:"Muchas gracias por la comprensión 🙏",time:"10:33 a.m."},
+      {out:true,tag:"Acuerdo de pago registrado ✅",text:"¡Perfecto! Acuerdo: <b>$60.000 viernes 30 mayo</b> y <b>$60.000 lunes 2 junio</b>. Te envío los links cada día 👍",time:"10:32 a.m.",ticks:"✓✓"},
     ]
   },
   {
-    name:"Sandra Niño",phone:"+57 301 ••• 5517",estado:"porvenc",
+    name:"Sandra Niño",phone:"+57 301 ••• 5517",estado:"porvenc",ctx:COBROS_CTX[2],
     msgs:[
-      {out:true,tag:"Recordatorio anticipado · día -3",text:"Hola Sandra ☀️ Te recordamos que tu cuota de <b>$110.000</b> vence el <b>28 de mayo</b>. Paga con anticipación aquí 👉 <span class='wa-link'>pago.realconfort.co/1008</span>",time:"9:05 a.m.",ticks:"✓✓"},
+      {out:true,tag:"Recordatorio · día -3",text:"Hola Sandra ☀️ Tu cuota de <b>$110.000</b> vence el <b>28 de mayo</b>. Págala aquí 👉 <span class='wa-link'>pago.realconfort.co/1008</span>",time:"9:05 a.m.",ticks:"✓✓"},
       {out:false,text:"Gracias por el aviso! Lo haré el miércoles",time:"9:44 a.m."},
-      {out:true,text:"¡Genial Sandra! El miércoles 28 recibirás tu link de pago de nuevo. ¡Nos vemos! 😊",time:"9:45 a.m.",ticks:"✓✓"},
-      {out:true,tag:"Recordatorio de vencimiento · día 0",text:"Buenos días Sandra 👋 Hoy vence tu cuota de <b>$110.000</b>. Paga aquí 👉 <span class='wa-link'>pago.realconfort.co/1008</span> o en el local. ¡Gracias! 🛏️",time:"8:00 a.m.",ticks:"✓"},
+      {out:true,text:"¡Genial Sandra! El miércoles recibirás tu link de nuevo. ¡Nos vemos! 😊",time:"9:45 a.m.",ticks:"✓✓"},
     ]
   }
 ];
+
 function renderConv(idx){
   const conv=conversations[idx];
-  document.getElementById("wa-body").innerHTML=conv.msgs.map(m=>{
+  const body=document.getElementById("wa-body");
+  body.innerHTML=conv.msgs.map(m=>{
     const tagHtml=m.tag?`<div class="wa-tag">${m.tag}</div>`:"";
     const ticksHtml=m.ticks?` <span style="color:#53bdeb">${m.ticks}</span>`:"";
     const timeColor=m.out?"":"color:rgba(233,237,239,.45);";
     return `<div class="wa-msg${m.out?" out":""}">${tagHtml}${m.text}<span class="wa-time" style="${timeColor}">${m.time}${ticksHtml}</span></div>`;
   }).join("");
-  const b=document.getElementById("wa-body");b.scrollTop=b.scrollHeight;
+  body.scrollTop=body.scrollHeight;
 }
 function switchConv(idx){
   currentConv=idx;
   document.querySelectorAll(".wa-tab").forEach((t,i)=>t.classList.toggle("active",i===idx));
   renderConv(idx);
 }
+
+let _waLocked=false;
 function waSend(){
+  if(_waLocked)return;
   const inp=document.getElementById("wa-input");const txt=inp.value.trim();if(!txt)return;
   const conv=conversations[currentConv];
+  const ctx=conv.ctx;
   const now=new Date().toLocaleTimeString("es-CO",{hour:"2-digit",minute:"2-digit"});
+  // render user bubble immediately
   conv.msgs.push({out:true,text:txt,time:now,ticks:"✓"});
   inp.value="";renderConv(currentConv);
-  toast(`Mensaje enviado a ${conv.name}`,"wa","💬");
-  setTimeout(()=>{
-    const el=document.getElementById("wa-sent");if(el)el.textContent=+el.textContent+1;
-  },400);
+  const el=document.getElementById("wa-sent");if(el)el.textContent=+el.textContent+1;
+
+  // detect intent and schedule replies
+  const intent=waIntent(txt);
+  const reply=cobrosReply(intent,ctx);
+  _waLocked=true;waLockInput(true);
+
+  let cumulativeDelay=0;
+  reply.msgs.forEach((r,i)=>{
+    cumulativeDelay+=300;
+    setTimeout(()=>waShowTyping("wa-body"),cumulativeDelay);
+    cumulativeDelay+=r.delay||1200;
+    setTimeout(()=>{
+      waHideTyping("wa-body");
+      waAddMsg("wa-body",false,r.text,r.tag||null,"✓✓");
+      // update tick on last user message
+      const outMsgs=document.querySelectorAll("#wa-body .wa-msg.out");
+      if(outMsgs.length>0){const last=outMsgs[outMsgs.length-1];const t=last.querySelector(".wa-time");if(t)t.innerHTML=t.innerHTML.replace("✓","✓✓<span style='color:#53bdeb'>✓</span>");}
+      if(r.triggerPay){
+        setTimeout(()=>{
+          waAddMsg("wa-body",false,"","Alegra FE generada · enviada a DIAN · AR cerrado 🧾",null,true);
+          state.recaudado+=ctx.cuota;renderKPIs();
+          toast(`Pago de ${conv.name} confirmado · FE generada en Alegra`,"wa","🧾");
+        },800);
+      }
+      if(i===reply.msgs.length-1){_waLocked=false;waLockInput(false);}
+    },cumulativeDelay);
+  });
 }
 document.addEventListener("keydown",e=>{if(e.key==="Enter"&&document.activeElement.id==="wa-input")waSend();});
 
@@ -2917,25 +3109,27 @@ function ventasOpen(id){
   const msgs = document.getElementById("ventas-msgs");
   msgs.innerHTML = lead.msgs.map(m=>`
     <div class="vmsg ${m.from==='bot'?'bot':'user'}">
-      ${m.from==='bot'?'<div class="vmsg-sender">🤖 Cobra IA</div>':''}
+      ${m.from==='bot'?'<div class="vmsg-sender">🤖 Sofía · Ventas IA</div>':''}
       ${m.text.replace(/\*(.*?)\*/g,'<b>$1</b>').replace(/\n/g,'<br>')}
       <div class="vmsg-time">${m.time}</div>
     </div>`).join('');
 
+  // hint bar
   const bar = document.getElementById("ventas-handoff-bar");
   if(lead.handoff){
-    bar.innerHTML=`<div class="vhandoff">
-      <div class="vhandoff-icon">🎯</div>
-      <div class="vhandoff-text"><b>Lead calificado — listo para cerrar.</b><br>${lead.handoffMsg}</div>
-      <button class="btn-g" onclick="ventasTakeover()" style="flex-shrink:0">Cerrar venta</button>
-    </div>`;
+    bar.innerHTML=`<div class="vhandoff"><div class="vhandoff-icon">🎯</div><div class="vhandoff-text"><b>Lead calificado — listo para cerrar.</b><br>${lead.handoffMsg}</div><button class="btn-g" onclick="ventasTakeover()" style="flex-shrink:0">Tomar y cerrar</button></div>`;
   } else {
-    bar.innerHTML='';
+    bar.innerHTML=`<div style="padding:8px 18px;font-size:11.5px;color:var(--muted);background:rgba(0,0,0,.15);border-top:1px solid var(--border2)">💡 Dale a <b style="color:var(--text)">Tomar conversación</b> para responder · o escribe arriba para ver cómo Sofía IA responde cualquier pregunta</div>`;
   }
 
-  document.getElementById("ventas-input-box").disabled = true;
-  document.getElementById("ventas-send-btn").disabled  = true;
-  msgs.scrollTop = msgs.scrollHeight;
+  // allow typing to simulate — shows bot auto-reply
+  const inputBox=document.getElementById("ventas-input-box");
+  const sendBtn=document.getElementById("ventas-send-btn");
+  inputBox.disabled=false;inputBox.style.opacity="1";
+  sendBtn.disabled=false;sendBtn.style.opacity="1";
+  inputBox.placeholder=`Simular mensaje de ${lead.name} — Sofía IA responde…`;
+  // override send for simulation mode (before takeover)
+  msgs.scrollTop=msgs.scrollHeight;
 }
 
 function ventasTakeover(){
@@ -2959,28 +3153,106 @@ function ventasTakeover(){
   document.getElementById("ventas-input-box").focus();
 }
 
-function ventasSend(){
-  const box = document.getElementById("ventas-input-box");
-  const text = box.value.trim();
-  if(!text) return;
-  const msgs = document.getElementById("ventas-msgs");
-  const msg = document.createElement("div");
-  msg.className = "vmsg user";
-  msg.innerHTML = `${text}<div class="vmsg-time">ahora</div>`;
-  msgs.appendChild(msg);
-  box.value = "";
-  msgs.scrollTop = msgs.scrollHeight;
-  // simulate lead response
-  if(ventasActive===1){
-    setTimeout(()=>{
-      const r = document.createElement("div");
-      r.className="vmsg user";
-      r.innerHTML=`Perfecto, el beige me gusta. ¿Puedo separarlo con $100,000?<div class="vmsg-time">ahora</div>`;
-      msgs.appendChild(r);
-      msgs.scrollTop=msgs.scrollHeight;
-      toast("Camila Torres quiere separar — ¡cierra la venta!","","🎉");
-    },2200);
+// Ventas typing helper (reuses same engine pattern)
+function vAddMsg(isBot,html,tag){
+  const msgs=document.getElementById("ventas-msgs");if(!msgs)return;
+  const d=document.createElement("div");
+  const now=new Date().toLocaleTimeString("es-CO",{hour:"2-digit",minute:"2-digit"});
+  if(isBot){
+    d.className="vmsg bot";
+    d.innerHTML=`<div class="vmsg-sender">🤖 Sofía · Ventas IA</div>${(tag?`<div class="wa-tag" style="color:var(--gold);margin-bottom:4px">${tag}</div>`:"")}${html.replace(/\*(.*?)\*/g,"<b>$1</b>").replace(/\n/g,"<br>")}<div class="vmsg-time">${now}</div>`;
+  } else {
+    d.className="vmsg user";
+    d.innerHTML=`${html}<div class="vmsg-time">${now}</div>`;
   }
+  msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;
+}
+function vShowTyping(){
+  const msgs=document.getElementById("ventas-msgs");if(!msgs)return;
+  const d=document.createElement("div");d.className="vmsg bot";d.id="v-typing";
+  d.innerHTML=`<div class="wa-typing-bubble" style="background:transparent;padding:0"><span style="background:rgba(233,237,239,.4)"></span><span style="background:rgba(233,237,239,.4)"></span><span style="background:rgba(233,237,239,.4)"></span></div>`;
+  msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;
+}
+function vHideTyping(){const t=document.getElementById("v-typing");if(t)t.remove();}
+
+let _vLocked=false;
+function ventasSend(){
+  if(_vLocked)return;
+  // simulation mode: show as client message, bot auto-replies
+  if(!ventasTakenOver){
+    const box=document.getElementById("ventas-input-box");
+    const text=box.value.trim();if(!text)return;
+    const ctx=VENTAS_CTX.find(c=>c.id===ventasActive);if(!ctx)return;
+    // render as client bubble
+    const msgs=document.getElementById("ventas-msgs");
+    const d=document.createElement("div");d.className="vmsg user";
+    d.innerHTML=`${text}<div class="vmsg-time">${new Date().toLocaleTimeString("es-CO",{hour:"2-digit",minute:"2-digit"})}</div>`;
+    msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;
+    box.value="";
+    _vLocked=true;
+    const intent=waIntent(text);const reply=ventasReply(intent,ctx);
+    let cum=400;
+    reply.msgs.forEach((r,i)=>{
+      setTimeout(()=>vShowTyping(),cum);cum+=r.delay||1100;
+      setTimeout(()=>{
+        vHideTyping();vAddMsg(true,r.text,r.tag||null);
+        if(r.handoff){
+          setTimeout(()=>{
+            const lead=VENTAS_LEADS.find(l=>l.id===ventasActive);
+            if(lead){lead.tag="listo";lead.tagLabel="LISTO PARA CERRAR";lead.tagColor="var(--gold)";lead.tagBg="var(--gold-soft)";}
+            document.getElementById("ventas-handoff-bar").innerHTML=`<div class="vhandoff"><div class="vhandoff-icon">🎯</div><div class="vhandoff-text"><b>¡Lead calificado!</b> Quiere comprar — toma la conversación y cierra.</div><button class="btn-g" onclick="ventasTakeover()">Cerrar venta</button></div>`;
+            renderVentas();toast(`${ctx.firstName} quiere comprar — ¡cierra la venta!`,"","🎯");
+          },500);
+        }
+        if(i===reply.msgs.length-1)_vLocked=false;
+      },cum);
+    });
+    return;
+  }
+  if(!ventasTakenOver)return;
+  const box=document.getElementById("ventas-input-box");
+  const text=box.value.trim();if(!text)return;
+  const ctx=VENTAS_CTX.find(c=>c.id===ventasActive);if(!ctx)return;
+
+  vAddMsg(false,text);
+  box.value="";
+
+  const intent=waIntent(text);
+  const reply=ventasReply(intent,ctx);
+  _vLocked=true;box.disabled=true;
+
+  let cum=0;
+  reply.msgs.forEach((r,i)=>{
+    cum+=350;setTimeout(()=>vShowTyping(),cum);
+    cum+=r.delay||1100;
+    setTimeout(()=>{
+      vHideTyping();
+      vAddMsg(true,r.text,r.tag||null);
+      if(r.handoff){
+        setTimeout(()=>{
+          // update lead status
+          const lead=VENTAS_LEADS.find(l=>l.id===ventasActive);
+          if(lead){lead.tag="listo";lead.tagLabel="LISTO PARA CERRAR";lead.tagColor="var(--gold)";lead.tagBg="var(--gold-soft)";}
+          document.getElementById("ventas-handoff-bar").innerHTML=`<div class="vhandoff"><div class="vhandoff-icon">🎯</div><div class="vhandoff-text"><b>¡Lead calificado!</b> ${ctx.firstName} quiere comprar. Toma el control y cierra la venta.</div><button class="btn-g" onclick="toast('¡Venta cerrada! ${ctx.firstName} separó su ${ctx.producto}','','🎉')">Confirmar venta</button></div>`;
+          renderVentas();
+          toast(`${ctx.firstName} está lista para comprar — ¡cierra la venta!`,"","🎯");
+        },600);
+      }
+      if(i===reply.msgs.length-1){_vLocked=false;box.disabled=false;box.focus();}
+    },cum);
+  });
+}
+
+// Also make ventas chat work even before takeover — bot auto-responds to client messages
+function ventasAutoReply(leadId, userText){
+  const ctx=VENTAS_CTX.find(c=>c.id===leadId);if(!ctx)return;
+  const intent=waIntent(userText);
+  const reply=ventasReply(intent,ctx);
+  let cum=400;
+  reply.msgs.forEach(r=>{
+    setTimeout(()=>vShowTyping(),cum);cum+=r.delay||1100;
+    setTimeout(()=>{vHideTyping();vAddMsg(true,r.text,r.tag||null);},cum);
+  });
 }
 
 // ============ CONFIGURACIÓN ============
