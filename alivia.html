@@ -573,6 +573,100 @@ table{border-collapse:collapse;width:100%}
 .perm-tag{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;background:var(--ws-bg);border:1px solid var(--ws-border);border-radius:var(--r-full);font-size:12px;color:var(--t2);margin:3px}
 
 /* =============================================
+   FORMS
+   ============================================= */
+.form-group{margin-bottom:16px}
+.form-label{display:block;font-size:12px;font-weight:600;color:var(--t2);margin-bottom:6px;letter-spacing:0.1px}
+.form-label .req{color:var(--red);margin-left:2px}
+.form-input{
+  width:100%;background:var(--ws-bg);
+  border:1px solid var(--ws-border);
+  border-radius:var(--r-sm);
+  padding:8px 12px;font-size:13px;color:var(--t1);
+  outline:none;transition:var(--fast);
+  appearance:none;
+}
+.form-input:focus{border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-light);background:var(--ws-surface)}
+.form-input::placeholder{color:var(--t4)}
+.form-input[type=date]{cursor:pointer}
+.form-input[type=number]{-moz-appearance:textfield}
+select.form-input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236B7280' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;background-size:18px;padding-right:32px}
+.form-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-err{font-size:12px;color:var(--red);margin-top:4px}
+.drop-zone{
+  background:var(--ws-bg);border:2px dashed var(--ws-border);
+  border-radius:var(--r-md);padding:28px;text-align:center;
+  cursor:pointer;transition:var(--fast);margin-bottom:18px;
+}
+.drop-zone:hover{border-color:var(--brand);background:var(--brand-light)}
+.drop-zone-icon{font-size:28px;margin-bottom:6px}
+.drop-zone-title{font-size:13px;font-weight:500;color:var(--t2)}
+.drop-zone-sub{font-size:12px;color:var(--t3);margin-top:4px}
+
+/* =============================================
+   CLIENT PROFILE PAGE
+   ============================================= */
+.profile-back{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:13px;font-weight:500;color:var(--t3);
+  cursor:pointer;margin-bottom:20px;
+  transition:var(--fast);
+  padding:6px 0;
+}
+.profile-back:hover{color:var(--brand)}
+.profile-back svg{width:16px;height:16px}
+.profile-hero{
+  background:var(--ws-surface);border:1px solid var(--ws-border);
+  border-radius:var(--r-lg);padding:24px;
+  box-shadow:var(--sh-sm);margin-bottom:20px;
+  display:flex;align-items:flex-start;gap:20px;
+}
+.profile-hero-info{flex:1;min-width:0}
+.profile-name{font-size:22px;font-weight:700;color:var(--t1);letter-spacing:-0.3px}
+.profile-meta{font-size:13px;color:var(--t3);margin-top:4px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.profile-meta span{display:flex;align-items:center;gap:5px}
+.profile-tabs{
+  display:flex;border-bottom:1px solid var(--ws-border);
+  margin-bottom:20px;gap:2px;
+  background:var(--ws-surface);
+  padding:0 24px;
+  border:1px solid var(--ws-border);
+  border-radius:var(--r-lg) var(--r-lg) 0 0;
+  box-shadow:var(--sh-xs);
+}
+.profile-tab{
+  padding:14px 18px;font-size:13px;font-weight:500;
+  color:var(--t3);cursor:pointer;
+  border-bottom:2px solid transparent;margin-bottom:-1px;
+  transition:var(--fast);white-space:nowrap;
+}
+.profile-tab.active{color:var(--brand);border-bottom-color:var(--brand)}
+.profile-tab:hover:not(.active){color:var(--t2)}
+.profile-body{
+  background:var(--ws-surface);border:1px solid var(--ws-border);
+  border-top:none;border-radius:0 0 var(--r-lg) var(--r-lg);
+  padding:22px;box-shadow:var(--sh-xs);
+  margin-bottom:20px;
+}
+.timeline-item{
+  display:flex;gap:14px;padding-bottom:18px;position:relative;
+}
+.timeline-item::before{
+  content:'';position:absolute;left:7px;top:16px;bottom:0;
+  width:2px;background:var(--ws-border-lt);
+}
+.timeline-item:last-child::before{display:none}
+.timeline-dot{
+  width:16px;height:16px;border-radius:var(--r-full);
+  flex-shrink:0;margin-top:2px;
+  border:2px solid var(--ws-surface);
+  box-shadow:0 0 0 2px var(--ws-border);
+}
+.timeline-content{flex:1;min-width:0}
+.timeline-text{font-size:13px;color:var(--t2);line-height:1.5}
+.timeline-time{font-size:11.5px;color:var(--t3);margin-top:2px}
+
+/* =============================================
    RESPONSIVE
    ============================================= */
 @media(max-width:1300px){
@@ -770,7 +864,7 @@ function closeModal() {
 $('modal-ov').addEventListener('click', e => { if(e.target===$('modal-ov')) closeModal(); });
 
 // ── Navigation ───────────────────────────────
-const VIEWS = ['dashboard','clientes','documentos','tareas','automatizaciones','integraciones','equipo','reportes','configuracion'];
+const VIEWS = ['dashboard','clientes','documentos','tareas','automatizaciones','integraciones','equipo','reportes','configuracion','cliente-detail'];
 
 function navigateTo(view) {
   if (!VIEWS.includes(view)) view = 'dashboard';
@@ -788,7 +882,8 @@ function navigateTo(view) {
     integraciones: renderIntegraciones,
     equipo: renderEquipo,
     reportes: renderReportes,
-    configuracion: renderConfiguracion
+    configuracion: renderConfiguracion,
+    'cliente-detail': renderClienteDetalle,
   };
   const fn = renderers[view];
   $('app-view').innerHTML = '';
@@ -1224,8 +1319,8 @@ function renderClientes() {
       <p class="sub">${DATA.clients.length} clientes · ${DATA.clients.filter(c=>c.status==='Activo').length} activos · ${DATA.clients.filter(c=>c.status==='En mora').length} en mora</p>
     </div>
     <div class="view-actions">
-      <button class="btn btn-secondary btn-sm">Exportar</button>
-      <button class="btn btn-primary btn-sm" onclick="toast('Función disponible en versión completa','warn')">
+      <button class="btn btn-secondary btn-sm" onclick="exportClientsCSV()">⬇ Exportar CSV</button>
+      <button class="btn btn-primary btn-sm" onclick="openCreateClientModal()">
         <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/></svg>
         Nuevo cliente
       </button>
@@ -1348,8 +1443,8 @@ function openClientModal(clientId) {
     </div>
     <div class="modal-footer">
       <button class="btn btn-ghost" onclick="closeModal()">Cerrar</button>
-      <button class="btn btn-secondary btn-sm" onclick="toast('Tarea creada para ${c.name.replace(/'/g,'').slice(0,20)}','ok')">Crear tarea</button>
-      <button class="btn btn-primary btn-sm" onclick="toast('Abriendo perfil completo...','ok')">Ver perfil completo</button>
+      <button class="btn btn-secondary btn-sm" onclick="closeModal();openCreateTaskModal(${c.id})">+ Crear tarea</button>
+      <button class="btn btn-primary btn-sm" onclick="navigateToClientProfile(${c.id})">Ver perfil completo →</button>
     </div>`);
 }
 
@@ -1437,8 +1532,8 @@ function renderDocumentos() {
           · <span style="color:var(--red);font-weight:600">${missing.length} faltante${missing.length!==1?'s':''}</span>
         </div>
         <div style="display:flex;gap:6px">
-          <button class="btn btn-secondary btn-sm" onclick="event.stopPropagation();openClientModal(${c.id})">Ver cliente</button>
-          <button class="btn btn-primary btn-sm" onclick="event.stopPropagation();toast('Solicitud enviada a ${c.name.replace(/'/g,'').slice(0,15)}...','ok')">Solicitar</button>
+          <button class="btn btn-secondary btn-sm" onclick="event.stopPropagation();navigateToClientProfile(${c.id})">Ver cliente</button>
+          <button class="btn btn-primary btn-sm" onclick="event.stopPropagation();createMissingDocTask(${c.id})">Crear tarea</button>
         </div>
       </div>
     </div>`;
@@ -1455,8 +1550,8 @@ function renderDocumentos() {
       <p class="sub">${DATA.documents.length} documentos · ${DATA.documents.filter(d=>d.status==='Pendiente').length} pendientes · ${missingClients.length} clientes con faltantes</p>
     </div>
     <div class="view-actions">
-      <button class="btn btn-secondary btn-sm">Exportar</button>
-      <button class="btn btn-primary btn-sm" onclick="toast('Subida manual disponible en versión completa','warn')">
+      <button class="btn btn-secondary btn-sm" onclick="exportDocsCSV()">⬇ Exportar CSV</button>
+      <button class="btn btn-primary btn-sm" onclick="openUploadDocModal()">
         <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>
         Subir documento
       </button>
@@ -1523,7 +1618,8 @@ function openDocModal(docId) {
     </div>
     <div class="modal-footer">
       <button class="btn btn-ghost" onclick="closeModal()">Cerrar</button>
-      <button class="btn btn-primary btn-sm" onclick="toast('Documento marcado como Procesado','ok');closeModal()">Marcar como procesado</button>
+      <button class="btn btn-secondary btn-sm" onclick="updateDocStatus(${d.id},'Error')">Marcar error</button>
+      <button class="btn btn-primary btn-sm" onclick="updateDocStatus(${d.id},'Procesado')">✓ Marcar como procesado</button>
     </div>`);
 }
 function renderTareas() {
@@ -1573,7 +1669,7 @@ function renderTareas() {
       <p class="sub">${DATA.tasks.length} tareas · ${DATA.tasks.filter(t=>t.status==='Completado').length} completadas · ${DATA.tasks.filter(t=>t.overdue||t.status==='Vencido').length} vencidas</p>
     </div>
     <div class="view-actions">
-      <button class="btn btn-primary btn-sm" onclick="toast('Tarea creada','ok')">
+      <button class="btn btn-primary btn-sm" onclick="openCreateTaskModal()">
         <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/></svg>
         Nueva tarea
       </button>
@@ -1639,14 +1735,14 @@ function openTaskModal(taskId) {
         <div class="lbl" style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--t3);margin-bottom:10px">Cambiar estado</div>
         <div style="display:flex;gap:6px;flex-wrap:wrap">
           ${['Pendiente','En proceso','Revisado','Completado'].map(s=>`
-          <button class="btn ${t.status===s?'btn-primary':'btn-secondary'} btn-sm" onclick="toast('Estado actualizado a ${s}','ok');closeModal()">${s}</button>`).join('')}
+          <button class="btn ${t.status===s?'btn-primary':'btn-secondary'} btn-sm" onclick="updateTaskStatus(${t.id},'${s}')">${s}</button>`).join('')}
         </div>
       </div>
     </div>
     <div class="modal-footer">
       <button class="btn btn-ghost" onclick="closeModal()">Cancelar</button>
-      <button class="btn btn-danger btn-sm" onclick="toast('Tarea eliminada','err');closeModal()">Eliminar</button>
-      <button class="btn btn-primary btn-sm" onclick="toast('Cambios guardados','ok');closeModal()">Guardar cambios</button>
+      <button class="btn btn-danger btn-sm" onclick="deleteTask(${t.id})">Eliminar</button>
+      <button class="btn btn-primary btn-sm" onclick="updateTaskStatus(${t.id}, document.querySelector('.m-active-status')?.dataset.status || '${t.status}');closeModal()">Guardar cambios</button>
     </div>`);
 }
 function renderAutomatizaciones() {
@@ -1687,7 +1783,7 @@ function renderAutomatizaciones() {
       <p class="sub">Reglas automáticas sin IA — solo lógica. ${DATA.automations.filter(a=>a.active).length} activas · ${DATA.automations.reduce((s,a)=>s+a.runs,0).toLocaleString('es-CO')} ejecuciones totales</p>
     </div>
     <div class="view-actions">
-      <button class="btn btn-primary btn-sm" onclick="toast('Editor de reglas disponible en versión completa','warn')">
+      <button class="btn btn-primary btn-sm" onclick="openCreateAutoModal()">
         <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/></svg>
         Nueva regla
       </button>
@@ -1742,7 +1838,7 @@ function openAutoModal(autoId) {
     </div>
     <div class="modal-footer">
       <button class="btn btn-ghost" onclick="closeModal()">Cancelar</button>
-      <button class="btn btn-secondary btn-sm" onclick="toast('Ejecutando regla manualmente...','ok');closeModal()">▶ Ejecutar ahora</button>
+      <button class="btn btn-secondary btn-sm" onclick="executeAutomation(${a.id})">▶ Ejecutar ahora</button>
       <button class="btn btn-primary btn-sm" onclick="toast('Regla guardada','ok');closeModal()">Guardar cambios</button>
     </div>`);
 }
@@ -2054,6 +2150,635 @@ function renderConfiguracion() {
       </div>`).join('')}
     </div>
   </div>`;
+}
+
+/* =============================================
+   ACTION FUNCTIONS — Real data mutations
+   ============================================= */
+
+// ── Shared modal close SVG ────────────────
+const CLOSE_BTN = `<div class="modal-close" onclick="closeModal()"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg></div>`;
+
+// ── Task status update ────────────────────
+function updateTaskStatus(taskId, newStatus) {
+  const t = DATA.tasks.find(t => t.id === taskId);
+  if (!t) return;
+  t.status = newStatus;
+  t.overdue = false;
+  closeModal();
+  toast(`Tarea movida a "${newStatus}"`, 'ok');
+  if (APP.currentView === 'tareas') navigateTo('tareas');
+  else if (APP.currentView === 'dashboard') navigateTo('dashboard');
+  else if (APP.currentView === 'cliente-detail') navigateTo('cliente-detail');
+}
+
+// ── Delete task ───────────────────────────
+function deleteTask(taskId) {
+  const idx = DATA.tasks.findIndex(t => t.id === taskId);
+  if (idx === -1) return;
+  const name = DATA.tasks[idx].title;
+  DATA.tasks.splice(idx, 1);
+  closeModal();
+  toast(`Tarea "${name.slice(0, 28)}" eliminada`, 'warn');
+  if (APP.currentView === 'tareas') navigateTo('tareas');
+  else if (APP.currentView === 'cliente-detail') navigateTo('cliente-detail');
+}
+
+// ── Document status update ────────────────
+function updateDocStatus(docId, newStatus) {
+  const d = DATA.documents.find(d => d.id === docId);
+  if (!d) return;
+  d.status = newStatus;
+  // recalculate client completeness
+  const client = DATA.clients.find(c => c.id === d.clientId);
+  if (client) {
+    const docTypes = new Set(DATA.documents.filter(x => x.clientId === client.id && x.status !== 'Error').map(x => x.type));
+    client.docCompleteness = Math.min(100, Math.round(docTypes.size / 8 * 100));
+  }
+  closeModal();
+  toast(`Documento marcado como "${newStatus}"`, 'ok');
+  if (APP.currentView === 'documentos') navigateTo('documentos');
+  else if (APP.currentView === 'cliente-detail') navigateTo('cliente-detail');
+}
+
+// ── Create Task Modal ─────────────────────
+function openCreateTaskModal(preClientId) {
+  preClientId = preClientId || null;
+  const inOneWeek = new Date(Date.now() + 7 * 86400000).toISOString().slice(0, 10);
+  openModal(`
+    <div class="modal-hd">
+      <div><div class="modal-title">Nueva tarea</div><div class="modal-sub">Asignar al equipo contable</div></div>
+      ${CLOSE_BTN}
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">Título de la tarea <span class="req">*</span></label>
+        <input class="form-input" id="ft-title" placeholder="Ej: Preparar declaración de IVA">
+      </div>
+      <div class="form-grid-2">
+        <div class="form-group">
+          <label class="form-label">Cliente <span class="req">*</span></label>
+          <select class="form-input" id="ft-client">
+            <option value="">Seleccionar cliente</option>
+            ${DATA.clients.map(c => `<option value="${c.id}" ${preClientId == c.id ? 'selected' : ''}>${c.name}</option>`).join('')}
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Responsable <span class="req">*</span></label>
+          <select class="form-input" id="ft-emp">
+            ${DATA.employees.map(e => `<option value="${e.id}">${e.name}</option>`).join('')}
+          </select>
+        </div>
+      </div>
+      <div class="form-grid-2">
+        <div class="form-group">
+          <label class="form-label">Fecha límite <span class="req">*</span></label>
+          <input class="form-input" id="ft-due" type="date" value="${inOneWeek}">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Prioridad</label>
+          <select class="form-input" id="ft-priority">
+            <option value="Media" selected>Media</option>
+            <option value="Alta">Alta</option>
+            <option value="Baja">Baja</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Descripción (opcional)</label>
+        <textarea class="form-input" id="ft-desc" rows="3" placeholder="Detalles adicionales de la tarea..." style="resize:vertical;min-height:72px"></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal()">Cancelar</button>
+      <button class="btn btn-primary" onclick="saveNewTask()">
+        <svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+        Crear tarea
+      </button>
+    </div>`);
+  setTimeout(() => document.getElementById('ft-title') && document.getElementById('ft-title').focus(), 80);
+}
+
+function saveNewTask() {
+  const title = (document.getElementById('ft-title').value || '').trim();
+  const clientId = parseInt(document.getElementById('ft-client').value);
+  const empId = parseInt(document.getElementById('ft-emp').value);
+  const due = document.getElementById('ft-due').value;
+  const priority = document.getElementById('ft-priority').value;
+
+  if (!title) { toast('El título de la tarea es obligatorio', 'err'); document.getElementById('ft-title').focus(); return; }
+  if (!clientId) { toast('Debes seleccionar un cliente', 'err'); return; }
+
+  const client = DATA.clients.find(c => c.id === clientId);
+  const newTask = {
+    id: DATA.tasks.reduce((m, t) => Math.max(m, t.id), 0) + 1,
+    title, clientId, clientName: client.name,
+    assignedTo: empId, dueDate: due,
+    status: 'Pendiente', priority,
+    overdue: new Date(due) < new Date() && due,
+  };
+  DATA.tasks.push(newTask);
+  // update employee open tasks count
+  const emp = DATA.employees.find(e => e.id === empId);
+  if (emp) emp.tasksOpen++;
+  closeModal();
+  toast(`✓ Tarea "${title.slice(0, 30)}" creada y asignada a ${emp ? emp.name.split(' ')[0] : ''}`, 'ok');
+  if (APP.currentView === 'tareas') navigateTo('tareas');
+  else if (APP.currentView === 'dashboard') navigateTo('dashboard');
+  else if (APP.currentView === 'cliente-detail') navigateTo('cliente-detail');
+}
+
+// ── Upload / Register Document Modal ─────
+function openUploadDocModal(preClientId) {
+  preClientId = preClientId || null;
+  const today = new Date().toISOString().slice(0, 10);
+  openModal(`
+    <div class="modal-hd">
+      <div><div class="modal-title">Registrar documento</div><div class="modal-sub">Carga manual o registro de documento recibido</div></div>
+      ${CLOSE_BTN}
+    </div>
+    <div class="modal-body">
+      <div class="drop-zone" onclick="toast('Selección de archivo disponible con backend','warn')">
+        <div class="drop-zone-icon">📎</div>
+        <div class="drop-zone-title">Arrastra el archivo aquí o haz clic para seleccionar</div>
+        <div class="drop-zone-sub">XML, PDF · Máx. 10 MB</div>
+      </div>
+      <div class="form-grid-2">
+        <div class="form-group">
+          <label class="form-label">Tipo de documento <span class="req">*</span></label>
+          <select class="form-input" id="fd-type">
+            ${_docTypes.map(t => `<option value="${t}">${t}</option>`).join('')}
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Cliente <span class="req">*</span></label>
+          <select class="form-input" id="fd-client">
+            <option value="">Seleccionar cliente</option>
+            ${DATA.clients.map(c => `<option value="${c.id}" ${preClientId == c.id ? 'selected' : ''}>${c.name}</option>`).join('')}
+          </select>
+        </div>
+      </div>
+      <div class="form-grid-2">
+        <div class="form-group">
+          <label class="form-label">Origen</label>
+          <select class="form-input" id="fd-source">
+            <option value="manual">Manual</option>
+            <option value="gmail">Gmail</option>
+            <option value="outlook">Outlook</option>
+            <option value="whatsapp">WhatsApp</option>
+            <option value="drive">Google Drive</option>
+            <option value="onedrive">OneDrive</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Fecha del documento</label>
+          <input class="form-input" id="fd-date" type="date" value="${today}">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Nombre del archivo (opcional)</label>
+        <input class="form-input" id="fd-filename" placeholder="Se generará automáticamente si se deja vacío">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal()">Cancelar</button>
+      <button class="btn btn-primary" onclick="saveNewDocument()">
+        <svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>
+        Registrar documento
+      </button>
+    </div>`);
+}
+
+function saveNewDocument() {
+  const type = document.getElementById('fd-type').value;
+  const clientId = parseInt(document.getElementById('fd-client').value);
+  const source = document.getElementById('fd-source').value;
+  const date = document.getElementById('fd-date').value;
+  const customName = (document.getElementById('fd-filename').value || '').trim();
+
+  if (!clientId) { toast('Debes seleccionar un cliente', 'err'); return; }
+
+  const client = DATA.clients.find(c => c.id === clientId);
+  const prefix = _fileNames[type] || 'doc_';
+  const filename = customName || prefix + (DATA.documents.length + 1).toString().padStart(3, '0') + (type === 'XML' ? '.xml' : '.pdf');
+
+  const newDoc = {
+    id: DATA.documents.reduce((m, d) => Math.max(m, d.id), 0) + 1,
+    type, clientId, clientName: client.name,
+    date, source, status: 'Recibido',
+    filename, size: rand(80, 4200) + ' KB',
+  };
+  DATA.documents.unshift(newDoc);
+
+  // Recalculate client doc completeness
+  const docTypes = new Set(DATA.documents.filter(d => d.clientId === clientId).map(d => d.type));
+  client.docCompleteness = Math.min(100, Math.round(docTypes.size / 8 * 100));
+  client.lastActivity = new Date().toISOString().slice(0, 10);
+
+  closeModal();
+  toast(`✓ "${type}" registrado para ${client.name.slice(0, 22)}`, 'ok');
+  if (APP.currentView === 'documentos') navigateTo('documentos');
+  else if (APP.currentView === 'cliente-detail') navigateTo('cliente-detail');
+}
+
+// ── Create Missing Doc Task ───────────────
+function createMissingDocTask(clientId) {
+  const client = DATA.clients.find(c => c.id === clientId);
+  if (!client) return;
+  const clientDocs = new Set(DATA.documents.filter(d => d.clientId === clientId).map(d => d.type));
+  const reqDocs = ['XML','PDF','RUT','Cámara de Comercio','Extracto bancario','Nómina','Declaración IVA','Factura electrónica'];
+  const missing = reqDocs.filter(d => !clientDocs.has(d));
+  if (!missing.length) { toast('Este cliente ya tiene todos los documentos', 'ok'); return; }
+
+  const inOneWeek = new Date(Date.now() + 7 * 86400000).toISOString().slice(0, 10);
+  const newTask = {
+    id: DATA.tasks.reduce((m, t) => Math.max(m, t.id), 0) + 1,
+    title: `Solicitar documentos faltantes: ${missing.slice(0, 2).join(', ')}${missing.length > 2 ? ` +${missing.length - 2}` : ''}`,
+    clientId, clientName: client.name,
+    assignedTo: client.assignedTo, dueDate: inOneWeek,
+    status: 'Pendiente', priority: 'Alta', overdue: false,
+  };
+  DATA.tasks.push(newTask);
+  toast(`✓ Tarea creada para solicitar ${missing.length} documento${missing.length !== 1 ? 's' : ''} a ${client.name.slice(0, 20)}`, 'ok');
+  if (APP.currentView === 'documentos') navigateTo('documentos');
+}
+
+// ── Create Client Modal ───────────────────
+function openCreateClientModal() {
+  openModal(`
+    <div class="modal-hd">
+      <div><div class="modal-title">Nuevo cliente</div><div class="modal-sub">Registrar empresa en la plataforma</div></div>
+      ${CLOSE_BTN}
+    </div>
+    <div class="modal-body">
+      <div class="form-grid-2">
+        <div class="form-group">
+          <label class="form-label">Razón social <span class="req">*</span></label>
+          <input class="form-input" id="fc-name" placeholder="Ej: ABC Colombia SAS">
+        </div>
+        <div class="form-group">
+          <label class="form-label">NIT <span class="req">*</span></label>
+          <input class="form-input" id="fc-nit" placeholder="900.000.000-0">
+        </div>
+      </div>
+      <div class="form-grid-2">
+        <div class="form-group">
+          <label class="form-label">Ciudad</label>
+          <input class="form-input" id="fc-city" placeholder="Bogotá">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Industria</label>
+          <input class="form-input" id="fc-industry" placeholder="Ej: Comercio">
+        </div>
+      </div>
+      <div class="form-grid-2">
+        <div class="form-group">
+          <label class="form-label">Contacto principal</label>
+          <input class="form-input" id="fc-contact" placeholder="Nombre del responsable">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Correo electrónico</label>
+          <input class="form-input" id="fc-email" type="email" placeholder="info@empresa.com.co">
+        </div>
+      </div>
+      <div class="form-grid-2">
+        <div class="form-group">
+          <label class="form-label">Teléfono</label>
+          <input class="form-input" id="fc-phone" placeholder="+57 300 000 0000">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Responsable asignado</label>
+          <select class="form-input" id="fc-emp">
+            ${DATA.employees.map(e => `<option value="${e.id}">${e.name} (${e.clients} clientes)</option>`).join('')}
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Servicios contratados</label>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:6px">
+          ${_services.map(s => `<label style="display:flex;align-items:center;gap:6px;font-size:13px;color:var(--t2);cursor:pointer;padding:6px 10px;border:1px solid var(--ws-border);border-radius:var(--r-sm);transition:var(--fast)" onmouseover="this.style.borderColor='var(--brand)'" onmouseout="this.style.borderColor='var(--ws-border)'"><input type="checkbox" data-svc="${s}" style="width:14px;height:14px;accent-color:var(--brand)"> ${s}</label>`).join('')}
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Valor mensual (COP)</label>
+        <input class="form-input" id="fc-value" type="number" placeholder="1500000" step="100000" min="0">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal()">Cancelar</button>
+      <button class="btn btn-primary" onclick="saveNewClient()">
+        <svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+        Crear cliente
+      </button>
+    </div>`);
+  setTimeout(() => document.getElementById('fc-name') && document.getElementById('fc-name').focus(), 80);
+}
+
+function saveNewClient() {
+  const name = (document.getElementById('fc-name').value || '').trim();
+  const nit = (document.getElementById('fc-nit').value || '').trim();
+  const city = (document.getElementById('fc-city').value || '').trim() || 'Bogotá';
+  const industry = (document.getElementById('fc-industry').value || '').trim() || 'Comercio';
+  const contact = (document.getElementById('fc-contact').value || '').trim();
+  const email = (document.getElementById('fc-email').value || '').trim();
+  const phone = (document.getElementById('fc-phone').value || '').trim();
+  const empId = parseInt(document.getElementById('fc-emp').value);
+  const value = parseInt(document.getElementById('fc-value').value) || 1500000;
+  const svcs = [...document.querySelectorAll('[data-svc]:checked')].map(cb => cb.dataset.svc);
+
+  if (!name) { toast('La razón social es obligatoria', 'err'); document.getElementById('fc-name').focus(); return; }
+  if (!nit) { toast('El NIT es obligatorio', 'err'); document.getElementById('fc-nit').focus(); return; }
+
+  const colors = ['#4F46E5','#0D9488','#F79009','#2E90FA','#7C3AED','#F04438','#12B76A'];
+  const newClient = {
+    id: DATA.clients.reduce((m, c) => Math.max(m, c.id), 0) + 1,
+    name, nit, city, industry, contact, email, phone,
+    services: svcs.length ? svcs : ['Contabilidad'],
+    monthlyValue: value, assignedTo: empId,
+    status: 'Activo',
+    lastActivity: new Date().toISOString().slice(0, 10),
+    docCompleteness: 0,
+    initials: name.split(' ').filter(Boolean).slice(0, 2).map(w => w[0]).join('').toUpperCase(),
+    color: colors[DATA.clients.length % colors.length],
+  };
+  DATA.clients.push(newClient);
+  const emp = DATA.employees.find(e => e.id === empId);
+  if (emp) emp.clients++;
+  // Update sidebar badge
+  const badge = document.querySelector('[data-view="clientes"] .nav-badge');
+  if (badge) badge.textContent = DATA.clients.length;
+  closeModal();
+  toast(`✓ Cliente "${name}" creado y asignado a ${emp ? emp.name.split(' ')[0] : ''}`, 'ok');
+  navigateTo('clientes');
+}
+
+// ── CSV Export ────────────────────────────
+function exportClientsCSV() {
+  const headers = ['Empresa','NIT','Ciudad','Industria','Responsable','Estado','Valor Mensual','Documentación %','Última Actividad'];
+  const rows = DATA.clients.map(c => {
+    const emp = DATA.employees.find(e => e.id === c.assignedTo);
+    return [c.name, c.nit, c.city, c.industry, emp ? emp.name : '', c.status, c.monthlyValue, c.docCompleteness + '%', c.lastActivity];
+  });
+  downloadCSV('clientes_alivia.csv', [headers, ...rows]);
+  toast('✓ Exportando ' + DATA.clients.length + ' clientes...', 'ok');
+}
+
+function exportDocsCSV() {
+  const headers = ['Archivo','Tipo','Cliente','Fecha','Origen','Estado','Tamaño'];
+  const rows = DATA.documents.map(d => [d.filename, d.type, d.clientName, d.date, d.source, d.status, d.size]);
+  downloadCSV('documentos_alivia.csv', [headers, ...rows]);
+  toast('✓ Exportando ' + DATA.documents.length + ' documentos...', 'ok');
+}
+
+function downloadCSV(filename, rows) {
+  const csv = rows.map(r => r.map(v => `"${String(v).replace(/"/g, '""')}"`).join(',')).join('\n');
+  const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename; a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ── Execute Automation ────────────────────
+function executeAutomation(autoId) {
+  const a = DATA.automations.find(a => a.id === autoId);
+  if (!a) return;
+  a.runs += rand(1, 12);
+  a.lastRun = 'hace un momento';
+  closeModal();
+  toast(`✓ Automatización "${a.name}" ejecutada — ${a.runs} ejecuciones totales`, 'ok');
+  if (APP.currentView === 'automatizaciones') navigateTo('automatizaciones');
+}
+
+// ── Full Client Profile View ──────────────
+function navigateToClientProfile(clientId) {
+  APP.profileClientId = clientId;
+  APP.profileTab = 'overview';
+  closeModal();
+  navigateTo('cliente-detail');
+}
+
+function setProfileTab(tab) {
+  APP.profileTab = tab;
+  navigateTo('cliente-detail');
+}
+
+function renderClienteDetalle() {
+  const c = DATA.clients.find(c => c.id === APP.profileClientId);
+  if (!c) return `<div class="view-hd"><h1>Cliente no encontrado</h1></div><button class="btn btn-secondary" onclick="navigateTo('clientes')">← Volver</button>`;
+
+  const emp = DATA.employees.find(e => e.id === c.assignedTo);
+  const clientDocs = DATA.documents.filter(d => d.clientId === c.id);
+  const clientTasks = DATA.tasks.filter(t => t.clientId === c.id);
+  const tab = APP.profileTab || 'overview';
+
+  const reqDocs = ['XML','PDF','RUT','Cámara de Comercio','Extracto bancario','Nómina','Declaración IVA','Factura electrónica'];
+  const hasDocs = new Set(clientDocs.map(d => d.type));
+  const missing = reqDocs.filter(d => !hasDocs.has(d));
+  const wlColor = c.docCompleteness < 50 ? 'var(--red)' : c.docCompleteness < 80 ? 'var(--amber)' : 'var(--green)';
+
+  // ── Tab: Overview ────────────────────────
+  const overviewHtml = `
+    <div class="info-grid" style="margin-bottom:20px">
+      <div class="info-item"><div class="lbl">NIT</div><div class="val">${c.nit}</div></div>
+      <div class="info-item"><div class="lbl">Ciudad</div><div class="val">${c.city}</div></div>
+      <div class="info-item"><div class="lbl">Industria</div><div class="val">${c.industry}</div></div>
+      <div class="info-item"><div class="lbl">Estado</div><div class="val">${getBadgeForStatus(c.status)}</div></div>
+      <div class="info-item"><div class="lbl">Contacto</div><div class="val">${c.contact || '—'}</div></div>
+      <div class="info-item"><div class="lbl">Teléfono</div><div class="val">${c.phone || '—'}</div></div>
+      <div class="info-item"><div class="lbl">Correo</div><div class="val" style="font-size:12.5px">${c.email || '—'}</div></div>
+      <div class="info-item"><div class="lbl">Valor mensual</div><div class="val" style="color:var(--brand);font-weight:600">$${c.monthlyValue.toLocaleString('es-CO')}</div></div>
+      <div class="info-item"><div class="lbl">Responsable</div>
+        <div class="val" style="display:flex;align-items:center;gap:7px">
+          ${emp ? `<div class="av" style="background:${emp.color};width:22px;height:22px;font-size:9px">${emp.initials}</div>${emp.name}` : '—'}
+        </div>
+      </div>
+      <div class="info-item"><div class="lbl">Última actividad</div><div class="val">${fmtDate(c.lastActivity)}</div></div>
+    </div>
+    <div class="divider"></div>
+    <div style="margin-bottom:16px">
+      <div class="lbl" style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--t3);margin-bottom:8px">Servicios contratados</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px">${c.services.map(s => `<span class="badge b-brand">${s}</span>`).join('')}</div>
+    </div>
+    <div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+        <div class="lbl" style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--t3)">Estado documental (${c.docCompleteness}%)</div>
+        ${missing.length ? `<button class="btn btn-secondary btn-sm" onclick="createMissingDocTask(${c.id})">Solicitar ${missing.length} faltante${missing.length!==1?'s':''}</button>` : '<span class="badge b-green">Completo ✓</span>'}
+      </div>
+      <div class="prog" style="margin-bottom:12px"><div class="prog-fill" style="width:${c.docCompleteness}%;background:${wlColor}"></div></div>
+      <div class="doc-cl" style="margin-bottom:0">
+        ${reqDocs.map(d => `<div class="dc-item ${hasDocs.has(d) ? 'ok' : 'miss'}"><div class="dc-ic">${hasDocs.has(d) ? '✓' : '✗'}</div><span>${d}</span></div>`).join('')}
+      </div>
+    </div>`;
+
+  // ── Tab: Documents ───────────────────────
+  const docsHtml = clientDocs.length ? `
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+      <span style="font-size:13px;color:var(--t3)">${clientDocs.length} documento${clientDocs.length!==1?'s':''} registrados</span>
+      <button class="btn btn-primary btn-sm" onclick="openUploadDocModal(${c.id})">+ Agregar documento</button>
+    </div>
+    ${clientDocs.map(d => {
+      const ic = _docTypeIcons[d.type] || {bg:'#F3F4F6',color:'#374151',label:'DOC'};
+      return `<div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--ws-border-lt);cursor:pointer" onclick="openDocModal(${d.id})">
+        <div class="doc-type-ic" style="background:${ic.bg};color:${ic.color}">${ic.label}</div>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:13px;font-weight:500;color:var(--t1)">${d.filename}</div>
+          <div style="font-size:11.5px;color:var(--t3)">${fmtDate(d.date)} · ${d.size}</div>
+        </div>
+        <span class="src src-${d.source}">${d.source}</span>
+        ${getBadgeForStatus(d.status)}
+      </div>`;
+    }).join('')}` :
+    `<div class="empty"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"/></svg><h3>Sin documentos</h3><p>Registra el primer documento de este cliente.</p><button class="btn btn-primary btn-sm" style="margin-top:12px" onclick="openUploadDocModal(${c.id})">+ Agregar documento</button></div>`;
+
+  // ── Tab: Tasks ───────────────────────────
+  const tasksHtml = `
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+      <span style="font-size:13px;color:var(--t3)">${clientTasks.length} tarea${clientTasks.length!==1?'s':''}</span>
+      <button class="btn btn-primary btn-sm" onclick="openCreateTaskModal(${c.id})">+ Nueva tarea</button>
+    </div>
+    ${clientTasks.length ? clientTasks.map(t => `
+      <div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--ws-border-lt);cursor:pointer" onclick="openTaskModal(${t.id})">
+        <div class="tprio ${t.priority.toLowerCase()}" style="height:36px"></div>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:13px;font-weight:500;color:var(--t1)">${t.title}</div>
+          <div style="font-size:11.5px;color:var(--t3)">Vence: ${fmtDate(t.dueDate)} · ${getEmpName(t.assignedTo)}</div>
+        </div>
+        ${getBadgeForStatus(t.status)}
+      </div>`).join('') :
+      `<div class="empty"><h3>Sin tareas</h3><p>Crea la primera tarea para este cliente.</p></div>`}`;
+
+  // ── Tab: Activity ────────────────────────
+  const activityEvents = [
+    { color: '#12B76A', text: `${clientDocs.length} documentos registrados en el sistema`, time: fmtDate(c.lastActivity) },
+    { color: '#4F46E5', text: `Cliente asignado a ${emp ? emp.name : 'equipo'}`, time: fmtDate(c.lastActivity) },
+    { color: '#F79009', text: `Documentación al ${c.docCompleteness}% de completitud`, time: fmtDate(c.lastActivity) },
+    ...clientTasks.slice(0, 4).map(t => ({ color: '#2E90FA', text: `Tarea "${t.title}" — ${t.status}`, time: fmtDate(t.dueDate) })),
+    { color: '#0D9488', text: `Firma contratada para: ${c.services.join(', ')}`, time: '—' },
+  ];
+  const actHtml = activityEvents.map(e => `
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background:${e.color}"></div>
+      <div class="timeline-content">
+        <div class="timeline-text">${e.text}</div>
+        <div class="timeline-time">${e.time}</div>
+      </div>
+    </div>`).join('');
+
+  const tabs = [
+    { id: 'overview', label: 'Resumen' },
+    { id: 'docs', label: `Documentos (${clientDocs.length})` },
+    { id: 'tasks', label: `Tareas (${clientTasks.length})` },
+    { id: 'activity', label: 'Actividad' },
+  ];
+
+  const content = { overview: overviewHtml, docs: docsHtml, tasks: tasksHtml, activity: actHtml }[tab] || overviewHtml;
+
+  return `
+    <div class="profile-back" onclick="navigateTo('clientes')">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"/></svg>
+      Volver a Clientes
+    </div>
+
+    <div class="profile-hero">
+      <div class="av av-lg" style="background:${c.color};flex-shrink:0">${c.initials}</div>
+      <div class="profile-hero-info">
+        <div class="profile-name">${c.name}</div>
+        <div class="profile-meta">
+          <span>📋 NIT: ${c.nit}</span>
+          <span>📍 ${c.city}</span>
+          <span>🏢 ${c.industry}</span>
+          <span>${getBadgeForStatus(c.status)}</span>
+        </div>
+        <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+          ${c.services.map(s => `<span class="badge b-brand">${s}</span>`).join('')}
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;flex-shrink:0;align-items:flex-end">
+        <button class="btn btn-primary btn-sm" onclick="openCreateTaskModal(${c.id})">+ Nueva tarea</button>
+        <button class="btn btn-secondary btn-sm" onclick="openUploadDocModal(${c.id})">+ Documento</button>
+        <button class="btn btn-ghost btn-sm" onclick="toast('Editor de cliente próximamente','warn')">✏ Editar</button>
+      </div>
+    </div>
+
+    <div class="profile-tabs">
+      ${tabs.map(t => `<div class="profile-tab ${tab === t.id ? 'active' : ''}" onclick="setProfileTab('${t.id}')">${t.label}</div>`).join('')}
+    </div>
+    <div class="profile-body">${content}</div>`;
+}
+
+// ── Create Automation Modal ───────────────
+function openCreateAutoModal() {
+  const cats = ['Documentos','Tareas','Fiscal','Facturación','Notificaciones'];
+  openModal(`
+    <div class="modal-hd">
+      <div><div class="modal-title">Nueva automatización</div><div class="modal-sub">Define una regla SI → ENTONCES</div></div>
+      ${CLOSE_BTN}
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">Nombre de la regla <span class="req">*</span></label>
+        <input class="form-input" id="fa-name" placeholder="Ej: Archivar XML de Gmail">
+      </div>
+      <div class="form-grid-2">
+        <div class="form-group">
+          <label class="form-label">Categoría</label>
+          <select class="form-input" id="fa-cat">${cats.map(c=>`<option>${c}</option>`).join('')}</select>
+        </div>
+        <div></div>
+      </div>
+      <div style="background:var(--ws-bg);border:1px solid var(--ws-border);border-radius:var(--r-md);padding:16px;margin-bottom:16px">
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;color:var(--t3);margin-bottom:12px">Condición</div>
+        <div class="rule" style="align-items:center">
+          <span class="rule-lbl if">SI</span>
+          <input class="form-input" id="fa-if" placeholder="Ej: Correo de Gmail contiene XML adjunto" style="flex:1">
+        </div>
+      </div>
+      <div style="background:var(--ws-bg);border:1px solid var(--ws-border);border-radius:var(--r-md);padding:16px;margin-bottom:16px">
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;color:var(--t3);margin-bottom:12px">Acción</div>
+        <div class="rule" style="align-items:center">
+          <span class="rule-lbl then">ENTONCES</span>
+          <input class="form-input" id="fa-then" placeholder="Ej: Adjuntar al cliente y cambiar estado a Recibido" style="flex:1">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Descripción (opcional)</label>
+        <textarea class="form-input" id="fa-desc" rows="2" placeholder="Describe el propósito de esta automatización..." style="resize:vertical"></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal()">Cancelar</button>
+      <button class="btn btn-primary" onclick="saveNewAutomation()">
+        <svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"/></svg>
+        Crear automatización
+      </button>
+    </div>`);
+  setTimeout(() => document.getElementById('fa-name') && document.getElementById('fa-name').focus(), 80);
+}
+
+function saveNewAutomation() {
+  const name = (document.getElementById('fa-name').value || '').trim();
+  const ifCond = (document.getElementById('fa-if').value || '').trim();
+  const thenAct = (document.getElementById('fa-then').value || '').trim();
+  const category = document.getElementById('fa-cat').value;
+  const desc = (document.getElementById('fa-desc').value || '').trim();
+
+  if (!name) { toast('El nombre es obligatorio', 'err'); document.getElementById('fa-name').focus(); return; }
+  if (!ifCond) { toast('Define la condición SI', 'err'); document.getElementById('fa-if').focus(); return; }
+  if (!thenAct) { toast('Define la acción ENTONCES', 'err'); document.getElementById('fa-then').focus(); return; }
+
+  const newAuto = {
+    id: DATA.automations.reduce((m, a) => Math.max(m, a.id), 0) + 1,
+    name, if: ifCond, then: thenAct, category,
+    desc: desc || `Regla: ${ifCond.slice(0, 40)}...`,
+    active: true, runs: 0, lastRun: 'Nunca ejecutado',
+  };
+  DATA.automations.push(newAuto);
+  const badge = document.querySelector('[data-view="automatizaciones"] .nav-badge');
+  if (badge) badge.textContent = DATA.automations.filter(a => a.active).length;
+  closeModal();
+  toast(`✓ Automatización "${name}" creada y activada`, 'ok');
+  navigateTo('automatizaciones');
 }
 
 /* ── Boot ─────────────────────────────────── */
