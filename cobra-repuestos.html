@@ -592,6 +592,8 @@ table{border-collapse:collapse;width:100%}
 .form-input[type=number]{-moz-appearance:textfield}
 select.form-input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236B7280' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;background-size:18px;padding-right:32px}
 .form-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-row:has(> .form-group:nth-child(3)){grid-template-columns:1fr 1fr 1fr}
 .form-err{font-size:12px;color:var(--red);margin-top:4px}
 .drop-zone{
   background:var(--ws-bg);border:2px dashed var(--ws-border);
@@ -830,6 +832,16 @@ function getBadgeForStatus(status) {
 function getBranchName(id){const b=DATA.branches.find(b=>b.id===id);return b?b.name:'—';}
 function getBranchInitials(id){const b=DATA.branches.find(b=>b.id===id);return b?b.initials:'?';}
 function getBranchColor(id){const b=DATA.branches.find(b=>b.id===id);return b?b.color:'#888';}
+
+// ── Staff roster (branch managers) ───────────
+const STAFF=[
+  {id:1,name:'Andrés Vargas',role:'Gerente Sucursal Norte',initials:'AV',color:'#4F46E5'},
+  {id:2,name:'Carolina Díaz',role:'Gerente Sucursal Sur',initials:'CD',color:'#0D9488'},
+  {id:3,name:'Miguel Torres',role:'Gerente Sucursal Centro',initials:'MT',color:'#F79009'},
+];
+function getStaffName(id){const s=STAFF.find(s=>s.id===id);return s?s.name:'Sin asignar';}
+function getStaffInitials(id){const s=STAFF.find(s=>s.id===id);return s?s.initials:'?';}
+function getStaffColor(id){const s=STAFF.find(s=>s.id===id);return s?s.color:'#888';}
 
 // ── Toast ─────────────────────────────────────
 function toast(msg,type='ok'){
@@ -1179,12 +1191,13 @@ function renderDashboard() {
       <div class="wl-pct" style="font-size:11.5px">${fmtCOP(b.inventoryValue)}</div>
     </div>`).join('');
 
-  const supplierHtml = DATA.suppliers.slice(0,6).map(s=>`
+  const topSuppliers = [...DATA.suppliers].sort((a,b)=>b.performance-a.performance).slice(0,6);
+  const supplierHtml = topSuppliers.map(s=>`
     <div class="int-row">
-      <div class="int-logo" style="background:${s.bg};color:${s.color}">${s.letter}</div>
+      <div class="int-logo" style="background:${s.color}1a;color:${s.color}">${s.initials}</div>
       <div class="int-name">${s.name}</div>
-      <div class="int-sync">${s.deliveryDays}d entrega</div>
-      <div class="int-dot ${s.active?'on':'off'}"></div>
+      <div class="int-sync">${s.performance}% desemp.</div>
+      <div class="int-dot on"></div>
     </div>`).join('');
 
   return `
@@ -1240,7 +1253,7 @@ function renderDashboard() {
     </div>
     <div class="card">
       <div class="sec-hd">
-        <div><div class="sec-title">Proveedores activos</div><div class="sec-sub">${DATA.suppliers.filter(s=>s.active).length}/${DATA.suppliers.length} habilitados</div></div>
+        <div><div class="sec-title">Mejores proveedores</div><div class="sec-sub">${DATA.suppliers.length} proveedores · por desempeño</div></div>
         <button class="btn btn-ghost btn-sm" onclick="navigateTo('proveedores')">Gestionar →</button>
       </div>
       ${supplierHtml}
@@ -1346,8 +1359,6 @@ function openProductModal(prodId) {
   const p = DATA.products.find(p=>p.id===prodId);
   if(!p) return;
   const sup = DATA.suppliers.find(s=>s.id===p.supplierId);
-  const prodOrders = DATA.orders.filter(o=>o.items&&o.items.some(i=>i.productId===p.id)).slice(0,4);
-  const prodTrans  = DATA.transfers.filter(t=>t.productId===p.id).slice(0,4);
 
   const stockRows = DATA.branches.map((b,i)=>`
     <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--ws-border-lt)">
@@ -1484,7 +1495,7 @@ function renderProductoDetalle() {
     const relTrans = DATA.transfers.filter(t=>t.productId===p.id);
     const transRows = relTrans.length ? relTrans.map(t=>`
       <tr>
-        <td style="font-size:12.5px;font-family:monospace;color:var(--t3)">${t.id}</td>
+        <td style="font-size:12.5px;font-family:monospace;color:var(--t3)">${t.code}</td>
         <td>${getBranchName(t.fromBranchId)} → ${getBranchName(t.toBranchId)}</td>
         <td style="font-size:13px;font-weight:600">${t.qty} uds</td>
         <td style="font-size:12.5px;color:var(--t3)">${fmtDate(t.date)}</td>
@@ -1660,15 +1671,16 @@ function saveQuickOrder(prodId) {
   const brId  = parseInt(document.getElementById('qo-branch').value)||1;
   if(qty<1){toast('Indica una cantidad válida','warn');return;}
   const sup = DATA.suppliers.find(s=>s.id===supId);
-  const newId = `OC-${String(DATA.orders.length+1).padStart(4,'0')}`;
+  const newNum = DATA.orders.length+1;
+  const code = `OC-${String(newNum).padStart(4,'0')}`;
   DATA.orders.unshift({
-    id:newId,supplierId:supId,supplierName:sup?sup.name:'—',
+    id:newNum,code,supplierId:supId,supplierName:sup?sup.name:'—',
     branchId:brId,date:new Date().toISOString().slice(0,10),
     status:'Borrador',total:qty*p.cost,
-    items:[{productId:prodId,sku:p.sku,name:p.name,qty,cost:p.cost}],
+    products:[{productId:prodId,sku:p.sku,name:p.name,qty,cost:p.cost,line:qty*p.cost}],
   });
   closeModal();
-  toast(`Orden ${newId} creada para ${p.name}`,'ok');
+  toast(`Orden ${code} creada para ${p.name}`,'ok');
   navigateTo('ordenes');
 }
 
@@ -1726,22 +1738,752 @@ function saveNewTransfer(prodId) {
   if(fromId===toId){toast('Origen y destino deben ser diferentes','warn');return;}
   if(qty<1){toast('Indica una cantidad válida','warn');return;}
   if(p.stock[fromId-1]<qty){toast(`Stock insuficiente en ${getBranchName(fromId)} (${p.stock[fromId-1]} uds)`,'warn');return;}
-  const newId=`TR-${String(DATA.transfers.length+1).padStart(4,'0')}`;
+  const newNum=DATA.transfers.length+1;
+  const code=`TR-${String(newNum).padStart(4,'0')}`;
   DATA.transfers.unshift({
-    id:newId,productId:prodId,sku:p.sku,productName:p.name,
+    id:newNum,code,productId:prodId,sku:p.sku,productName:p.name,
     fromBranchId:fromId,toBranchId:toId,qty,reason,
     date:new Date().toISOString().slice(0,10),status:'Solicitada',
   });
   closeModal();
-  toast(`Transferencia ${newId} solicitada: ${qty} uds de ${p.name}`,'ok');
+  toast(`Transferencia ${code} solicitada: ${qty} uds de ${p.name}`,'ok');
+  if(APP.currentView==='transferencias')navigateTo('transferencias');
 }
 
-/* ── Phase 3+ placeholders ───────────────────── */
-function renderOrdenes()         { return placeholder('Órdenes de Compra'); }
-function renderTareas()          { return placeholder('Tareas'); }
-function renderTransferencias()  { return placeholder('Transferencias'); }
-function renderProveedores()     { return placeholder('Proveedores'); }
-function renderSucursales()      { return placeholder('Sucursales'); }
+/* =============================================
+   PHASE 3 — Órdenes · Tareas · Transferencias
+              Proveedores · Sucursales
+   ============================================= */
+
+/* ── Órdenes de Compra ──────────────────────── */
+function renderOrdenes() {
+  const tab = APP.ordenTab || 'todos';
+  const search = APP.ordenSearch || '';
+
+  let orders = DATA.orders.filter(o=>{
+    const mt = tab==='todos' || o.status===tab;
+    const mq = !search || o.code.toLowerCase().includes(search.toLowerCase()) || o.supplierName.toLowerCase().includes(search.toLowerCase());
+    return mt && mq;
+  });
+
+  const counts = {todos:DATA.orders.length};
+  ['Borrador','Enviada','Recibida','Cancelada'].forEach(s=>counts[s]=DATA.orders.filter(o=>o.status===s).length);
+  const pendValue = DATA.orders.filter(o=>o.status==='Borrador'||o.status==='Enviada').reduce((s,o)=>s+o.total,0);
+
+  const rows = orders.map(o=>{
+    const sup = DATA.suppliers.find(s=>s.id===o.supplierId);
+    const itemCount = (o.products||[]).length;
+    return `<tr onclick="openOrderModal(${o.id})">
+      <td style="font-family:monospace;font-size:12.5px;font-weight:600;color:var(--t1)">${o.code}</td>
+      <td>
+        <div style="display:flex;align-items:center;gap:8px">
+          <div class="av" style="background:${sup?sup.color:'#888'};width:24px;height:24px;font-size:9px">${sup?sup.initials:'?'}</div>
+          <span style="font-size:13px">${o.supplierName}</span>
+        </div>
+      </td>
+      <td style="font-size:12.5px;color:var(--t3)">${getBranchName(o.branchId)}</td>
+      <td style="font-size:12.5px;color:var(--t3)">${itemCount} ítem${itemCount!==1?'s':''}</td>
+      <td style="font-size:13px;font-weight:600;color:var(--t1)">${fmtCOP(o.total)}</td>
+      <td style="font-size:12.5px;color:var(--t3)">${fmtDate(o.date)}</td>
+      <td>${getBadgeForStatus(o.status)}</td>
+    </tr>`;
+  }).join('');
+
+  return `
+  <div class="view-hd">
+    <div>
+      <h1>Órdenes de Compra</h1>
+      <p class="sub">${DATA.orders.length} órdenes · ${counts['Enviada']+counts['Borrador']} pendientes · ${fmtCOP(pendValue)} por recibir</p>
+    </div>
+    <div class="view-actions">
+      <button class="btn btn-secondary btn-sm" onclick="toast('Exportando órdenes...','ok')">⬇ Exportar CSV</button>
+      <button class="btn btn-primary btn-sm" onclick="openCreateOrderModal()">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/></svg>
+        Nueva orden
+      </button>
+    </div>
+  </div>
+
+  <div class="doc-ctrl">
+    <div class="search" style="min-width:240px">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"/></svg>
+      <input type="text" placeholder="Buscar orden o proveedor..." oninput="APP.ordenSearch=this.value;navigateTo('ordenes')" value="${search}">
+    </div>
+  </div>
+
+  <div class="f-tabs" style="margin-bottom:18px">
+    ${['todos','Borrador','Enviada','Recibida','Cancelada'].map(s=>`<div class="f-tab ${tab===s?'active':''}" onclick="APP.ordenTab='${s}';navigateTo('ordenes')">${s==='todos'?'Todas':s} (${counts[s]||0})</div>`).join('')}
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Orden</th><th>Proveedor</th><th>Sucursal</th><th>Ítems</th><th>Total</th><th>Fecha</th><th>Estado</th></tr></thead>
+      <tbody>${rows||'<tr><td colspan="7"><div class="empty"><h3>Sin órdenes</h3></div></td></tr>'}</tbody>
+    </table>
+  </div>`;
+}
+
+function openOrderModal(orderId) {
+  const o = DATA.orders.find(o=>o.id===orderId);
+  if(!o) return;
+  const sup = DATA.suppliers.find(s=>s.id===o.supplierId);
+  const itemsHtml = (o.products||[]).map(it=>`
+    <div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--ws-border-lt)">
+      <div style="flex:1;min-width:0">
+        <div style="font-size:13px;font-weight:500;color:var(--t1)">${it.name}</div>
+        <div style="font-size:11.5px;color:var(--t3);font-family:monospace">${it.sku}</div>
+      </div>
+      <span style="font-size:12.5px;color:var(--t3)">${it.qty} × ${fmtCOP(it.cost)}</span>
+      <span style="font-size:13px;font-weight:600;color:var(--t1);min-width:90px;text-align:right">${fmtCOP(it.line||it.qty*it.cost)}</span>
+    </div>`).join('');
+
+  const flow = ['Borrador','Enviada','Recibida'];
+  openModal(`
+    <div class="modal-hd">
+      <div>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px">
+          <div class="av av-md" style="background:${sup?sup.color:'#888'};font-size:11px">${sup?sup.initials:'?'}</div>
+          <div>
+            <div class="modal-title">${o.code}</div>
+            <div class="modal-sub">${o.supplierName} · ${getBranchName(o.branchId)}</div>
+          </div>
+        </div>
+        ${getBadgeForStatus(o.status)}
+      </div>
+      ${CLOSE_BTN}
+    </div>
+    <div class="modal-body">
+      <div class="info-grid" style="margin-bottom:16px">
+        <div class="info-item"><div class="lbl">Proveedor</div><div class="val">${o.supplierName}</div></div>
+        <div class="info-item"><div class="lbl">Sucursal destino</div><div class="val">${getBranchName(o.branchId)}</div></div>
+        <div class="info-item"><div class="lbl">Fecha</div><div class="val">${fmtDate(o.date)}</div></div>
+        <div class="info-item"><div class="lbl">Total</div><div class="val" style="font-weight:700">${fmtCOP(o.total)}</div></div>
+      </div>
+      <div class="lbl" style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--t3);margin-bottom:6px">Ítems de la orden (${(o.products||[]).length})</div>
+      <div style="max-height:240px;overflow-y:auto">${itemsHtml}</div>
+      ${o.status!=='Cancelada'&&o.status!=='Recibida'?`
+      <div style="margin-top:16px">
+        <div class="lbl" style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--t3);margin-bottom:10px">Cambiar estado</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          ${flow.map(s=>`<button class="btn ${o.status===s?'btn-primary':'btn-secondary'} btn-sm" onclick="updateOrderStatus(${o.id},'${s}')">${s}</button>`).join('')}
+        </div>
+      </div>`:''}
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal()">Cerrar</button>
+      ${o.status==='Borrador'?`<button class="btn btn-secondary btn-sm" onclick="updateOrderStatus(${o.id},'Enviada')">Enviar a proveedor</button>`:''}
+      ${o.status==='Enviada'?`<button class="btn btn-primary btn-sm" onclick="updateOrderStatus(${o.id},'Recibida')">✓ Marcar recibida</button>`:''}
+    </div>`);
+}
+
+function updateOrderStatus(orderId, newStatus) {
+  const o = DATA.orders.find(o=>o.id===orderId);
+  if(!o) return;
+  o.status = newStatus;
+  // If received, add stock to destination branch
+  if(newStatus==='Recibida' && o.products){
+    o.products.forEach(it=>{
+      const p = DATA.products.find(p=>p.id===it.productId);
+      if(p){ p.stock[o.branchId-1]+=it.qty; p.status=getStockStatus(p); }
+    });
+    toast(`Orden ${o.code} recibida · stock actualizado en ${getBranchName(o.branchId)}`,'ok');
+  } else {
+    toast(`Orden ${o.code} → ${newStatus}`,'ok');
+  }
+  closeModal();
+  navigateTo('ordenes');
+}
+
+function openCreateOrderModal() {
+  const supOpts = DATA.suppliers.map(s=>`<option value="${s.id}">${s.name}</option>`).join('');
+  const prodOpts = DATA.products.slice(0,40).map(p=>`<option value="${p.id}">${p.sku} · ${p.name}</option>`).join('');
+  openModal(`
+    <div class="modal-hd"><div class="modal-title">Nueva orden de compra</div>${CLOSE_BTN}</div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Proveedor *</label>
+          <select class="cfg-input" id="no-sup">${supOpts}</select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Sucursal destino</label>
+          <select class="cfg-input" id="no-branch">${DATA.branches.map(b=>`<option value="${b.id}">${b.name}</option>`).join('')}</select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Producto principal</label>
+          <select class="cfg-input" id="no-prod">${prodOpts}</select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Cantidad</label>
+          <input class="cfg-input" id="no-qty" type="number" value="20" min="1">
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal()">Cancelar</button>
+      <button class="btn btn-primary" onclick="saveNewOrder()">Crear orden</button>
+    </div>`);
+}
+
+function saveNewOrder() {
+  const supId = parseInt(document.getElementById('no-sup').value)||1;
+  const brId  = parseInt(document.getElementById('no-branch').value)||1;
+  const pId   = parseInt(document.getElementById('no-prod').value)||1;
+  const qty   = parseInt(document.getElementById('no-qty').value)||0;
+  if(qty<1){toast('Indica una cantidad válida','warn');return;}
+  const sup = DATA.suppliers.find(s=>s.id===supId);
+  const p   = DATA.products.find(p=>p.id===pId);
+  const newNum = DATA.orders.length+1;
+  const code = `OC-${String(newNum).padStart(4,'0')}`;
+  DATA.orders.unshift({
+    id:newNum,code,supplierId:supId,supplierName:sup?sup.name:'—',
+    branchId:brId,date:new Date().toISOString().slice(0,10),status:'Borrador',
+    total:qty*p.cost,
+    products:[{productId:pId,sku:p.sku,name:p.name,qty,cost:p.cost,line:qty*p.cost}],
+  });
+  closeModal();
+  toast(`Orden ${code} creada en borrador`,'ok');
+  navigateTo('ordenes');
+}
+
+/* ── Tareas ─────────────────────────────────── */
+function renderTareas() {
+  const sf = APP.taskStatus || 'todos';
+  const pf = APP.taskPriority || 'todos';
+  const bf = APP.taskBranch || 'todos';
+  const sq = APP.taskSearch || '';
+
+  let tasks = DATA.tasks.filter(t=>{
+    const ms = sf==='todos'||t.status===sf;
+    const mp = pf==='todos'||t.priority===pf;
+    const mb = bf==='todos'||t.branchId===parseInt(bf);
+    const mq = !sq||t.title.toLowerCase().includes(sq.toLowerCase());
+    return ms&&mp&&mb&&mq;
+  });
+
+  const rows = tasks.map(t=>`
+    <tr onclick="openTaskModal(${t.id})">
+      <td>
+        <div style="display:flex;align-items:flex-start;gap:10px">
+          <div class="tprio ${t.priority.toLowerCase()}" style="height:36px;margin-top:2px"></div>
+          <div>
+            <div style="font-size:13.5px;font-weight:500;color:var(--t1)">${t.title}</div>
+            <div style="font-size:11.5px;color:var(--t3);margin-top:2px">${getBranchName(t.branchId)}</div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div style="display:flex;align-items:center;gap:7px">
+          <div class="av" style="background:${getStaffColor(t.assignedTo)};width:24px;height:24px;font-size:9px">${getStaffInitials(t.assignedTo)}</div>
+          <span style="font-size:13px">${getStaffName(t.assignedTo).split(' ')[0]}</span>
+        </div>
+      </td>
+      <td style="font-size:13px;color:${t.overdue?'var(--red)':'var(--t2)'}">
+        ${t.overdue?'⚠ ':''}<span style="${t.overdue?'font-weight:600':''}">${fmtDate(t.dueDate)}</span>
+      </td>
+      <td><span class="badge b-${t.priority==='Alta'?'red':t.priority==='Media'?'amber':'green'}">${t.priority}</span></td>
+      <td>${getBadgeForStatus(t.status)}</td>
+    </tr>`).join('');
+
+  return `
+  <div class="view-hd">
+    <div>
+      <h1>Tareas</h1>
+      <p class="sub">${DATA.tasks.length} tareas · ${DATA.tasks.filter(t=>t.status==='Completado').length} completadas · ${DATA.tasks.filter(t=>t.overdue||t.status==='Vencido').length} vencidas</p>
+    </div>
+    <div class="view-actions">
+      <button class="btn btn-primary btn-sm" onclick="openCreateTaskModal()">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/></svg>
+        Nueva tarea
+      </button>
+    </div>
+  </div>
+
+  <div class="task-ctrl">
+    <div class="search" style="min-width:240px">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"/></svg>
+      <input type="text" placeholder="Buscar tarea..." oninput="APP.taskSearch=this.value;navigateTo('tareas')" value="${sq}">
+    </div>
+    <select class="cfg-input" style="width:auto" onchange="APP.taskStatus=this.value;navigateTo('tareas')">
+      <option value="todos">Todos los estados</option>
+      ${['Pendiente','En Proceso','Completado','Vencido'].map(s=>`<option value="${s}" ${sf===s?'selected':''}>${s}</option>`).join('')}
+    </select>
+    <select class="cfg-input" style="width:auto" onchange="APP.taskPriority=this.value;navigateTo('tareas')">
+      <option value="todos">Todas las prioridades</option>
+      ${['Alta','Media','Baja'].map(p=>`<option value="${p}" ${pf===p?'selected':''}>${p}</option>`).join('')}
+    </select>
+    <select class="cfg-input" style="width:auto" onchange="APP.taskBranch=this.value;navigateTo('tareas')">
+      <option value="todos">Todas las sucursales</option>
+      ${DATA.branches.map(b=>`<option value="${b.id}" ${bf==b.id?'selected':''}>${b.name}</option>`).join('')}
+    </select>
+    <span style="font-size:12px;color:var(--t3);margin-left:auto">${tasks.length} resultado${tasks.length!==1?'s':''}</span>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Tarea</th><th>Responsable</th><th>Vencimiento</th><th>Prioridad</th><th>Estado</th></tr></thead>
+      <tbody>${rows||'<tr><td colspan="5"><div class="empty"><h3>Sin tareas</h3></div></td></tr>'}</tbody>
+    </table>
+  </div>`;
+}
+
+function openTaskModal(taskId) {
+  const t = DATA.tasks.find(t=>t.id===taskId);
+  if(!t) return;
+  openModal(`
+    <div class="modal-hd">
+      <div>
+        <div class="modal-title">${t.title}</div>
+        <div class="modal-sub" style="margin-top:6px;display:flex;gap:8px;flex-wrap:wrap">
+          ${getBadgeForStatus(t.status)}
+          <span class="badge b-${t.priority==='Alta'?'red':t.priority==='Media'?'amber':'green'}">${t.priority}</span>
+        </div>
+      </div>
+      ${CLOSE_BTN}
+    </div>
+    <div class="modal-body">
+      <div class="info-grid" style="margin-bottom:18px">
+        <div class="info-item"><div class="lbl">Sucursal</div><div class="val">${getBranchName(t.branchId)}</div></div>
+        <div class="info-item"><div class="lbl">Vencimiento</div><div class="val" style="color:${t.overdue?'var(--red)':'inherit'}">${fmtDate(t.dueDate)}${t.overdue?' ⚠':''}</div></div>
+        <div class="info-item"><div class="lbl">Responsable</div>
+          <div class="val" style="display:flex;align-items:center;gap:6px">
+            <div class="av" style="background:${getStaffColor(t.assignedTo)};width:22px;height:22px;font-size:9px">${getStaffInitials(t.assignedTo)}</div>${getStaffName(t.assignedTo)}
+          </div>
+        </div>
+        <div class="info-item"><div class="lbl">Prioridad</div><div class="val">${t.priority}</div></div>
+      </div>
+      <div>
+        <div class="lbl" style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--t3);margin-bottom:10px">Cambiar estado</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          ${['Pendiente','En Proceso','Completado'].map(s=>`
+          <button class="btn ${t.status===s?'btn-primary':'btn-secondary'} btn-sm" onclick="updateTaskStatus(${t.id},'${s}')">${s}</button>`).join('')}
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal()">Cancelar</button>
+      <button class="btn btn-danger btn-sm" onclick="deleteTask(${t.id})">Eliminar</button>
+    </div>`);
+}
+
+function updateTaskStatus(taskId, newStatus) {
+  const t = DATA.tasks.find(t=>t.id===taskId);
+  if(!t) return;
+  t.status = newStatus;
+  t.overdue = new Date(t.dueDate)<new Date() && newStatus!=='Completado';
+  closeModal();
+  toast(`Tarea actualizada → ${newStatus}`,'ok');
+  navigateTo('tareas');
+}
+
+function deleteTask(taskId) {
+  const i = DATA.tasks.findIndex(t=>t.id===taskId);
+  if(i<0) return;
+  const t = DATA.tasks[i];
+  DATA.tasks.splice(i,1);
+  closeModal();
+  toast(`Tarea "${t.title}" eliminada`,'warn');
+  navigateTo('tareas');
+}
+
+function openCreateTaskModal() {
+  openModal(`
+    <div class="modal-hd"><div class="modal-title">Nueva tarea</div>${CLOSE_BTN}</div>
+    <div class="modal-body">
+      <div class="form-group" style="margin-bottom:14px">
+        <label class="form-label">Título *</label>
+        <input class="cfg-input" id="nt-title" placeholder="Ej. Recibir pedido Bosch">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Sucursal</label>
+          <select class="cfg-input" id="nt-branch">${DATA.branches.map(b=>`<option value="${b.id}">${b.name}</option>`).join('')}</select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Responsable</label>
+          <select class="cfg-input" id="nt-staff">${STAFF.map(s=>`<option value="${s.id}">${s.name}</option>`).join('')}</select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Prioridad</label>
+          <select class="cfg-input" id="nt-prio"><option>Alta</option><option selected>Media</option><option>Baja</option></select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Vencimiento</label>
+          <input class="cfg-input" id="nt-due" type="date" value="${new Date(Date.now()+5*86400000).toISOString().slice(0,10)}">
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal()">Cancelar</button>
+      <button class="btn btn-primary" onclick="saveNewTask()">Crear tarea</button>
+    </div>`);
+}
+
+function saveNewTask() {
+  const title = document.getElementById('nt-title').value.trim();
+  if(!title){toast('El título es obligatorio','warn');return;}
+  const branchId = parseInt(document.getElementById('nt-branch').value)||1;
+  const assignedTo = parseInt(document.getElementById('nt-staff').value)||1;
+  const priority = document.getElementById('nt-prio').value;
+  const dueDate = document.getElementById('nt-due').value;
+  const newId = Math.max(0,...DATA.tasks.map(t=>t.id))+1;
+  DATA.tasks.unshift({
+    id:newId,title,branchId,assignedTo,dueDate,
+    status:'Pendiente',priority,
+    overdue:new Date(dueDate)<new Date(),
+  });
+  closeModal();
+  toast(`Tarea "${title}" creada`,'ok');
+  navigateTo('tareas');
+}
+
+/* ── Transferencias ─────────────────────────── */
+function renderTransferencias() {
+  const tab = APP.transStatus || 'todos';
+  let trans = tab==='todos' ? DATA.transfers : DATA.transfers.filter(t=>t.status===tab);
+
+  const counts = {todos:DATA.transfers.length};
+  ['Solicitada','Aprobada','En Tránsito','Completada','Cancelada'].forEach(s=>counts[s]=DATA.transfers.filter(t=>t.status===s).length);
+  const openCount = counts['Solicitada']+counts['Aprobada']+counts['En Tránsito'];
+
+  const cards = trans.map(t=>{
+    const p = DATA.products.find(p=>p.id===t.productId);
+    const next = {'Solicitada':'Aprobada','Aprobada':'En Tránsito','En Tránsito':'Completada'}[t.status];
+    return `<div class="auto-card" onclick="openTransferModal(${t.id})">
+      <div class="auto-card-hd">
+        <div>
+          <div class="auto-name">${t.code}</div>
+          <div class="auto-desc">${t.productName}</div>
+        </div>
+        ${getBadgeForStatus(t.status)}
+      </div>
+      <div class="rule">
+        <span class="rule-lbl if" style="background:${getBranchColor(t.fromBranchId)}1a;color:${getBranchColor(t.fromBranchId)}">DESDE</span>
+        <span class="rule-txt">${getBranchName(t.fromBranchId)}</span>
+      </div>
+      <div class="rule">
+        <span class="rule-lbl then" style="background:${getBranchColor(t.toBranchId)}1a;color:${getBranchColor(t.toBranchId)}">HACIA</span>
+        <span class="rule-txt">${getBranchName(t.toBranchId)}</span>
+      </div>
+      <div class="auto-stats">
+        <div class="auto-stat"><div class="auto-stat-v">${t.qty}</div><div class="auto-stat-l">Unidades</div></div>
+        <div class="auto-stat"><div class="auto-stat-v" style="font-size:12px;font-weight:500">${fmtDateShort(t.date)}</div><div class="auto-stat-l">Fecha</div></div>
+        <div class="auto-stat" onclick="event.stopPropagation()">
+          ${next?`<button class="btn btn-secondary btn-sm" onclick="advanceTransfer(${t.id})">→ ${next}</button>`:`<span class="badge b-green" style="font-size:11px">Finalizada</span>`}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  return `
+  <div class="view-hd">
+    <div>
+      <h1>Transferencias</h1>
+      <p class="sub">Movimientos de inventario entre sucursales · ${openCount} abiertas · ${counts['Completada']} completadas</p>
+    </div>
+    <div class="view-actions">
+      <button class="btn btn-primary btn-sm" onclick="openCreateTransferPicker()">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/></svg>
+        Nueva transferencia
+      </button>
+    </div>
+  </div>
+
+  <div class="f-tabs" style="margin-bottom:20px">
+    ${['todos','Solicitada','Aprobada','En Tránsito','Completada','Cancelada'].map(s=>`<div class="f-tab ${tab===s?'active':''}" onclick="APP.transStatus='${s}';navigateTo('transferencias')">${s==='todos'?'Todas':s} (${counts[s]||0})</div>`).join('')}
+  </div>
+
+  <div class="auto-grid">${cards||'<div class="empty"><h3>Sin transferencias</h3></div>'}</div>`;
+}
+
+function openTransferModal(transId) {
+  const t = DATA.transfers.find(t=>t.id===transId);
+  if(!t) return;
+  const p = DATA.products.find(p=>p.id===t.productId);
+  openModal(`
+    <div class="modal-hd">
+      <div>
+        <div class="modal-title">${t.code}</div>
+        <div class="modal-sub" style="margin-top:6px">${getBadgeForStatus(t.status)}</div>
+      </div>
+      ${CLOSE_BTN}
+    </div>
+    <div class="modal-body">
+      <div style="display:flex;align-items:center;justify-content:center;gap:16px;padding:16px;background:var(--ws-bg);border-radius:var(--r-md);margin-bottom:18px">
+        <div style="text-align:center">
+          <div class="av av-md" style="background:${getBranchColor(t.fromBranchId)};margin:0 auto 6px">${getBranchInitials(t.fromBranchId)}</div>
+          <div style="font-size:12px;color:var(--t2)">${getBranchName(t.fromBranchId)}</div>
+        </div>
+        <div style="text-align:center;color:var(--brand)">
+          <div style="font-size:20px;font-weight:700">${t.qty}</div>
+          <div style="font-size:18px">→</div>
+        </div>
+        <div style="text-align:center">
+          <div class="av av-md" style="background:${getBranchColor(t.toBranchId)};margin:0 auto 6px">${getBranchInitials(t.toBranchId)}</div>
+          <div style="font-size:12px;color:var(--t2)">${getBranchName(t.toBranchId)}</div>
+        </div>
+      </div>
+      <div class="info-grid">
+        <div class="info-item"><div class="lbl">Producto</div><div class="val">${t.productName}</div></div>
+        <div class="info-item"><div class="lbl">SKU</div><div class="val" style="font-family:monospace">${t.sku}</div></div>
+        <div class="info-item"><div class="lbl">Cantidad</div><div class="val">${t.qty} uds</div></div>
+        <div class="info-item"><div class="lbl">Motivo</div><div class="val">${t.reason}</div></div>
+        <div class="info-item"><div class="lbl">Fecha</div><div class="val">${fmtDate(t.date)}</div></div>
+        <div class="info-item"><div class="lbl">Estado</div><div class="val">${getBadgeForStatus(t.status)}</div></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal()">Cerrar</button>
+      ${t.status!=='Completada'&&t.status!=='Cancelada'?`<button class="btn btn-danger btn-sm" onclick="cancelTransfer(${t.id})">Cancelar transferencia</button>`:''}
+      ${({'Solicitada':'Aprobar','Aprobada':'Marcar en tránsito','En Tránsito':'Completar'}[t.status])?`<button class="btn btn-primary btn-sm" onclick="advanceTransfer(${t.id})">${({'Solicitada':'Aprobar','Aprobada':'Marcar en tránsito','En Tránsito':'Completar'}[t.status])}</button>`:''}
+    </div>`);
+}
+
+function advanceTransfer(transId) {
+  const t = DATA.transfers.find(t=>t.id===transId);
+  if(!t) return;
+  const next = {'Solicitada':'Aprobada','Aprobada':'En Tránsito','En Tránsito':'Completada'}[t.status];
+  if(!next) return;
+  t.status = next;
+  if(next==='Completada'){
+    const p = DATA.products.find(p=>p.id===t.productId);
+    if(p && p.stock[t.fromBranchId-1]>=t.qty){
+      p.stock[t.fromBranchId-1]-=t.qty;
+      p.stock[t.toBranchId-1]+=t.qty;
+      p.status=getStockStatus(p);
+    }
+    toast(`${t.code} completada · stock movido a ${getBranchName(t.toBranchId)}`,'ok');
+  } else {
+    toast(`${t.code} → ${next}`,'ok');
+  }
+  closeModal();
+  navigateTo('transferencias');
+}
+
+function cancelTransfer(transId) {
+  const t = DATA.transfers.find(t=>t.id===transId);
+  if(!t) return;
+  t.status = 'Cancelada';
+  closeModal();
+  toast(`${t.code} cancelada`,'warn');
+  navigateTo('transferencias');
+}
+
+function openCreateTransferPicker() {
+  const prodOpts = DATA.products.map(p=>`<option value="${p.id}">${p.sku} · ${p.name}</option>`).join('');
+  openModal(`
+    <div class="modal-hd"><div class="modal-title">Nueva transferencia</div>${CLOSE_BTN}</div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">Selecciona el producto a transferir</label>
+        <select class="cfg-input" id="tp-prod" onchange="document.getElementById('tp-next').disabled=false">${prodOpts}</select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal()">Cancelar</button>
+      <button class="btn btn-primary" id="tp-next" onclick="openCreateTransferModal(parseInt(document.getElementById('tp-prod').value))">Continuar →</button>
+    </div>`);
+}
+
+/* ── Proveedores ────────────────────────────── */
+function renderProveedores() {
+  const search = APP.supSearch || '';
+  let suppliers = DATA.suppliers.filter(s=>!search||s.name.toLowerCase().includes(search.toLowerCase())||s.brands.join(' ').toLowerCase().includes(search.toLowerCase()));
+
+  const cards = suppliers.map(s=>{
+    const supOrders = DATA.orders.filter(o=>o.supplierId===s.id);
+    const pendOrders = supOrders.filter(o=>o.status==='Enviada'||o.status==='Borrador').length;
+    const perfColor = s.performance>=93?'var(--green)':s.performance>=88?'var(--amber)':'var(--red)';
+    return `<div class="int-card">
+      <div class="int-card-hd">
+        <div style="display:flex;align-items:center;gap:12px">
+          <div class="int-card-logo" style="background:${s.color}1a;color:${s.color}">${s.initials}</div>
+          <div>
+            <div class="int-card-name">${s.name}</div>
+            <div class="int-card-type">${s.brands.join(', ')}</div>
+          </div>
+        </div>
+      </div>
+      <div class="int-metrics">
+        <div><div class="int-met-v">${fmtCOP(s.totalPurchases)}</div><div class="int-met-l">Compras totales</div></div>
+        <div><div class="int-met-v" style="color:${perfColor}">${s.performance}%</div><div class="int-met-l">Desempeño</div></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px;margin:14px 0;font-size:12.5px;color:var(--t2)">
+        <div style="display:flex;justify-content:space-between"><span style="color:var(--t3)">Contacto</span><span>${s.contact}</span></div>
+        <div style="display:flex;justify-content:space-between"><span style="color:var(--t3)">Teléfono</span><span>${s.phone}</span></div>
+        <div style="display:flex;justify-content:space-between"><span style="color:var(--t3)">Órdenes pendientes</span><span>${pendOrders>0?`<span class="badge b-amber">${pendOrders}</span>`:'0'}</span></div>
+      </div>
+      <div class="int-card-ft">
+        <div class="int-sync-info">Última orden: <span class="int-sync-time">${fmtDate(s.lastOrder)}</span></div>
+        <button class="btn btn-secondary btn-sm" onclick="openSupplierModal(${s.id})">Ver detalle</button>
+      </div>
+    </div>`;
+  }).join('');
+
+  const totalPurch = DATA.suppliers.reduce((a,s)=>a+s.totalPurchases,0);
+  const avgPerf = Math.round(DATA.suppliers.reduce((a,s)=>a+s.performance,0)/DATA.suppliers.length);
+
+  return `
+  <div class="view-hd">
+    <div>
+      <h1>Proveedores</h1>
+      <p class="sub">${DATA.suppliers.length} proveedores · ${fmtCOP(totalPurch)} en compras · ${avgPerf}% desempeño promedio</p>
+    </div>
+    <div class="view-actions">
+      <button class="btn btn-primary btn-sm" onclick="toast('Gestión de proveedores en versión completa','warn')">+ Nuevo proveedor</button>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:22px">
+    <div class="card" style="text-align:center;padding:16px">
+      <div style="font-size:26px;font-weight:700;color:var(--brand)">${DATA.suppliers.length}</div>
+      <div style="font-size:12px;color:var(--t3);margin-top:3px">Proveedores activos</div>
+    </div>
+    <div class="card" style="text-align:center;padding:16px">
+      <div style="font-size:22px;font-weight:700;color:var(--t1)">${fmtCOP(totalPurch)}</div>
+      <div style="font-size:12px;color:var(--t3);margin-top:3px">Compras acumuladas</div>
+    </div>
+    <div class="card" style="text-align:center;padding:16px">
+      <div style="font-size:26px;font-weight:700;color:var(--green)">${avgPerf}%</div>
+      <div style="font-size:12px;color:var(--t3);margin-top:3px">Desempeño promedio</div>
+    </div>
+  </div>
+
+  <div class="cli-ctrl">
+    <div class="search" style="min-width:260px">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"/></svg>
+      <input type="text" placeholder="Buscar proveedor o marca..." oninput="APP.supSearch=this.value;navigateTo('proveedores')" value="${search}">
+    </div>
+  </div>
+
+  <div class="int-grid">${cards||'<div class="empty"><h3>Sin proveedores</h3></div>'}</div>`;
+}
+
+function openSupplierModal(supId) {
+  const s = DATA.suppliers.find(s=>s.id===supId);
+  if(!s) return;
+  const supOrders = DATA.orders.filter(o=>o.supplierId===s.id).slice(0,6);
+  const supProds = DATA.products.filter(p=>s.brands.includes(p.brand)).slice(0,8);
+  const ordersHtml = supOrders.length ? supOrders.map(o=>`
+    <div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--ws-border-lt)">
+      <div style="flex:1"><div style="font-size:13px;font-weight:500;color:var(--t1);font-family:monospace">${o.code}</div>
+      <div style="font-size:11.5px;color:var(--t3)">${fmtDate(o.date)} · ${getBranchName(o.branchId)}</div></div>
+      <span style="font-size:13px;font-weight:600">${fmtCOP(o.total)}</span>
+      ${getBadgeForStatus(o.status)}
+    </div>`).join('') : '<div class="empty" style="padding:20px"><p>Sin órdenes registradas</p></div>';
+
+  openModal(`
+    <div class="modal-hd">
+      <div style="display:flex;align-items:center;gap:12px">
+        <div class="av av-md" style="background:${s.color};font-size:11px">${s.initials}</div>
+        <div>
+          <div class="modal-title">${s.name}</div>
+          <div class="modal-sub">${s.brands.join(', ')}</div>
+        </div>
+      </div>
+      ${CLOSE_BTN}
+    </div>
+    <div class="modal-body">
+      <div class="info-grid" style="margin-bottom:16px">
+        <div class="info-item"><div class="lbl">Contacto</div><div class="val">${s.contact}</div></div>
+        <div class="info-item"><div class="lbl">Teléfono</div><div class="val">${s.phone}</div></div>
+        <div class="info-item"><div class="lbl">Correo</div><div class="val" style="font-size:12.5px">${s.email}</div></div>
+        <div class="info-item"><div class="lbl">Desempeño</div><div class="val" style="color:var(--green);font-weight:600">${s.performance}%</div></div>
+        <div class="info-item"><div class="lbl">Compras totales</div><div class="val">${fmtCOP(s.totalPurchases)}</div></div>
+        <div class="info-item"><div class="lbl">Última orden</div><div class="val">${fmtDate(s.lastOrder)}</div></div>
+      </div>
+      <div style="margin-bottom:16px">
+        <div class="lbl" style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--t3);margin-bottom:8px">Productos suministrados (${supProds.length})</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px">${supProds.map(p=>`<span class="badge b-gray" style="font-size:10.5px">${p.sku}</span>`).join('')||'<span style="font-size:12px;color:var(--t3)">—</span>'}</div>
+      </div>
+      <div class="lbl" style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--t3);margin-bottom:8px">Órdenes recientes</div>
+      ${ordersHtml}
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal()">Cerrar</button>
+      <button class="btn btn-primary btn-sm" onclick="closeModal();toast('Abriendo nueva orden...','ok');openCreateOrderModal()">+ Nueva orden</button>
+    </div>`);
+}
+
+/* ── Sucursales ─────────────────────────────── */
+function renderSucursales() {
+  const branchCards = DATA.branches.map(b=>{
+    const prods = DATA.products.length;
+    const low = DATA.products.filter(p=>p.stock[b.id-1]>0 && p.stock[b.id-1]<=Math.ceil(p.minStock/3)).length;
+    const out = DATA.products.filter(p=>p.stock[b.id-1]===0).length;
+    const branchTasks = DATA.tasks.filter(t=>t.branchId===b.id);
+    const openTrans = DATA.transfers.filter(t=>(t.fromBranchId===b.id||t.toBranchId===b.id)&&t.status!=='Completada'&&t.status!=='Cancelada').length;
+    const invVal = DATA.products.reduce((s,p)=>s+p.stock[b.id-1]*p.cost,0);
+    const capacity = Math.min(100,Math.round(invVal/1400000));
+    const capColor = capacity>80?'var(--red)':capacity>60?'var(--amber)':'var(--green)';
+    return `<div class="emp-card">
+      <div class="av av-lg" style="background:${b.color};margin:0 auto 12px">${b.initials}</div>
+      <div style="font-size:16px;font-weight:700;color:var(--t1)">${b.name}</div>
+      <div style="font-size:12.5px;color:var(--t3);margin-top:3px;margin-bottom:16px">${b.city} · ${b.manager}</div>
+      <div class="emp-stats">
+        <div class="emp-stat"><div class="emp-stat-v">${prods}</div><div class="emp-stat-l">Referencias</div></div>
+        <div class="emp-stat"><div class="emp-stat-v" style="color:var(--amber)">${low}</div><div class="emp-stat-l">Stock bajo</div></div>
+        <div class="emp-stat"><div class="emp-stat-v" style="color:var(--red)">${out}</div><div class="emp-stat-l">Agotados</div></div>
+      </div>
+      <div class="workload-section">
+        <div class="wl-lbl-row"><span>Ocupación de bodega</span><span style="font-weight:600;color:${capColor}">${capacity}%</span></div>
+        <div class="prog"><div class="prog-fill" style="width:${capacity}%;background:${capColor}"></div></div>
+        <div style="font-size:11.5px;color:var(--t3);margin-top:6px">Valor inventario: <strong style="color:var(--t2)">${fmtCOP(invVal)}</strong></div>
+      </div>
+      <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--ws-border-lt);display:flex;justify-content:space-between;font-size:12px;color:var(--t2)">
+        <span>${b.staff} personas</span>
+        <span>${openTrans} transferencias abiertas</span>
+        <span>${branchTasks.length} tareas</span>
+      </div>
+    </div>`;
+  }).join('');
+
+  // Comparison table
+  const tableRows = DATA.branches.map(b=>{
+    const invVal = DATA.products.reduce((s,p)=>s+p.stock[b.id-1]*p.cost,0);
+    const units = DATA.products.reduce((s,p)=>s+p.stock[b.id-1],0);
+    const out = DATA.products.filter(p=>p.stock[b.id-1]===0).length;
+    return `<tr>
+      <td><div style="display:flex;align-items:center;gap:8px"><div class="av" style="background:${b.color}">${b.initials}</div><div><div style="font-weight:600;color:var(--t1)">${b.name}</div><div style="font-size:11.5px;color:var(--t3)">${b.manager}</div></div></div></td>
+      <td style="font-weight:600">${fmtCOP(invVal)}</td>
+      <td>${units.toLocaleString('es-CO')} uds</td>
+      <td>${fmtCOP(b.revenue)}</td>
+      <td><span class="badge ${out>5?'b-red':out>0?'b-amber':'b-green'}">${out} agotados</span></td>
+      <td>${b.staff}</td>
+    </tr>`;
+  }).join('');
+
+  const totalInv = DATA.branches.reduce((s,b)=>s+DATA.products.reduce((a,p)=>a+p.stock[b.id-1]*p.cost,0),0);
+
+  return `
+  <div class="view-hd">
+    <div>
+      <h1>Sucursales</h1>
+      <p class="sub">${DATA.branches.length} sucursales · ${fmtCOP(totalInv)} en inventario total · ${DATA.branches.reduce((s,b)=>s+b.staff,0)} colaboradores</p>
+    </div>
+    <div class="view-actions">
+      <button class="btn btn-primary btn-sm" onclick="toast('Gestión de sucursales en versión completa','warn')">+ Nueva sucursal</button>
+    </div>
+  </div>
+
+  <div class="equipo-grid">${branchCards}</div>
+
+  <div class="card">
+    <div class="sec-hd"><div class="sec-title">Comparativa por sucursal</div></div>
+    <div class="tbl-wrap" style="border:none;box-shadow:none">
+      <table>
+        <thead><tr><th>Sucursal</th><th>Valor inventario</th><th>Unidades</th><th>Ventas mes</th><th>Estado stock</th><th>Personal</th></tr></thead>
+        <tbody>${tableRows}</tbody>
+      </table>
+    </div>
+  </div>`;
+}
+
+/* ── Phase 4 placeholders ────────────────────── */
 function renderReportes()        { return placeholder('Reportes'); }
 function renderConfiguracion()   { return placeholder('Configuración'); }
 
