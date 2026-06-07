@@ -594,6 +594,65 @@ select.form-input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://
 .form-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .form-row:has(> .form-group:nth-child(3)){grid-template-columns:1fr 1fr 1fr}
+
+/* ── Propuesta nav item ── */
+.nav-propuesta{background:linear-gradient(135deg,#4F46E5,#7C3AED)!important;border-radius:var(--r-sm);margin-bottom:4px;color:white!important}
+.nav-propuesta .label{color:white!important;font-weight:700}
+.nav-propuesta svg{color:white!important}
+.nav-propuesta:hover{background:linear-gradient(135deg,#4338CA,#6D28D9)!important}
+.nav-propuesta.active{background:linear-gradient(135deg,#4338CA,#6D28D9)!important}
+
+/* ── Proposal page ── */
+.prop-hero{background:linear-gradient(135deg,#0B0F1A 0%,#1E1B4B 60%,#312E81 100%);border-radius:var(--r-lg);padding:52px 48px;margin-bottom:24px;position:relative;overflow:hidden}
+.prop-hero::before{content:'';position:absolute;top:-60px;right:-60px;width:260px;height:260px;border-radius:50%;background:rgba(79,70,229,0.25);pointer-events:none}
+.prop-hero::after{content:'';position:absolute;bottom:-40px;right:80px;width:160px;height:160px;border-radius:50%;background:rgba(124,58,237,0.18);pointer-events:none}
+.prop-hero-tag{display:inline-block;background:rgba(79,70,229,0.35);border:1px solid rgba(99,102,241,0.4);color:#A5B4FC;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:5px 14px;border-radius:999px;margin-bottom:20px}
+.prop-hero h1{font-size:36px;font-weight:800;color:#fff;line-height:1.15;margin-bottom:14px;max-width:620px}
+.prop-hero p{font-size:16px;color:#CBD5E1;line-height:1.7;max-width:560px;margin-bottom:30px}
+.prop-hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.prop-btn-primary{background:white;color:#1E1B4B;font-weight:700;font-size:14px;padding:12px 28px;border-radius:var(--r-sm);border:none;cursor:pointer;transition:all .15s}
+.prop-btn-primary:hover{background:#E0E7FF}
+.prop-btn-ghost{background:transparent;color:white;font-weight:600;font-size:14px;padding:12px 28px;border-radius:var(--r-sm);border:2px solid rgba(255,255,255,0.3);cursor:pointer;transition:all .15s}
+.prop-btn-ghost:hover{background:rgba(255,255,255,0.08)}
+.prop-section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--brand);margin-bottom:10px}
+.prop-h2{font-size:26px;font-weight:800;color:var(--t1);margin-bottom:8px;line-height:1.25}
+.prop-h2-sub{font-size:15px;color:var(--t3);margin-bottom:28px;line-height:1.6}
+.prop-pain-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:32px}
+.prop-pain{background:var(--ws-surface);border:1px solid var(--ws-border);border-radius:var(--r-md);padding:18px 20px;display:flex;gap:14px;align-items:flex-start}
+.prop-pain-ico{font-size:24px;flex-shrink:0;margin-top:2px}
+.prop-pain-txt strong{display:block;font-size:13.5px;font-weight:700;color:var(--t1);margin-bottom:4px}
+.prop-pain-txt p{font-size:13px;color:var(--t3);line-height:1.55;margin:0}
+.prop-benefit-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:32px}
+.prop-benefit{background:var(--ws-surface);border:1px solid var(--ws-border);border-radius:var(--r-lg);padding:24px 22px;text-align:center}
+.prop-benefit-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:24px}
+.prop-benefit h3{font-size:15px;font-weight:700;color:var(--t1);margin-bottom:8px}
+.prop-benefit p{font-size:13px;color:var(--t3);line-height:1.6;margin:0}
+.prop-steps{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:16px;margin-bottom:32px;position:relative}
+.prop-steps::before{content:'';position:absolute;top:28px;left:calc(12.5% + 12px);right:calc(12.5% + 12px);height:2px;background:linear-gradient(90deg,var(--brand),#7C3AED);border-radius:1px;z-index:0}
+.prop-step{text-align:center;position:relative;z-index:1}
+.prop-step-num{width:56px;height:56px;border-radius:50%;background:var(--brand);color:white;font-size:18px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;border:3px solid var(--ws-bg)}
+.prop-step h4{font-size:13.5px;font-weight:700;color:var(--t1);margin-bottom:6px}
+.prop-step p{font-size:12.5px;color:var(--t3);line-height:1.55;margin:0}
+.prop-modules{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:32px}
+.prop-module{background:var(--ws-surface);border:1px solid var(--ws-border);border-radius:var(--r-md);padding:16px 18px;display:flex;gap:12px;align-items:flex-start}
+.prop-module-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:4px}
+.prop-module-txt strong{display:block;font-size:13px;font-weight:700;color:var(--t1);margin-bottom:3px}
+.prop-module-txt p{font-size:12px;color:var(--t3);line-height:1.5;margin:0}
+.prop-cta{background:linear-gradient(135deg,#1E1B4B,#312E81);border-radius:var(--r-lg);padding:44px 48px;text-align:center}
+.prop-cta h2{font-size:26px;font-weight:800;color:white;margin-bottom:10px}
+.prop-cta p{font-size:15px;color:#CBD5E1;margin-bottom:28px;line-height:1.6}
+.prop-cta-btns{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.prop-trust{display:flex;gap:24px;justify-content:center;margin-top:20px;flex-wrap:wrap}
+.prop-trust-item{font-size:12.5px;color:#94A3B8;display:flex;align-items:center;gap:6px}
+@media(max-width:860px){
+  .prop-pain-grid{grid-template-columns:1fr}
+  .prop-benefit-grid{grid-template-columns:1fr 1fr}
+  .prop-steps{grid-template-columns:1fr 1fr}
+  .prop-steps::before{display:none}
+  .prop-modules{grid-template-columns:1fr 1fr}
+  .prop-hero{padding:32px 24px}
+  .prop-hero h1{font-size:26px}
+}
 .form-err{font-size:12px;color:var(--red);margin-top:4px}
 .drop-zone{
   background:var(--ws-bg);border:2px dashed var(--ws-border);
@@ -722,6 +781,11 @@ select.form-input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://
 
     <nav class="sb-nav" id="sb-nav">
       <div class="nav-group">Principal</div>
+
+      <div class="nav-item nav-propuesta" data-view="propuesta">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+        <span class="label">Ver Propuesta</span>
+      </div>
 
       <div class="nav-item active" data-view="dashboard">
         <svg viewBox="0 0 20 20" fill="currentColor"><path d="M2 11h7V2H2v9zm0 7h7v-5H2v5zm9 0h7v-9h-7v9zm0-16v5h7V2h-7z"/></svg>
@@ -858,7 +922,7 @@ function closeModal(){$('modal-ov').classList.remove('open');document.body.style
 $('modal-ov').addEventListener('click',e=>{if(e.target===$('modal-ov'))closeModal();});
 
 // ── Navigation ────────────────────────────────
-const VIEWS = ['dashboard','productos','ordenes','tareas','transferencias','proveedores','sucursales','reportes','configuracion','producto-detalle'];
+const VIEWS = ['dashboard','productos','ordenes','tareas','transferencias','proveedores','sucursales','reportes','configuracion','producto-detalle','propuesta'];
 
 function navigateTo(view){
   if(!VIEWS.includes(view)) view='dashboard';
@@ -869,6 +933,7 @@ function navigateTo(view){
     transferencias:renderTransferencias, proveedores:renderProveedores,
     sucursales:renderSucursales, reportes:renderReportes,
     configuracion:renderConfiguracion, 'producto-detalle':renderProductoDetalle,
+    propuesta:renderPropuesta,
   };
   const fn=renderers[view];
   $('app-view').innerHTML='';
@@ -2479,6 +2544,168 @@ function renderSucursales() {
         <thead><tr><th>Sucursal</th><th>Valor inventario</th><th>Unidades</th><th>Ventas mes</th><th>Estado stock</th><th>Personal</th></tr></thead>
         <tbody>${tableRows}</tbody>
       </table>
+    </div>
+  </div>`;
+}
+
+/* ── Propuesta ──────────────────────────────── */
+function renderPropuesta() {
+  const modules = [
+    {dot:'#4F46E5',name:'Dashboard en tiempo real',desc:'Ve todo el negocio de un vistazo: qué hay en cada bodega, qué se agotó, qué pedidos van tarde.'},
+    {dot:'#059669',name:'Control de inventario',desc:'Sepa exactamente cuántas unidades tiene de cada referencia en cada sucursal, sin llamar a nadie.'},
+    {dot:'#F79009',name:'Alertas de stock bajo',desc:'El sistema le avisa automáticamente antes de que se agote un producto. Usted solo aprueba el pedido.'},
+    {dot:'#DC2626',name:'Órdenes de compra',desc:'Cree pedidos a proveedores, controle qué llegó, qué falta y cuánto costó, todo documentado.'},
+    {dot:'#0D9488',name:'Transferencias entre sucursales',desc:'Mueva repuestos de una bodega a otra con un clic. Sin papeles, sin confusiones.'},
+    {dot:'#7C3AED',name:'Control de proveedores',desc:'Vea quién le vende mejor, a qué precio, en cuánto tiempo llega. Negocie con datos en la mano.'},
+    {dot:'#1D4ED8',name:'Gestión de tareas',desc:'Asigne trabajos a cada sucursal. Sepa qué está pendiente, quién lo tiene y si va a tiempo.'},
+    {dot:'#0369A1',name:'Reportes y comparativas',desc:'Compare sus sucursales. Vea cuál vende más, cuál tiene más productos parados, dónde mejorar.'},
+    {dot:'#374151',name:'Multi-sucursal desde un solo lugar',desc:'Maneja 1, 2 o 5 sucursales desde la misma pantalla. Sin programas diferentes para cada una.'},
+  ];
+
+  const benefits = [
+    {bg:'#EDE9FE',color:'#4F46E5',ico:'📦',title:'Nunca más se quede sin stock',desc:'El sistema le avisa cuando una referencia está por agotarse, para que pida a tiempo y no pierda ventas.'},
+    {bg:'#DCFCE7',color:'#059669',ico:'👁️',title:'Vea todo sin moverse del escritorio',desc:'En vez de llamar a cada sucursal para preguntar qué hay, en un segundo lo ve todo en pantalla.'},
+    {bg:'#DBEAFE',color:'#1D4ED8',ico:'📊',title:'Tome decisiones con números reales',desc:'Sepa qué se vende más, qué está empolvado, dónde pierde plata. Todo en pantalla, sin calcular a mano.'},
+  ];
+
+  const pains = [
+    {ico:'📞',title:'¿Cuántas veces llama a cada sucursal para saber qué hay?',desc:'Con Cobra, esa información la ve usted solo, en tiempo real, desde el celular o el computador.'},
+    {ico:'📝',title:'¿Sigue llevando el inventario en Excel o en un cuaderno?',desc:'El cuaderno no le avisa cuando algo se acaba. Cobra sí. Y nunca se pierde ni se daña.'},
+    {ico:'😤',title:'¿Le ha pasado que un cliente pide algo y no sabe si lo tiene?',desc:'Con el buscador de productos, en segundos sabe qué hay, en qué bodega y cuántas unidades.'},
+    {ico:'😰',title:'¿Le cuesta saber cuánto vale su inventario total?',desc:'Cobra calcula automáticamente el valor de todo su inventario, sucursal por sucursal.'},
+  ];
+
+  return `
+  <!-- Hero -->
+  <div class="prop-hero">
+    <div class="prop-hero-tag">Para tiendas de repuestos · 1 a 5 sucursales</div>
+    <h1>Controle su negocio de repuestos sin complicaciones</h1>
+    <p>Cobra es un sistema sencillo que le muestra todo su inventario, sus pedidos y sus sucursales en una sola pantalla. Sin necesidad de saber de tecnología. Sin contratos complicados.</p>
+    <div class="prop-hero-btns">
+      <button class="prop-btn-primary" onclick="toast('Le contactaremos en menos de 24 horas ✓','ok')">Quiero una demostración</button>
+      <button class="prop-btn-ghost" onclick="navigateTo('dashboard')">Ver el sistema en vivo →</button>
+    </div>
+  </div>
+
+  <!-- Pain points -->
+  <div class="card" style="margin-bottom:20px">
+    <div style="margin-bottom:22px">
+      <div class="prop-section-title">El problema de hoy</div>
+      <div class="prop-h2">¿Le suena alguna de estas situaciones?</div>
+      <div class="prop-h2-sub">Si respondió sí a alguna, Cobra fue hecho para usted.</div>
+    </div>
+    <div class="prop-pain-grid">
+      ${pains.map(p=>`
+      <div class="prop-pain">
+        <div class="prop-pain-ico">${p.ico}</div>
+        <div class="prop-pain-txt"><strong>${p.title}</strong><p>${p.desc}</p></div>
+      </div>`).join('')}
+    </div>
+  </div>
+
+  <!-- Benefits -->
+  <div class="card" style="margin-bottom:20px">
+    <div style="margin-bottom:22px">
+      <div class="prop-section-title">Lo que usted gana</div>
+      <div class="prop-h2">Tres beneficios que siente desde el primer día</div>
+      <div class="prop-h2-sub">No le vendemos funciones técnicas. Le vendemos tranquilidad y control.</div>
+    </div>
+    <div class="prop-benefit-grid">
+      ${benefits.map(b=>`
+      <div class="prop-benefit">
+        <div class="prop-benefit-icon" style="background:${b.bg}">${b.ico}</div>
+        <h3>${b.title}</h3>
+        <p>${b.desc}</p>
+      </div>`).join('')}
+    </div>
+  </div>
+
+  <!-- How it works -->
+  <div class="card" style="margin-bottom:20px">
+    <div style="margin-bottom:32px">
+      <div class="prop-section-title">Cómo funciona</div>
+      <div class="prop-h2">Listo en 4 pasos. Nosotros hacemos el trabajo pesado.</div>
+      <div class="prop-h2-sub">Usted no necesita saber nada de tecnología. Nosotros lo configuramos todo.</div>
+    </div>
+    <div class="prop-steps">
+      <div class="prop-step">
+        <div class="prop-step-num">1</div>
+        <h4>Cargamos su catálogo</h4>
+        <p>Le pedimos su lista de productos. Nosotros los subimos al sistema. Usted no digita nada.</p>
+      </div>
+      <div class="prop-step">
+        <div class="prop-step-num">2</div>
+        <h4>Configuramos sus sucursales</h4>
+        <p>Registramos cada sede con su nombre, dirección y encargado. Listo en menos de un día.</p>
+      </div>
+      <div class="prop-step">
+        <div class="prop-step-num">3</div>
+        <h4>Su equipo registra movimientos</h4>
+        <p>Cuando llega un pedido o salen repuestos, un empleado lo marca en el sistema. Es tan fácil como un WhatsApp.</p>
+      </div>
+      <div class="prop-step">
+        <div class="prop-step-num">4</div>
+        <h4>Usted controla desde donde esté</h4>
+        <p>Desde su celular o computador, ve en tiempo real qué pasa en cada bodega. Sin llamadas.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modules included -->
+  <div class="card" style="margin-bottom:20px">
+    <div style="margin-bottom:20px">
+      <div class="prop-section-title">Todo incluido</div>
+      <div class="prop-h2">¿Qué tiene el sistema?</div>
+      <div class="prop-h2-sub">Todo en una sola herramienta, sin pagar módulos adicionales.</div>
+    </div>
+    <div class="prop-modules">
+      ${modules.map(m=>`
+      <div class="prop-module">
+        <div class="prop-module-dot" style="background:${m.dot}"></div>
+        <div class="prop-module-txt"><strong>${m.name}</strong><p>${m.desc}</p></div>
+      </div>`).join('')}
+    </div>
+  </div>
+
+  <!-- For whom -->
+  <div class="card" style="margin-bottom:20px">
+    <div style="margin-bottom:20px">
+      <div class="prop-section-title">¿Para quién es Cobra?</div>
+      <div class="prop-h2">Hecho para el negociante colombiano de repuestos</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div>
+        <div style="font-size:13px;font-weight:700;color:var(--green);margin-bottom:12px;display:flex;align-items:center;gap:6px">
+          <span style="font-size:16px">✅</span> Cobra es para usted si…
+        </div>
+        ${['Tiene entre 1 y 5 sucursales o bodegas','Maneja 50 o más referencias de productos','Compra a proveedores y necesita controlar pedidos','Quiere saber qué hay en cada bodega sin llamar','Le interesa crecer pero sin perder el control','No quiere complicaciones tecnológicas'].map(t=>`<div style="display:flex;align-items:flex-start;gap:8px;padding:7px 0;border-bottom:1px solid var(--ws-border-lt);font-size:13px;color:var(--t2)"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span>${t}</div>`).join('')}
+      </div>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:var(--red);margin-bottom:12px;display:flex;align-items:center;gap:6px">
+          <span style="font-size:16px">❌</span> No es para usted si…
+        </div>
+        ${['Solo tiene un mostrador pequeño sin bodega','Necesita facturación electrónica (tenemos integración pero es separado)','Busca un sistema de contabilidad completo','Quiere algo gratuito sin ningún tipo de soporte'].map(t=>`<div style="display:flex;align-items:flex-start;gap:8px;padding:7px 0;border-bottom:1px solid var(--ws-border-lt);font-size:13px;color:var(--t2)"><span style="color:var(--red);font-weight:700;flex-shrink:0">✗</span>${t}</div>`).join('')}
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="prop-cta">
+    <h2>¿Listo para tener su negocio bajo control?</h2>
+    <p>Hablemos. Le mostramos el sistema en vivo con sus propios productos,<br>sin compromiso y sin letra menuda.</p>
+    <div class="prop-cta-btns">
+      <button class="prop-btn-primary" onclick="toast('Abriendo WhatsApp... Le contactaremos pronto ✓','ok')">
+        💬 Escribir por WhatsApp
+      </button>
+      <button class="prop-btn-ghost" onclick="navigateTo('dashboard')">
+        Ver el sistema en vivo →
+      </button>
+    </div>
+    <div class="prop-trust">
+      <div class="prop-trust-item">✓ Sin contratos de permanencia</div>
+      <div class="prop-trust-item">✓ Configuración incluida</div>
+      <div class="prop-trust-item">✓ Soporte en español</div>
+      <div class="prop-trust-item">✓ Datos 100% suyos</div>
     </div>
   </div>`;
 }
