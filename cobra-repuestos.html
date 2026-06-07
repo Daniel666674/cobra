@@ -901,7 +901,6 @@ function getBranchColor(id){const b=DATA.branches.find(b=>b.id===id);return b?b.
 const STAFF=[
   {id:1,name:'Andrés Vargas',role:'Gerente Sucursal Norte',initials:'AV',color:'#4F46E5'},
   {id:2,name:'Carolina Díaz',role:'Gerente Sucursal Sur',initials:'CD',color:'#0D9488'},
-  {id:3,name:'Miguel Torres',role:'Gerente Sucursal Centro',initials:'MT',color:'#F79009'},
 ];
 function getStaffName(id){const s=STAFF.find(s=>s.id===id);return s?s.name:'Sin asignar';}
 function getStaffInitials(id){const s=STAFF.find(s=>s.id===id);return s?s.initials:'?';}
@@ -939,6 +938,7 @@ function navigateTo(view){
   $('app-view').innerHTML='';
   if(fn){const div=el('div','view');div.innerHTML=fn();$('app-view').appendChild(div);}
   APP.currentView=view;
+  refreshBadges();
 }
 document.getElementById('sb-nav').addEventListener('click',e=>{
   const item=e.target.closest('.nav-item');
@@ -946,7 +946,35 @@ document.getElementById('sb-nav').addEventListener('click',e=>{
 });
 
 // ── APP State ─────────────────────────────────
-const APP={currentView:'dashboard',prodCat:'todos',prodStatus:'todos',prodSearch:'',ordenTab:'todos',taskStatus:'todos',transStatus:'todos',profileProductId:null,profileTab:'overview'};
+const APP={currentView:'dashboard',prodCat:'todos',prodStatus:'todos',prodSearch:'',ordenTab:'todos',ordenSearch:'',taskStatus:'todos',taskPriority:'todos',taskBranch:'todos',taskSearch:'',transStatus:'todos',supSearch:'',profileProductId:null,profileTab:'overview',repTab:'inventario',cfgTab:'tienda'};
+
+// ── Store settings (live-editable) ────────────
+const STORE={
+  name:'Cobra Repuestos',
+  nit:'900.123.456-7',
+  phone:'+57 601 555 0000',
+  email:'gerencia@cobrarep.co',
+  address:'Bogotá, Colombia',
+  currency:'COP',
+  lowStockAlert:true,
+  orderAlert:true,
+  transferAlert:true,
+  dailyReport:false,
+};
+
+// ── Dynamic badge refresh ─────────────────────
+function refreshBadges(){
+  const bp=$('badge-productos');const bo=$('badge-ordenes');
+  const bt=$('badge-tareas');const btr=$('badge-trans');
+  const low=DATA.products.filter(p=>p.status!=='Disponible').length;
+  const pend=DATA.orders.filter(o=>o.status==='Borrador'||o.status==='Enviada').length;
+  const ptask=DATA.tasks.filter(t=>t.status==='Pendiente'||t.status==='Vencido').length;
+  const ptrans=DATA.transfers.filter(t=>t.status==='Solicitada'||t.status==='Aprobada'||t.status==='En Tránsito').length;
+  if(bp){bp.textContent=DATA.products.length;bp.className=`nav-badge ${low>0?'amber':'blue'}`;}
+  if(bo){bo.textContent=pend;bo.className=`nav-badge ${pend>0?'':'blue'}`;}
+  if(bt){bt.textContent=ptask;bt.className=`nav-badge ${ptask>0?'amber':'blue'}`;}
+  if(btr){btr.textContent=ptrans;btr.className=`nav-badge ${ptrans>0?'green':'blue'}`;}
+}
 
 // ── CSV Export ────────────────────────────────
 function downloadCSV(filename,rows){
@@ -969,9 +997,8 @@ const DATA={branches:[],products:[],orders:[],tasks:[],transfers:[],suppliers:[]
 
 // ── Branches ──────────────────────────────────
 DATA.branches=[
-  {id:1,name:'Sucursal Norte',city:'Bogotá Norte',manager:'Andrés Vargas',initials:'SN',color:'#4F46E5',inventoryValue:48500000,revenue:12800000,lowStock:8,openTransfers:3,staff:4},
-  {id:2,name:'Sucursal Sur',  city:'Bogotá Sur',  manager:'Carolina Díaz', initials:'SS',color:'#0D9488',inventoryValue:38200000,revenue:9400000, lowStock:5,openTransfers:2,staff:3},
-  {id:3,name:'Sucursal Centro',city:'Bogotá Centro',manager:'Miguel Torres',initials:'SC',color:'#F79009',inventoryValue:52100000,revenue:15200000,lowStock:11,openTransfers:4,staff:5},
+  {id:1,name:'Sucursal Norte',city:'Bogotá Norte',manager:'Andrés Vargas',initials:'SN',color:'#4F46E5',inventoryValue:48500000,revenue:12800000,lowStock:8,openTransfers:3,staff:4,address:'Calle 80 # 68-45, Bogotá',phone:'+57 601 555 0001',email:'norte@cobrarep.co'},
+  {id:2,name:'Sucursal Sur',  city:'Bogotá Sur',  manager:'Carolina Díaz', initials:'SS',color:'#0D9488',inventoryValue:38200000,revenue:9400000, lowStock:5,openTransfers:2,staff:3,address:'Autopista Sur # 40-12, Bogotá',phone:'+57 601 555 0002',email:'sur@cobrarep.co'},
 ];
 
 // ── Suppliers ────────────────────────────────
@@ -1073,11 +1100,11 @@ const _brandColors={Bosch:'#DC2626',SKF:'#1D4ED8',NGK:'#7C3AED',Castrol:'#059669
 const _catColors={Frenos:'#DC2626',Filtros:'#0369A1',Eléctrico:'#F59E0B',Suspensión:'#059669',Encendido:'#7C3AED',Motor:'#374151',Lubricantes:'#B45309',Baterías:'#1D4ED8',Rodamientos:'#065F46',Transmisión:'#6D28D9',Escape:'#9CA3AF',Climatización:'#0EA5E9',Iluminación:'#F97316'};
 const _catBg={Frenos:'#FEE2E2',Filtros:'#DBEAFE',Eléctrico:'#FEF3C7',Suspensión:'#DCFCE7',Encendido:'#F5F3FF',Motor:'#F3F4F6',Lubricantes:'#FEF3C7',Baterías:'#DBEAFE',Rodamientos:'#ECFDF5',Transmisión:'#EDE9FE',Escape:'#F9FAFB',Climatización:'#E0F2FE',Iluminación:'#FFF7ED'};
 
-function totalStock(p){return (p.stock[0]||0)+(p.stock[1]||0)+(p.stock[2]||0);}
+function totalStock(p){return (p.stock[0]||0)+(p.stock[1]||0);}
 function getStockStatus(p){const t=totalStock(p);if(t===0)return 'Agotado';if(t<=p.minStock)return 'Stock Bajo';return 'Disponible';}
 
 DATA.products=_prodRaw.map(([sku,name,brand,cat,cost,price,minStock],i)=>{
-  const stock=[rand(0,minStock*3),rand(0,minStock*3),rand(0,minStock*3)];
+  const stock=[rand(0,minStock*3),rand(0,minStock*3)];
   const p={id:i+1,sku,name,brand,cat,cost,price,minStock,stock,margin:Math.round((price-cost)/price*100)};
   p.status=getStockStatus(p);
   p.color=_brandColors[brand]||'#374151';
@@ -1106,7 +1133,7 @@ DATA.orders=Array.from({length:30},(_,i)=>{
   const daysAgo=rand(0,90);
   const date=new Date(Date.now()-daysAgo*86400000).toISOString().slice(0,10);
   const status=weightedPick(_orderStatuses,_orderStatusW);
-  return {id:i+1,code:_orderTitles(i+1),supplierId:supplier.id,supplierName:supplier.name,products:prods,total,date,status,branchId:rand(1,3)};
+  return {id:i+1,code:_orderTitles(i+1),supplierId:supplier.id,supplierName:supplier.name,products:prods,total,date,status,branchId:rand(1,2)};
 }).sort((a,b)=>b.date.localeCompare(a.date));
 
 // ── Transfers ────────────────────────────────
@@ -1114,8 +1141,8 @@ const _transStatuses=['Solicitada','Aprobada','En Tránsito','Completada','Cance
 const _transStatusW=[2,2,2,5,1];
 
 DATA.transfers=Array.from({length:20},(_,i)=>{
-  const fromId=rand(1,3);
-  const toId=fromId===1?rand(2,3):fromId===3?rand(1,2):(rand(0,1)?1:3);
+  const fromId=rand(1,2);
+  const toId=fromId===1?2:1;
   const p=DATA.products[rand(0,DATA.products.length-1)];
   const qty=rand(2,15);
   const daysAgo=rand(0,30);
@@ -1151,8 +1178,8 @@ const _taskStatW=[3,3,5,2];
 
 DATA.tasks=Array.from({length:25},(_,i)=>({
   id:i+1,title:_taskTitles[i],
-  branchId:rand(1,3),
-  assignedTo:rand(1,3),
+  branchId:rand(1,2),
+  assignedTo:rand(1,2),
   dueDate:new Date(Date.now()+(rand(-10,20))*86400000).toISOString().slice(0,10),
   status:weightedPick(_taskStats,_taskStatW),
   priority:pick(_taskPrios),
@@ -1268,7 +1295,7 @@ function renderDashboard() {
   return `
   <div class="view-hd">
     <div>
-      <h1>Buenos días, Andrés 👋</h1>
+      <h1>${['Buenos días','Buenos días','Buenas tardes','Buenas noches'][Math.floor(new Date().getHours()/6)]}, Andrés 👋</h1>
       <p class="sub">${new Date().toLocaleDateString('es-CO',{weekday:'long',year:'numeric',month:'long',day:'numeric'})} · Resumen operativo de tus sucursales</p>
     </div>
     <div class="view-actions">
@@ -2710,9 +2737,485 @@ function renderPropuesta() {
   </div>`;
 }
 
-/* ── Phase 4 placeholders ────────────────────── */
-function renderReportes()        { return placeholder('Reportes'); }
-function renderConfiguracion()   { return placeholder('Configuración'); }
+/* ── Reportes ───────────────────────────────── */
+function renderReportes() {
+  const repTab = APP.repTab || 'inventario';
+
+  // ── Shared computations ──
+  const totalInv = DATA.products.reduce((s,p)=>s+totalStock(p)*p.cost,0);
+  const totalUnits = DATA.products.reduce((s,p)=>s+totalStock(p),0);
+  const avgMargin = Math.round(DATA.products.reduce((s,p)=>s+p.margin,0)/DATA.products.length);
+
+  // ── Inventory report ──
+  const catTotals = {};
+  DATA.products.forEach(p=>{
+    if(!catTotals[p.cat]) catTotals[p.cat]={value:0,units:0,count:0,color:_catColors[p.cat]||'#888',bg:_catBg[p.cat]||'#F3F4F6'};
+    catTotals[p.cat].value+=totalStock(p)*p.cost;
+    catTotals[p.cat].units+=totalStock(p);
+    catTotals[p.cat].count++;
+  });
+  const catArr=Object.entries(catTotals).map(([name,d])=>({name,...d})).sort((a,b)=>b.value-a.value);
+  const maxCatVal=catArr[0]?.value||1;
+
+  const branchInv = DATA.branches.map(b=>({
+    ...b,
+    invVal: DATA.products.reduce((s,p)=>s+p.stock[b.id-1]*p.cost,0),
+    units:  DATA.products.reduce((s,p)=>s+p.stock[b.id-1],0),
+    low:    DATA.products.filter(p=>p.stock[b.id-1]>0&&p.stock[b.id-1]<=Math.ceil(p.minStock/2)).length,
+    out:    DATA.products.filter(p=>p.stock[b.id-1]===0).length,
+  }));
+  const maxBranchVal = Math.max(...branchInv.map(b=>b.invVal))||1;
+
+  // ── Top products by value ──
+  const topByVal = [...DATA.products].sort((a,b)=>(totalStock(b)*b.cost)-(totalStock(a)*a.cost)).slice(0,10);
+  const maxProdVal = totalStock(topByVal[0])*topByVal[0].cost||1;
+
+  // ── Rotation: simulated (low rotation = high stock, low cost) ──
+  const slowMovers = [...DATA.products].filter(p=>totalStock(p)>p.minStock*2).sort((a,b)=>totalStock(b)*b.cost-totalStock(a)*a.cost).slice(0,8);
+
+  // ── Supplier spend ──
+  const supSpend = DATA.suppliers.map(s=>({
+    ...s,
+    orders:DATA.orders.filter(o=>o.supplierId===s.id).length,
+    received:DATA.orders.filter(o=>o.supplierId===s.id&&o.status==='Recibida').length,
+    spend:DATA.orders.filter(o=>o.supplierId===s.id&&o.status==='Recibida').reduce((a,o)=>a+o.total,0),
+  })).sort((a,b)=>b.spend-a.spend);
+  const maxSpend=supSpend[0]?.spend||1;
+
+  // ── Monthly order trend (simulated from dates) ──
+  const monthMap={};
+  DATA.orders.forEach(o=>{
+    const m=o.date.slice(0,7);
+    if(!monthMap[m])monthMap[m]={month:m,count:0,value:0};
+    monthMap[m].count++;
+    if(o.status==='Recibida')monthMap[m].value+=o.total;
+  });
+  const months=Object.values(monthMap).sort((a,b)=>a.month.localeCompare(b.month)).slice(-6);
+  const maxMonthVal=Math.max(...months.map(m=>m.value))||1;
+  const maxMonthCnt=Math.max(...months.map(m=>m.count))||1;
+  const monthNames={'01':'Ene','02':'Feb','03':'Mar','04':'Abr','05':'May','06':'Jun','07':'Jul','08':'Ago','09':'Sep','10':'Oct','11':'Nov','12':'Dic'};
+
+  function bar(pct,color,height=140,width=36){
+    return `<div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+      <div style="height:${height}px;width:${width}px;background:var(--ws-border);border-radius:6px;overflow:hidden;display:flex;align-items:flex-end">
+        <div style="width:100%;height:${Math.max(2,Math.round(pct*height))}px;background:${color};border-radius:6px;transition:height .3s"></div>
+      </div>
+    </div>`;
+  }
+
+  // ── Content per tab ──
+  let tabContent='';
+
+  if(repTab==='inventario'){
+    const catRows=catArr.map(c=>`
+      <tr>
+        <td><div style="display:flex;align-items:center;gap:8px">
+          <span class="badge" style="background:${c.bg};color:${c.color};font-size:10.5px">${c.name}</span>
+        </div></td>
+        <td>${c.count} refs</td>
+        <td>${c.units.toLocaleString('es-CO')} uds</td>
+        <td style="font-weight:600">${fmtCOP(c.value)}</td>
+        <td style="width:160px">
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="prog" style="flex:1"><div class="prog-fill" style="width:${Math.round(c.value/maxCatVal*100)}%;background:${c.color}"></div></div>
+            <span style="font-size:12px;color:var(--t3);min-width:32px">${Math.round(c.value/totalInv*100)}%</span>
+          </div>
+        </td>
+      </tr>`).join('');
+
+    const branchCols = branchInv.map(b=>`
+      <div class="card" style="text-align:center;padding:20px 16px">
+        <div class="av av-md" style="background:${b.color};margin:0 auto 12px;font-size:10px">${b.initials}</div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--t3);margin-bottom:4px">${b.name}</div>
+        <div style="font-size:22px;font-weight:800;color:var(--t1);margin-bottom:2px">${fmtCOP(b.invVal)}</div>
+        <div style="font-size:12px;color:var(--t3);margin-bottom:14px">${b.units.toLocaleString('es-CO')} unidades</div>
+        <div class="prog" style="margin-bottom:8px"><div class="prog-fill" style="width:${Math.round(b.invVal/maxBranchVal*100)}%;background:${b.color}"></div></div>
+        <div style="display:flex;justify-content:center;gap:12px;font-size:11.5px;color:var(--t3)">
+          <span style="color:var(--amber)">⚠ ${b.low} bajos</span>
+          <span style="color:var(--red)">✗ ${b.out} agotados</span>
+        </div>
+      </div>`).join('');
+
+    tabContent=`
+      <div style="display:grid;grid-template-columns:repeat(${DATA.branches.length},1fr);gap:16px;margin-bottom:20px">${branchCols}</div>
+      <div class="card">
+        <div class="sec-hd" style="margin-bottom:16px">
+          <div><div class="sec-title">Valor de inventario por categoría</div><div class="sec-sub">Total: ${fmtCOP(totalInv)}</div></div>
+          <button class="btn btn-secondary btn-sm" onclick="exportInventarioCSV()">⬇ Exportar</button>
+        </div>
+        <div class="tbl-wrap" style="border:none;box-shadow:none"><table>
+          <thead><tr><th>Categoría</th><th>Referencias</th><th>Unidades</th><th>Valor</th><th>Participación</th></tr></thead>
+          <tbody>${catRows}</tbody>
+        </table></div>
+      </div>`;
+
+  } else if(repTab==='productos'){
+    const topRows = topByVal.map((p,i)=>`
+      <tr onclick="navigateToProductProfile(${p.id})">
+        <td style="font-weight:700;color:var(--t3);width:32px">#${i+1}</td>
+        <td><div style="display:flex;align-items:center;gap:9px">
+          <div class="av" style="background:${p.color};font-size:9px;width:28px;height:28px">${p.initials}</div>
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--t1)">${p.name}</div>
+            <div style="font-size:11px;color:var(--t3)">${p.sku} · ${p.brand}</div>
+          </div>
+        </div></td>
+        <td><span class="badge" style="background:${p.catBg};color:${p.catColor};font-size:10.5px">${p.cat}</span></td>
+        <td style="font-weight:600">${totalStock(p)} uds</td>
+        <td style="font-weight:600;color:var(--t1)">${fmtCOP(totalStock(p)*p.cost)}</td>
+        <td style="color:var(--green);font-weight:600">${p.margin}%</td>
+        <td style="width:120px"><div class="prog sm"><div class="prog-fill" style="width:${Math.round(totalStock(p)*p.cost/maxProdVal*100)}%;background:${p.catColor}"></div></div></td>
+      </tr>`).join('');
+
+    const slowRows = slowMovers.map(p=>`
+      <tr onclick="navigateToProductProfile(${p.id})">
+        <td><div style="display:flex;align-items:center;gap:9px">
+          <div class="av" style="background:${p.color};font-size:9px;width:28px;height:28px">${p.initials}</div>
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--t1)">${p.name}</div>
+            <div style="font-size:11px;color:var(--t3)">${p.sku}</div>
+          </div>
+        </div></td>
+        <td>${totalStock(p)} uds</td>
+        <td style="font-weight:600;color:var(--amber)">${fmtCOP(totalStock(p)*p.cost)}</td>
+        <td><button class="btn btn-secondary btn-sm" onclick="event.stopPropagation();openCreateOrderForProduct(${p.id})">Rotar →</button></td>
+      </tr>`).join('');
+
+    tabContent=`
+      <div class="card" style="margin-bottom:20px">
+        <div class="sec-hd" style="margin-bottom:16px">
+          <div><div class="sec-title">Top 10 productos por valor de inventario</div><div class="sec-sub">Los más valiosos en bodega</div></div>
+        </div>
+        <div class="tbl-wrap" style="border:none;box-shadow:none"><table>
+          <thead><tr><th>#</th><th>Producto</th><th>Categoría</th><th>Stock</th><th>Valor</th><th>Margen</th><th>Participación</th></tr></thead>
+          <tbody>${topRows}</tbody>
+        </table></div>
+      </div>
+      <div class="card">
+        <div class="sec-hd" style="margin-bottom:16px">
+          <div><div class="sec-title">Productos de baja rotación</div><div class="sec-sub">Exceso de inventario — considere ofertar o transferir</div></div>
+        </div>
+        <div class="tbl-wrap" style="border:none;box-shadow:none"><table>
+          <thead><tr><th>Producto</th><th>Stock exceso</th><th>Capital inmovilizado</th><th>Acción</th></tr></thead>
+          <tbody>${slowRows}</tbody>
+        </table></div>
+      </div>`;
+
+  } else if(repTab==='compras'){
+    const supRows = supSpend.map(s=>`
+      <tr>
+        <td><div style="display:flex;align-items:center;gap:8px">
+          <div class="av" style="background:${s.color}1a;color:${s.color};font-size:9px;width:28px;height:28px">${s.initials}</div>
+          <div><div style="font-size:13px;font-weight:600;color:var(--t1)">${s.name}</div>
+          <div style="font-size:11px;color:var(--t3)">${s.contact}</div></div>
+        </div></td>
+        <td>${s.orders} órdenes</td>
+        <td>${s.received} recibidas</td>
+        <td style="font-weight:600;color:var(--t1)">${s.spend>0?fmtCOP(s.spend):'—'}</td>
+        <td>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="prog sm" style="width:80px"><div class="prog-fill" style="width:${Math.round(s.performance)}%;background:${s.performance>=93?'var(--green)':s.performance>=88?'var(--amber)':'var(--red)'}"></div></div>
+            <span style="font-size:12.5px;font-weight:600;color:${s.performance>=93?'var(--green)':s.performance>=88?'var(--amber)':'var(--red)'}">${s.performance}%</span>
+          </div>
+        </td>
+        <td style="font-size:12px;color:var(--t3)">${fmtDate(s.lastOrder)}</td>
+      </tr>`).join('');
+
+    const monthBars = months.map(m=>{
+      const label=monthNames[m.month.slice(5)]||m.month.slice(5);
+      return `<div style="display:flex;flex-direction:column;align-items:center;gap:6px;flex:1">
+        <div style="font-size:11px;color:var(--t3);font-weight:500">${fmtCOP(m.value)}</div>
+        <div style="height:120px;width:100%;background:var(--ws-border);border-radius:6px;overflow:hidden;display:flex;align-items:flex-end;position:relative">
+          <div style="width:100%;height:${Math.max(3,Math.round(m.value/maxMonthVal*120))}px;background:var(--brand);border-radius:6px 6px 0 0;transition:height .3s"></div>
+        </div>
+        <div style="font-size:11.5px;font-weight:600;color:var(--t2)">${label}</div>
+        <div style="font-size:10.5px;color:var(--t3)">${m.count} órdenes</div>
+      </div>`;}).join('');
+
+    tabContent=`
+      <div class="card" style="margin-bottom:20px">
+        <div class="sec-hd" style="margin-bottom:20px">
+          <div><div class="sec-title">Compras recibidas por mes</div><div class="sec-sub">Últimos 6 meses</div></div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-end;padding:0 8px">${monthBars||'<div class="empty"><p>Sin datos suficientes</p></div>'}</div>
+      </div>
+      <div class="card">
+        <div class="sec-hd" style="margin-bottom:16px">
+          <div><div class="sec-title">Gasto por proveedor</div><div class="sec-sub">Compras recibidas · ordenado por gasto</div></div>
+          <button class="btn btn-secondary btn-sm" onclick="exportComprasCSV()">⬇ Exportar</button>
+        </div>
+        <div class="tbl-wrap" style="border:none;box-shadow:none"><table>
+          <thead><tr><th>Proveedor</th><th>Órdenes</th><th>Recibidas</th><th>Gasto total</th><th>Desempeño</th><th>Última orden</th></tr></thead>
+          <tbody>${supRows}</tbody>
+        </table></div>
+      </div>`;
+  }
+
+  return `
+  <div class="view-hd">
+    <div>
+      <h1>Reportes</h1>
+      <p class="sub">${DATA.products.length} referencias · ${fmtCOP(totalInv)} en inventario · ${avgMargin}% margen promedio</p>
+    </div>
+    <div class="view-actions">
+      <button class="btn btn-secondary btn-sm" onclick="exportInventarioCSV()">⬇ Exportar CSV</button>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:14px;margin-bottom:20px">
+    <div class="card" style="padding:16px;text-align:center">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--t3);margin-bottom:6px">Valor total inventario</div>
+      <div style="font-size:22px;font-weight:800;color:var(--brand)">${fmtCOP(totalInv)}</div>
+    </div>
+    <div class="card" style="padding:16px;text-align:center">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--t3);margin-bottom:6px">Unidades en stock</div>
+      <div style="font-size:22px;font-weight:800;color:var(--t1)">${totalUnits.toLocaleString('es-CO')}</div>
+    </div>
+    <div class="card" style="padding:16px;text-align:center">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--t3);margin-bottom:6px">Margen promedio</div>
+      <div style="font-size:22px;font-weight:800;color:var(--green)">${avgMargin}%</div>
+    </div>
+    <div class="card" style="padding:16px;text-align:center">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--t3);margin-bottom:6px">Categorías activas</div>
+      <div style="font-size:22px;font-weight:800;color:var(--t1)">${Object.keys(catTotals).length}</div>
+    </div>
+  </div>
+
+  <div class="f-tabs" style="margin-bottom:20px">
+    <div class="f-tab ${repTab==='inventario'?'active':''}" onclick="APP.repTab='inventario';navigateTo('reportes')">📦 Inventario</div>
+    <div class="f-tab ${repTab==='productos'?'active':''}" onclick="APP.repTab='productos';navigateTo('reportes')">🏆 Productos</div>
+    <div class="f-tab ${repTab==='compras'?'active':''}" onclick="APP.repTab='compras';navigateTo('reportes')">🛒 Compras</div>
+  </div>
+
+  ${tabContent}`;
+}
+
+function exportInventarioCSV(){
+  downloadCSV('inventario_cobra.csv',[
+    ['SKU','Producto','Marca','Categoría','Costo','Precio','Margen %','Stock Norte','Stock Sur','Total','Mín.','Estado'],
+    ...DATA.products.map(p=>[p.sku,p.name,p.brand,p.cat,p.cost,p.price,p.margin,p.stock[0],p.stock[1],totalStock(p),p.minStock,p.status])
+  ]);
+  toast('Exportando inventario completo...','ok');
+}
+
+function exportComprasCSV(){
+  downloadCSV('compras_cobra.csv',[
+    ['Orden','Proveedor','Sucursal','Items','Total','Fecha','Estado'],
+    ...DATA.orders.map(o=>[o.code,o.supplierName,getBranchName(o.branchId),(o.products||[]).length,o.total,o.date,o.status])
+  ]);
+  toast('Exportando reporte de compras...','ok');
+}
+
+/* ── Configuración ──────────────────────────── */
+function renderConfiguracion() {
+  const cfgTab = APP.cfgTab || 'tienda';
+
+  const branchForms = DATA.branches.map(b=>`
+    <div class="card" style="margin-bottom:16px">
+      <div class="sec-hd" style="margin-bottom:16px">
+        <div style="display:flex;align-items:center;gap:10px">
+          <div class="av" style="background:${b.color};font-size:9px">${b.initials}</div>
+          <div><div class="sec-title">${b.name}</div><div class="sec-sub">${b.city}</div></div>
+        </div>
+        <div class="badge b-green">Activa</div>
+      </div>
+      <div class="form-row" style="margin-bottom:14px">
+        <div class="form-group">
+          <label class="form-label">Nombre de la sucursal</label>
+          <input class="cfg-input" id="br-name-${b.id}" value="${b.name}">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Gerente</label>
+          <input class="cfg-input" id="br-mgr-${b.id}" value="${b.manager}">
+        </div>
+      </div>
+      <div class="form-row" style="margin-bottom:14px">
+        <div class="form-group">
+          <label class="form-label">Dirección</label>
+          <input class="cfg-input" id="br-addr-${b.id}" value="${b.address}">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Teléfono</label>
+          <input class="cfg-input" id="br-phone-${b.id}" value="${b.phone}">
+        </div>
+      </div>
+      <div class="form-group" style="margin-bottom:0">
+        <label class="form-label">Correo electrónico</label>
+        <input class="cfg-input" id="br-email-${b.id}" value="${b.email}">
+      </div>
+      <div style="margin-top:16px;display:flex;justify-content:flex-end">
+        <button class="btn btn-primary btn-sm" onclick="saveBranchConfig(${b.id})">Guardar sucursal</button>
+      </div>
+    </div>`).join('');
+
+  const staffRows = STAFF.map(s=>`
+    <div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--ws-border-lt)">
+      <div class="av" style="background:${s.color}">${s.initials}</div>
+      <div style="flex:1">
+        <div style="font-size:13px;font-weight:600;color:var(--t1)">${s.name}</div>
+        <div style="font-size:11.5px;color:var(--t3)">${s.role}</div>
+      </div>
+      <span class="badge b-green">Activo</span>
+      <button class="btn btn-ghost btn-sm" onclick="toast('Gestión de usuarios en versión Enterprise','warn')">Editar</button>
+    </div>`).join('');
+
+  let tabContent = '';
+
+  if(cfgTab==='tienda'){
+    tabContent=`
+      <div class="card" style="margin-bottom:20px">
+        <div class="sec-hd" style="margin-bottom:20px">
+          <div><div class="sec-title">Información del negocio</div><div class="sec-sub">Datos generales de la empresa</div></div>
+        </div>
+        <div class="form-row" style="margin-bottom:14px">
+          <div class="form-group">
+            <label class="form-label">Nombre del negocio</label>
+            <input class="cfg-input" id="st-name" value="${STORE.name}">
+          </div>
+          <div class="form-group">
+            <label class="form-label">NIT</label>
+            <input class="cfg-input" id="st-nit" value="${STORE.nit}">
+          </div>
+        </div>
+        <div class="form-row" style="margin-bottom:14px">
+          <div class="form-group">
+            <label class="form-label">Teléfono principal</label>
+            <input class="cfg-input" id="st-phone" value="${STORE.phone}">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Correo de gerencia</label>
+            <input class="cfg-input" id="st-email" value="${STORE.email}">
+          </div>
+        </div>
+        <div class="form-group" style="margin-bottom:0">
+          <label class="form-label">Dirección principal</label>
+          <input class="cfg-input" id="st-addr" value="${STORE.address}">
+        </div>
+        <div style="margin-top:20px;display:flex;justify-content:flex-end">
+          <button class="btn btn-primary" onclick="saveStoreConfig()">Guardar cambios</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="sec-hd" style="margin-bottom:20px">
+          <div><div class="sec-title">Alertas y notificaciones</div><div class="sec-sub">Configure qué le avisa el sistema</div></div>
+        </div>
+        ${[
+          {key:'lowStockAlert',label:'Alerta de stock bajo',desc:'Notificar cuando un producto baje del stock mínimo'},
+          {key:'orderAlert',label:'Alerta de órdenes',desc:'Notificar cuando una orden cambie de estado'},
+          {key:'transferAlert',label:'Alerta de transferencias',desc:'Notificar movimientos entre sucursales'},
+          {key:'dailyReport',label:'Reporte diario',desc:'Recibir resumen operativo cada mañana'},
+        ].map(row=>`
+          <div style="display:flex;align-items:center;gap:16px;padding:14px 0;border-bottom:1px solid var(--ws-border-lt)">
+            <div style="flex:1">
+              <div style="font-size:13.5px;font-weight:500;color:var(--t1)">${row.label}</div>
+              <div style="font-size:12px;color:var(--t3);margin-top:2px">${row.desc}</div>
+            </div>
+            <label class="tog">
+              <input type="checkbox" ${STORE[row.key]?'checked':''} onchange="STORE['${row.key}']=this.checked;toast('Configuración guardada','ok')">
+              <div class="tog-track"></div><div class="tog-thumb"></div>
+            </label>
+          </div>`).join('')}
+      </div>`;
+
+  } else if(cfgTab==='sucursales'){
+    tabContent = branchForms;
+
+  } else if(cfgTab==='equipo'){
+    tabContent=`
+      <div class="card">
+        <div class="sec-hd" style="margin-bottom:16px">
+          <div><div class="sec-title">Equipo de trabajo</div><div class="sec-sub">${STAFF.length} personas activas</div></div>
+          <button class="btn btn-primary btn-sm" onclick="toast('Invitar usuarios disponible en versión completa','warn')">+ Invitar usuario</button>
+        </div>
+        ${staffRows}
+        <div style="margin-top:16px;padding:14px;background:var(--brand-light);border:1px solid var(--brand-border);border-radius:var(--r-md)">
+          <div style="font-size:13px;font-weight:600;color:var(--brand);margin-bottom:4px">💡 Gestión avanzada de usuarios</div>
+          <div style="font-size:12.5px;color:var(--t2)">En la versión completa puede crear roles personalizados, restringir acceso por sucursal y auditar todas las acciones del sistema.</div>
+        </div>
+      </div>`;
+
+  } else if(cfgTab==='datos'){
+    const totalOrders = DATA.orders.length;
+    const totalTrans = DATA.transfers.length;
+    const totalTasks = DATA.tasks.length;
+    tabContent=`
+      <div class="card" style="margin-bottom:16px">
+        <div class="sec-hd" style="margin-bottom:16px">
+          <div><div class="sec-title">Resumen de datos</div><div class="sec-sub">Información almacenada en el sistema</div></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px">
+          ${[
+            {n:DATA.products.length,l:'Productos',c:'var(--brand)'},
+            {n:DATA.suppliers.length,l:'Proveedores',c:'var(--green)'},
+            {n:totalOrders,l:'Órdenes de compra',c:'var(--amber)'},
+            {n:totalTrans,l:'Transferencias',c:'var(--blue)'},
+            {n:totalTasks,l:'Tareas registradas',c:'var(--red)'},
+            {n:DATA.branches.length,l:'Sucursales',c:'var(--purple)'},
+          ].map(d=>`<div style="background:var(--ws-bg);border-radius:var(--r-md);padding:16px;text-align:center">
+            <div style="font-size:26px;font-weight:800;color:${d.c}">${d.n}</div>
+            <div style="font-size:12px;color:var(--t3);margin-top:4px">${d.l}</div>
+          </div>`).join('')}
+        </div>
+      </div>
+      <div class="card">
+        <div class="sec-hd" style="margin-bottom:16px">
+          <div><div class="sec-title">Exportar datos</div><div class="sec-sub">Descargue toda su información</div></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          ${[
+            {label:'Inventario completo',desc:'Todos los productos con stock por sucursal',fn:'exportInventarioCSV()'},
+            {label:'Órdenes de compra',desc:'Historial completo de órdenes',fn:'exportComprasCSV()'},
+            {label:'Productos (catálogo)',desc:'Lista de referencias sin stock',fn:'exportProductosCSV()'},
+          ].map(e=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:var(--ws-bg);border-radius:var(--r-md);border:1px solid var(--ws-border)">
+            <div>
+              <div style="font-size:13px;font-weight:600;color:var(--t1)">${e.label}</div>
+              <div style="font-size:12px;color:var(--t3)">${e.desc}</div>
+            </div>
+            <button class="btn btn-secondary btn-sm" onclick="${e.fn}">⬇ Descargar CSV</button>
+          </div>`).join('')}
+        </div>
+      </div>`;
+  }
+
+  return `
+  <div class="view-hd">
+    <div>
+      <h1>Configuración</h1>
+      <p class="sub">Administre su negocio, sucursales y preferencias del sistema</p>
+    </div>
+  </div>
+
+  <div class="f-tabs" style="margin-bottom:20px">
+    <div class="f-tab ${cfgTab==='tienda'?'active':''}" onclick="APP.cfgTab='tienda';navigateTo('configuracion')">🏪 Mi negocio</div>
+    <div class="f-tab ${cfgTab==='sucursales'?'active':''}" onclick="APP.cfgTab='sucursales';navigateTo('configuracion')">🏢 Sucursales</div>
+    <div class="f-tab ${cfgTab==='equipo'?'active':''}" onclick="APP.cfgTab='equipo';navigateTo('configuracion')">👥 Equipo</div>
+    <div class="f-tab ${cfgTab==='datos'?'active':''}" onclick="APP.cfgTab='datos';navigateTo('configuracion')">💾 Datos</div>
+  </div>
+
+  ${tabContent}`;
+}
+
+function saveStoreConfig(){
+  STORE.name=document.getElementById('st-name')?.value||STORE.name;
+  STORE.nit=document.getElementById('st-nit')?.value||STORE.nit;
+  STORE.phone=document.getElementById('st-phone')?.value||STORE.phone;
+  STORE.email=document.getElementById('st-email')?.value||STORE.email;
+  STORE.address=document.getElementById('st-addr')?.value||STORE.address;
+  toast(`"${STORE.name}" actualizado correctamente`,'ok');
+}
+
+function saveBranchConfig(branchId){
+  const b=DATA.branches.find(b=>b.id===branchId);
+  if(!b) return;
+  b.name=document.getElementById(`br-name-${branchId}`)?.value||b.name;
+  b.manager=document.getElementById(`br-mgr-${branchId}`)?.value||b.manager;
+  b.address=document.getElementById(`br-addr-${branchId}`)?.value||b.address;
+  b.phone=document.getElementById(`br-phone-${branchId}`)?.value||b.phone;
+  b.email=document.getElementById(`br-email-${branchId}`)?.value||b.email;
+  toast(`${b.name} actualizada`,'ok');
+  navigateTo('configuracion');
+}
 
 /* ── Boot ─────────────────────────────────── */
 navigateTo('dashboard');
