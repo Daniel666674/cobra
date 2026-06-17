@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio · Daniel Acosta · Frontend Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Cormorant+Garamond:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:        #070b14;
+  --bg2:       #0c1120;
+  --surface:   #111827;
+  --border:    rgba(255,255,255,0.07);
+  --border-h:  rgba(255,255,255,0.14);
+  --text:      #f0f4ff;
+  --muted:     #6b7a99;
+  --faint:     #2a3550;
+  --accent:    #4f46e5;
+  --accent-lt: rgba(79,70,229,0.14);
+  --accent-gl: rgba(79,70,229,0.30);
+  --gold:      #f59e0b;
+  --gold-lt:   rgba(245,158,11,0.12);
+  --green:     #10b981;
+  --green-lt:  rgba(16,185,129,0.12);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  background-image:
+    radial-gradient(ellipse 70% 50% at 15% -5%, rgba(79,70,229,0.10), transparent 55%),
+    radial-gradient(ellipse 50% 40% at 90% 10%, rgba(245,158,11,0.06), transparent 50%);
+}
+a { text-decoration: none; color: inherit; }
+::selection { background: var(--accent); color: #fff; }
+::-webkit-scrollbar { width: 8px; } ::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--faint); border-radius: 8px; }
+
+/* ── HEADER ─────────────────────────────── */
+header {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 60px 28px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+.eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-lt);
+  border: 1px solid rgba(79,70,229,0.25);
+  padding: 5px 12px;
+  border-radius: 20px;
+  margin-bottom: 8px;
+}
+header h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(36px, 6vw, 60px);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -.01em;
+}
+header h1 span { color: var(--gold); }
+header p {
+  font-size: 15px;
+  color: var(--muted);
+  max-width: 520px;
+  line-height: 1.65;
+  margin-top: 10px;
+}
+
+/* ── DIVIDER ────────────────────────────── */
+.divider {
+  max-width: 1140px;
+  margin: 40px auto 0;
+  padding: 0 28px;
+}
+.divider hr {
+  border: none;
+  border-top: 1px solid var(--border);
+}
+
+/* ── SECTION LABEL ──────────────────────── */
+.section-label {
+  max-width: 1140px;
+  margin: 48px auto 24px;
+  padding: 0 28px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.section-label span {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── GRID ───────────────────────────────── */
+.grid {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 28px 100px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+/* ── CARD ───────────────────────────────── */
+.card {
+  background: linear-gradient(160deg, var(--surface), var(--bg2));
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  transition: border-color .25s, transform .25s, box-shadow .25s;
+  position: relative;
+  overflow: hidden;
+}
+.card::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 160px; height: 160px;
+  border-radius: 50%;
+  background: var(--card-glow, rgba(79,70,229,0.06));
+  filter: blur(30px);
+  pointer-events: none;
+}
+.card:hover {
+  border-color: var(--border-h);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+}
+
+.card-icon {
+  width: 44px; height: 44px;
+  border-radius: 13px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  margin-bottom: 18px;
+  flex-shrink: 0;
+}
+
+.card-category {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.card h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 10px;
+}
+.card p {
+  font-size: 13.5px;
+  color: var(--muted);
+  line-height: 1.65;
+  flex: 1;
+  margin-bottom: 22px;
+}
+
+/* ── STACK TAGS ─────────────────────────── */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-bottom: 22px;
+}
+.tag {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  letter-spacing: .03em;
+}
+.tag.hl { background: var(--accent-lt); border-color: rgba(79,70,229,0.25); color: #a5b4fc; }
+.tag.go { background: var(--gold-lt);   border-color: rgba(245,158,11,0.25); color: var(--gold); }
+.tag.gn { background: var(--green-lt);  border-color: rgba(16,185,129,0.25); color: var(--green); }
+
+/* ── CTA BUTTON ─────────────────────────── */
+.btn-visit {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 18px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  background: var(--accent-lt);
+  border: 1px solid rgba(79,70,229,0.30);
+  color: #a5b4fc;
+  transition: all .2s;
+  align-self: flex-start;
+  cursor: pointer;
+}
+.btn-visit:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  box-shadow: 0 6px 20px var(--accent-gl);
+}
+.btn-visit svg {
+  transition: transform .2s;
+}
+.btn-visit:hover svg {
+  transform: translate(2px, -2px);
+}
+
+/* ── FOOTER ─────────────────────────────── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 28px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--faint);
+}
+
+/* ── RESPONSIVE ─────────────────────────── */
+@media (max-width: 600px) {
+  header { padding: 44px 20px 0; }
+  .grid  { padding: 0 20px 80px; }
+  .section-label { padding: 0 20px; }
+  .divider { padding: 0 20px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">Frontend Portfolio</div>
+  <h1>Proyectos <span>Web</span></h1>
+  <p>
+    Demos interactivos y sitios comerciales construidos con HTML, CSS y JavaScript puro — sin frameworks, sin SaaS. Diseño desde cero, cada uno.
+  </p>
+</header>
+
+<div class="divider"><hr></div>
+
+<!-- ── DEMOS INTERACTIVOS ─────────────────── -->
+<div class="section-label"><span>Demos interactivos · SaaS UI</span></div>
+
+<div class="grid">
+
+  <!-- COBRA · Real Confort -->
+  <div class="card" style="--card-glow: rgba(245,158,11,0.08)">
+    <div class="card-icon" style="background:linear-gradient(135deg,#1e3a8a,#4a80d0)">🛋️</div>
+    <div class="card-category">Muebles · E-commerce</div>
+    <h2>Cobra · Real Confort</h2>
+    <p>
+      Dashboard interactivo para una marca de muebles premium. Incluye KPIs en tiempo real, tabla de pedidos, historial de actividad y navegación multi-vista — todo en una sola página.
+    </p>
+    <div class="tags">
+      <span class="tag hl">HTML5</span>
+      <span class="tag hl">CSS3</span>
+      <span class="tag hl">Vanilla JS</span>
+      <span class="tag go">Cormorant Garamond</span>
+      <span class="tag">DM Sans</span>
+      <span class="tag gn">CSS Custom Properties</span>
+    </div>
+    <a class="btn-visit" href="https://daniel666674.github.io/cobra/" target="_blank">
+      Ver proyecto
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+    </a>
+  </div>
+
+  <!-- ALIVIA -->
+  <div class="card" style="--card-glow: rgba(79,70,229,0.10)">
+    <div class="card-icon" style="background:linear-gradient(135deg,#4f46e5,#7c3aed)">📊</div>
+    <div class="card-category">Finanzas · Contabilidad</div>
+    <h2>Alivia</h2>
+    <p>
+      Sistema operativo para firmas contables. Panel de gestión con sidebar de navegación, módulos de clientes, documentos y facturación — interfaz de escritorio completa en HTML puro.
+    </p>
+    <div class="tags">
+      <span class="tag hl">HTML5</span>
+      <span class="tag hl">CSS3</span>
+      <span class="tag hl">Vanilla JS</span>
+      <span class="tag">Inter</span>
+      <span class="tag gn">CSS Custom Properties</span>
+      <span class="tag gn">Design System</span>
+    </div>
+    <a class="btn-visit" href="https://daniel666674.github.io/cobra/alivia.html" target="_blank">
+      Ver proyecto
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+    </a>
+  </div>
+
+  <!-- COBRA REPUESTOS -->
+  <div class="card" style="--card-glow: rgba(16,185,129,0.08)">
+    <div class="card-icon" style="background:linear-gradient(135deg,#0d9488,#059669)">🔧</div>
+    <div class="card-category">Automotriz · Retail</div>
+    <h2>Cobra Repuestos</h2>
+    <p>
+      Control operativo para tiendas de repuestos automotrices. Gestión de inventario, órdenes de trabajo, clientes y facturación — mismo design system que Alivia, adaptado al sector.
+    </p>
+    <div class="tags">
+      <span class="tag hl">HTML5</span>
+      <span class="tag hl">CSS3</span>
+      <span class="tag hl">Vanilla JS</span>
+      <span class="tag">Inter</span>
+      <span class="tag gn">CSS Custom Properties</span>
+      <span class="tag gn">Design System</span>
+    </div>
+    <a class="btn-visit" href="https://daniel666674.github.io/cobra/cobra-repuestos.html" target="_blank">
+      Ver proyecto
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+    </a>
+  </div>
+
+</div>
+
+<!-- ── SITIOS COMERCIALES ──────────────────── -->
+<div class="section-label" style="margin-top:0"><span>Sitios comerciales · Clientes reales</span></div>
+
+<div class="grid">
+
+  <!-- IMPERIUM ROYAL -->
+  <div class="card" style="--card-glow: rgba(245,158,11,0.09)">
+    <div class="card-icon" style="background:linear-gradient(135deg,#92400e,#d97706)">🫧</div>
+    <div class="card-category">Perfumería · Lujo</div>
+    <h2>Imperium Royal</h2>
+    <p>
+      Sitio de lanzamiento para una marca de perfumes originales que ingresa al mercado. Identidad visual premium, catálogo de fragancias y presencia digital desde cero.
+    </p>
+    <div class="tags">
+      <span class="tag hl">HTML5</span>
+      <span class="tag hl">CSS3</span>
+      <span class="tag hl">Vanilla JS</span>
+      <span class="tag go">Google Fonts</span>
+      <span class="tag">GitHub Pages</span>
+    </div>
+    <a class="btn-visit" href="https://daniel666674.github.io/imperium-royal/index.html" target="_blank">
+      Ver proyecto
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+    </a>
+  </div>
+
+  <!-- STIKE SHOP · BMX -->
+  <div class="card" style="--card-glow: rgba(239,68,68,0.08)">
+    <div class="card-icon" style="background:linear-gradient(135deg,#b91c1c,#ef4444)">🚲</div>
+    <div class="card-category">BMX · Deportes · Bogotá</div>
+    <h2>Stike Shop</h2>
+    <p>
+      Presencia digital para la tienda de referencia de la escena BMX en Bogotá. Catálogo de productos, galería y canal para convertir la comunidad de Instagram en clientes recurrentes.
+    </p>
+    <div class="tags">
+      <span class="tag hl">HTML5</span>
+      <span class="tag hl">CSS3</span>
+      <span class="tag hl">Vanilla JS</span>
+      <span class="tag go">Google Fonts</span>
+      <span class="tag">GitHub Pages</span>
+    </div>
+    <a class="btn-visit" href="https://daniel666674.github.io/bmxstore/index.html" target="_blank">
+      Ver proyecto
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+    </a>
+  </div>
+
+  <!-- PARRASHOP -->
+  <div class="card" style="--card-glow: rgba(79,70,229,0.08)">
+    <div class="card-icon" style="background:linear-gradient(135deg,#1d4ed8,#2563eb)">💻</div>
+    <div class="card-category">Tecnología · E-commerce</div>
+    <h2>PARRASHOP</h2>
+    <p>
+      12 años vendiendo tecnología por referidos. Primer sitio web del negocio: catálogo digital, WhatsApp directo y estructura para escalar ventas más allá del voz a voz.
+    </p>
+    <div class="tags">
+      <span class="tag hl">HTML5</span>
+      <span class="tag hl">CSS3</span>
+      <span class="tag hl">Vanilla JS</span>
+      <span class="tag go">Google Fonts</span>
+      <span class="tag">GitHub Pages</span>
+    </div>
+    <a class="btn-visit" href="https://daniel666674.github.io/PARRASHOP/#catalog" target="_blank">
+      Ver proyecto
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+    </a>
+  </div>
+
+  <!-- B-LINE DESIGN -->
+  <div class="card" style="--card-glow: rgba(16,185,129,0.08)">
+    <div class="card-icon" style="background:linear-gradient(135deg,#065f46,#059669)">🚗</div>
+    <div class="card-category">PPF · Detailing · Wraps</div>
+    <h2>B-Line Design</h2>
+    <p>
+      Sitio comercial para taller especializado en protección de pintura (PPF), polarizados, detailing y vehicle wraps. Servicios, galería de trabajos y contacto directo.
+    </p>
+    <div class="tags">
+      <span class="tag hl">HTML5</span>
+      <span class="tag hl">CSS3</span>
+      <span class="tag hl">Vanilla JS</span>
+      <span class="tag go">Google Fonts</span>
+      <span class="tag">GitHub Pages</span>
+    </div>
+    <a class="btn-visit" href="https://daniel666674.github.io/b-linedesign/index.html" target="_blank">
+      Ver proyecto
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+    </a>
+  </div>
+
+</div>
+
+<footer>
+  Construido con HTML · CSS · JavaScript — sin frameworks · sin SaaS
+</footer>
+
+</body>
+</html>
