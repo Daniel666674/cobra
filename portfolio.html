@@ -149,30 +149,6 @@ nav::after {
   padding-bottom: 60px;
   position: relative;
 }
-.hero-available {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 48px;
-  opacity: 0;
-  animation: fadeUp .7s .1s forwards;
-}
-.hero-available::before {
-  content: '';
-  width: 5px; height: 5px;
-  border-radius: 50%;
-  background: var(--gold);
-  box-shadow: 0 0 6px var(--gold);
-  animation: breathe 2.5s ease-in-out infinite;
-}
-@keyframes breathe {
-  0%,100% { opacity:1; } 50% { opacity:.3; }
-}
 
 .hero-name {
   font-family: 'Playfair Display', serif;
@@ -234,22 +210,58 @@ nav::after {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 10px;
+  gap: 12px;
   flex-shrink: 0;
   text-align: right;
 }
-.hero-meta-item {
-  font-size: 11px;
-  letter-spacing: .06em;
-  color: var(--muted);
-  font-weight: 400;
-}
-.hero-meta-item a {
-  color: var(--muted);
+.hero-contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  letter-spacing: .04em;
+  font-weight: 500;
+  color: var(--text);
   transition: color .2s;
   cursor: none;
 }
-.hero-meta-item a:hover { color: var(--gold); }
+.hero-contact-link:hover { color: var(--gold); }
+.hero-contact-link .ci {
+  width: 28px; height: 28px;
+  border: 1px solid var(--border-h);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  color: var(--gold);
+  transition: border-color .2s, background .2s;
+}
+.hero-contact-link:hover .ci {
+  border-color: var(--gold);
+  background: var(--gold-dim);
+}
+.hero-contact-wa {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  letter-spacing: .04em;
+  font-weight: 600;
+  color: var(--void);
+  background: var(--gold);
+  padding: 8px 16px;
+  border-radius: 2px;
+  transition: opacity .2s;
+  cursor: none;
+}
+.hero-contact-wa:hover { opacity: .85; }
+.hero-contact-wa svg { flex-shrink: 0; }
+.hero-meta-location {
+  font-size: 11px;
+  letter-spacing: .08em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-top: 4px;
+}
 .hero-stats {
   display: flex;
   gap: 40px;
@@ -575,7 +587,6 @@ footer {
 <!-- HERO -->
 <div class="wrap">
   <section class="hero">
-    <div class="hero-available">2 meses de trabajo en solitario · Fullstack Developer</div>
     <h1 class="hero-name">
       Daniel Felipe<br>
       <span class="line2">Acosta</span><br>
@@ -593,9 +604,17 @@ footer {
             <div class="hero-stat-l">Proyectos activos</div>
           </div>
         </div>
-        <div class="hero-meta-item"><a href="mailto:daniel.f.acosta96@gmail.com">daniel.f.acosta96@gmail.com</a></div>
-        <div class="hero-meta-item"><a href="https://wa.me/573136662777" target="_blank">+57 313 666 2777 (WhatsApp)</a></div>
-        <div class="hero-meta-item">Bogotá, Colombia</div>
+        <a class="hero-contact-link" href="mailto:daniel.f.acosta96@gmail.com">
+          daniel.f.acosta96@gmail.com
+          <span class="ci">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><polyline points="4,4 12,12 20,4"/></svg>
+          </span>
+        </a>
+        <a class="hero-contact-wa" href="https://wa.me/573136662777" target="_blank">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.122 1.534 5.857L0 24l6.335-1.524A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.006-1.368l-.36-.214-3.732.978.995-3.636-.235-.374A9.818 9.818 0 1 1 12 21.818z"/></svg>
+          WhatsApp
+        </a>
+        <div class="hero-meta-location">Bogotá, Colombia</div>
       </div>
     </div>
   </section>
