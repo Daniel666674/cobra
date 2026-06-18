@@ -3,435 +3,903 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portfolio · Daniel Acosta · Frontend Developer</title>
+<title>Daniel Felipe Acosta — Fullstack Developer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Cormorant+Garamond:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
+
+/* ── TOKENS ─────────────────────────────────── */
 :root {
-  --bg:        #070b14;
-  --bg2:       #0c1120;
-  --surface:   #111827;
-  --border:    rgba(255,255,255,0.07);
-  --border-h:  rgba(255,255,255,0.14);
-  --text:      #f0f4ff;
-  --muted:     #6b7a99;
-  --faint:     #2a3550;
-  --accent:    #4f46e5;
-  --accent-lt: rgba(79,70,229,0.14);
-  --accent-gl: rgba(79,70,229,0.30);
-  --gold:      #f59e0b;
-  --gold-lt:   rgba(245,158,11,0.12);
-  --green:     #10b981;
-  --green-lt:  rgba(16,185,129,0.12);
+  --void:      #080808;
+  --base:      #0d0d0d;
+  --surface:   #141414;
+  --lift:      #1c1c1c;
+  --border:    rgba(255,255,255,0.06);
+  --border-h:  rgba(255,255,255,0.12);
+  --text:      #e2ddd8;
+  --muted:     #6a6560;
+  --faint:     #2a2825;
+  --gold:      #c9a96e;
+  --gold-dim:  rgba(201,169,110,0.10);
+  --gold-glow: rgba(201,169,110,0.20);
 }
 
+/* ── RESET ──────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; font-size: 16px; }
 body {
   font-family: 'Inter', -apple-system, sans-serif;
-  background: var(--bg);
+  background: var(--void);
   color: var(--text);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
-  background-image:
-    radial-gradient(ellipse 70% 50% at 15% -5%, rgba(79,70,229,0.10), transparent 55%),
-    radial-gradient(ellipse 50% 40% at 90% 10%, rgba(245,158,11,0.06), transparent 50%);
+  cursor: none;
+  overflow-x: hidden;
 }
 a { text-decoration: none; color: inherit; }
-::selection { background: var(--accent); color: #fff; }
-::-webkit-scrollbar { width: 8px; } ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--faint); border-radius: 8px; }
+::selection { background: var(--gold); color: var(--void); }
+::-webkit-scrollbar { width: 1px; }
+::-webkit-scrollbar-thumb { background: var(--faint); }
 
-/* ── HEADER ─────────────────────────────── */
-header {
-  max-width: 1140px;
+/* ── CURSOR ─────────────────────────────────── */
+#cursor {
+  position: fixed;
+  width: 8px; height: 8px;
+  background: var(--gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.08s ease, width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
+  mix-blend-mode: normal;
+}
+#cursor-ring {
+  position: fixed;
+  width: 36px; height: 36px;
+  border: 1px solid rgba(201,169,110,0.35);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.18s ease, width 0.25s ease, height 0.25s ease, opacity 0.25s ease, border-color 0.25s ease;
+}
+body:has(a:hover) #cursor-ring,
+body:has(button:hover) #cursor-ring {
+  width: 52px; height: 52px;
+  border-color: rgba(201,169,110,0.55);
+}
+
+/* ── LAYOUT ─────────────────────────────────── */
+.wrap {
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 60px 28px 0;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 6px;
-}
-.eyebrow {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: var(--accent);
-  background: var(--accent-lt);
-  border: 1px solid rgba(79,70,229,0.25);
-  padding: 5px 12px;
-  border-radius: 20px;
-  margin-bottom: 8px;
-}
-header h1 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(36px, 6vw, 60px);
-  font-weight: 700;
-  line-height: 1.05;
-  letter-spacing: -.01em;
-}
-header h1 span { color: var(--gold); }
-header p {
-  font-size: 15px;
-  color: var(--muted);
-  max-width: 520px;
-  line-height: 1.65;
-  margin-top: 10px;
+  padding: 0 60px;
 }
 
-/* ── DIVIDER ────────────────────────────── */
-.divider {
-  max-width: 1140px;
-  margin: 40px auto 0;
-  padding: 0 28px;
-}
-.divider hr {
-  border: none;
-  border-top: 1px solid var(--border);
-}
-
-/* ── SECTION LABEL ──────────────────────── */
-.section-label {
-  max-width: 1140px;
-  margin: 48px auto 24px;
-  padding: 0 28px;
+/* ── NAV ────────────────────────────────────── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  padding: 28px 60px;
   display: flex;
   align-items: center;
-  gap: 12px;
+  justify-content: space-between;
+  mix-blend-mode: normal;
 }
-.section-label span {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: .16em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-.section-label::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--border);
-}
-
-/* ── GRID ───────────────────────────────── */
-.grid {
-  max-width: 1140px;
-  margin: 0 auto;
-  padding: 0 28px 100px;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 20px;
-}
-
-/* ── CARD ───────────────────────────────── */
-.card {
-  background: linear-gradient(160deg, var(--surface), var(--bg2));
-  border: 1px solid var(--border);
-  border-radius: 18px;
-  padding: 26px;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  transition: border-color .25s, transform .25s, box-shadow .25s;
-  position: relative;
-  overflow: hidden;
-}
-.card::before {
+nav::after {
   content: '';
   position: absolute;
-  top: -60px; right: -60px;
-  width: 160px; height: 160px;
-  border-radius: 50%;
-  background: var(--card-glow, rgba(79,70,229,0.06));
-  filter: blur(30px);
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(8,8,8,0.95) 60%, transparent);
   pointer-events: none;
+  z-index: -1;
 }
-.card:hover {
-  border-color: var(--border-h);
-  transform: translateY(-3px);
-  box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+.nav-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: .04em;
+  color: var(--text);
+  opacity: 0.7;
 }
-
-.card-icon {
-  width: 44px; height: 44px;
-  border-radius: 13px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 20px;
-  margin-bottom: 18px;
-  flex-shrink: 0;
+.nav-contact {
+  display: flex;
+  align-items: center;
+  gap: 28px;
 }
-
-.card-category {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: .15em;
+.nav-link {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .10em;
   text-transform: uppercase;
   color: var(--muted);
-  margin-bottom: 6px;
+  transition: color .2s;
+  cursor: none;
 }
-.card h2 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 26px;
-  font-weight: 700;
-  line-height: 1.1;
-  margin-bottom: 10px;
-}
-.card p {
-  font-size: 13.5px;
-  color: var(--muted);
-  line-height: 1.65;
-  flex: 1;
-  margin-bottom: 22px;
-}
-
-/* ── STACK TAGS ─────────────────────────── */
-.tags {
-  display: flex;
-  flex-wrap: wrap;
+.nav-link:hover { color: var(--text); }
+.nav-wa {
+  display: inline-flex;
+  align-items: center;
   gap: 7px;
-  margin-bottom: 22px;
-}
-.tag {
   font-size: 11px;
   font-weight: 600;
-  padding: 4px 10px;
-  border-radius: 6px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid var(--border);
-  color: var(--muted);
-  letter-spacing: .03em;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid rgba(201,169,110,0.30);
+  padding: 8px 18px;
+  border-radius: 100px;
+  transition: background .2s, border-color .2s;
+  cursor: none;
 }
-.tag.hl { background: var(--accent-lt); border-color: rgba(79,70,229,0.25); color: #a5b4fc; }
-.tag.go { background: var(--gold-lt);   border-color: rgba(245,158,11,0.25); color: var(--gold); }
-.tag.gn { background: var(--green-lt);  border-color: rgba(16,185,129,0.25); color: var(--green); }
+.nav-wa:hover {
+  background: var(--gold-dim);
+  border-color: rgba(201,169,110,0.55);
+}
+.nav-wa svg { flex-shrink: 0; }
 
-/* ── CTA BUTTON ─────────────────────────── */
-.btn-visit {
+/* ── HERO ───────────────────────────────────── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: 120px;
+  padding-bottom: 60px;
+  position: relative;
+}
+.hero-available {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 11px 18px;
-  border-radius: 10px;
-  font-size: 13px;
-  font-weight: 700;
-  background: var(--accent-lt);
-  border: 1px solid rgba(79,70,229,0.30);
-  color: #a5b4fc;
-  transition: all .2s;
-  align-self: flex-start;
-  cursor: pointer;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 48px;
+  opacity: 0;
+  animation: fadeUp .7s .1s forwards;
 }
-.btn-visit:hover {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: #fff;
-  box-shadow: 0 6px 20px var(--accent-gl);
+.hero-available::before {
+  content: '';
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 6px var(--gold);
+  animation: breathe 2.5s ease-in-out infinite;
 }
-.btn-visit svg {
-  transition: transform .2s;
-}
-.btn-visit:hover svg {
-  transform: translate(2px, -2px);
+@keyframes breathe {
+  0%,100% { opacity:1; } 50% { opacity:.3; }
 }
 
-/* ── FOOTER ─────────────────────────────── */
+.hero-name {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-size: clamp(72px, 11vw, 148px);
+  line-height: 0.86;
+  letter-spacing: -.03em;
+  color: var(--text);
+  margin-bottom: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: 0;
+  animation: fadeUp .8s .2s forwards;
+}
+.hero-name .line2 {
+  display: block;
+  color: var(--text);
+  padding-left: 0.06em;
+}
+.hero-name .italic {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--gold);
+  font-size: 0.80em;
+  letter-spacing: -.015em;
+}
+
+.hero-rule {
+  width: 100%;
+  height: 1px;
+  background: var(--border-h);
+  margin: 28px 0 24px;
+  opacity: 0;
+  animation: fadeIn .6s .5s forwards;
+}
+
+.hero-bottom {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 60px;
+  opacity: 0;
+  animation: fadeUp .7s .55s forwards;
+}
+.hero-desc {
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--muted);
+  max-width: 480px;
+  font-weight: 300;
+}
+.hero-desc strong {
+  color: var(--text);
+  font-weight: 600;
+}
+.hero-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  flex-shrink: 0;
+  text-align: right;
+}
+.hero-meta-item {
+  font-size: 11px;
+  letter-spacing: .06em;
+  color: var(--muted);
+  font-weight: 400;
+}
+.hero-meta-item a {
+  color: var(--muted);
+  transition: color .2s;
+  cursor: none;
+}
+.hero-meta-item a:hover { color: var(--gold); }
+.hero-stats {
+  display: flex;
+  gap: 40px;
+  margin-top: 6px;
+}
+.hero-stat-n {
+  font-family: 'Playfair Display', serif;
+  font-size: 38px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1;
+}
+.hero-stat-l {
+  font-size: 10px;
+  letter-spacing: .10em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(18px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity:0; } to { opacity:1; }
+}
+
+/* ── SECTION ────────────────────────────────── */
+.section-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 0 0 28px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 0;
+}
+.section-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .20em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(22px, 2.5vw, 30px);
+  font-weight: 700;
+  letter-spacing: -.01em;
+  color: var(--text);
+}
+
+/* ── PROJECT ROWS ───────────────────────────── */
+.projects { margin-bottom: 100px; }
+
+.proj-row {
+  display: grid;
+  grid-template-columns: 220px 1fr 180px;
+  align-items: start;
+  gap: 0;
+  padding: 32px 0;
+  border-bottom: 1px solid var(--border);
+  text-decoration: none;
+  color: inherit;
+  cursor: none;
+  position: relative;
+  transition: background .25s;
+  overflow: hidden;
+}
+.proj-row::before {
+  content: '';
+  position: absolute;
+  left: -60px; top: 0; bottom: 0;
+  width: 0;
+  background: var(--gold-dim);
+  transition: width .35s cubic-bezier(.22,1,.36,1);
+  z-index: 0;
+}
+.proj-row:hover::before { width: calc(100% + 120px); }
+
+.proj-row > * { position: relative; z-index: 1; }
+
+.proj-left { padding-right: 40px; padding-top: 2px; }
+.proj-cat {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+  transition: color .25s;
+}
+.proj-row:hover .proj-cat { color: var(--gold); }
+
+.proj-name {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(20px, 2vw, 26px);
+  font-weight: 700;
+  letter-spacing: -.01em;
+  color: var(--text);
+  line-height: 1.1;
+  transition: color .25s;
+}
+
+.proj-center { padding-right: 60px; }
+.proj-desc {
+  font-size: 13px;
+  line-height: 1.75;
+  color: var(--muted);
+  font-weight: 300;
+  transition: color .25s;
+}
+.proj-row:hover .proj-desc { color: var(--text); }
+
+.proj-mockup-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 12px;
+  opacity: .65;
+}
+
+.proj-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 14px;
+  padding-top: 2px;
+}
+.proj-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  justify-content: flex-end;
+}
+.ptag {
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border: 1px solid var(--border-h);
+  color: var(--muted);
+  background: var(--surface);
+  transition: border-color .25s, color .25s, background .25s;
+}
+.ptag.hi {
+  border-color: rgba(201,169,110,0.25);
+  color: var(--gold);
+  background: var(--gold-dim);
+}
+.proj-row:hover .ptag { background: transparent; }
+
+.proj-arrow {
+  width: 32px; height: 32px;
+  border: 1px solid var(--border-h);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--muted);
+  transition: border-color .25s, color .25s, transform .25s, background .25s;
+}
+.proj-row:hover .proj-arrow {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: var(--gold-dim);
+  transform: translate(3px, -3px);
+}
+
+/* ── SITE ROWS (commercial) ─────────────────── */
+.site-row {
+  display: grid;
+  grid-template-columns: 220px 1fr 180px;
+  align-items: start;
+  gap: 0;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--border);
+  text-decoration: none;
+  color: inherit;
+  cursor: none;
+  position: relative;
+  overflow: hidden;
+  transition: background .25s;
+}
+.site-row::before {
+  content: '';
+  position: absolute;
+  left: -60px; top: 0; bottom: 0;
+  width: 0;
+  background: rgba(255,255,255,0.02);
+  transition: width .35s cubic-bezier(.22,1,.36,1);
+  z-index: 0;
+}
+.site-row:hover::before { width: calc(100% + 120px); }
+.site-row > * { position: relative; z-index: 1; }
+.site-row .proj-cat { transition: color .25s; }
+.site-row:hover .proj-cat { color: var(--text); }
+.site-row:hover .proj-desc { color: var(--text); }
+.site-row:hover .proj-arrow {
+  border-color: var(--border-h);
+  color: var(--text);
+  background: var(--lift);
+  transform: translate(3px, -3px);
+}
+
+/* ── SECTION SPACING ────────────────────────── */
+.section-block { padding-bottom: 0; }
+.section-gap { height: 80px; }
+
+/* ── FOOTER ─────────────────────────────────── */
 footer {
   border-top: 1px solid var(--border);
-  padding: 28px;
-  text-align: center;
+  padding: 48px 60px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: end;
+  gap: 40px;
+}
+.footer-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -.01em;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.footer-role {
+  font-size: 11px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.footer-link {
   font-size: 12px;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color .2s;
+  cursor: none;
+}
+.footer-link:hover { color: var(--gold); }
+.footer-link svg { opacity: .5; }
+.footer-right {
+  text-align: right;
+}
+.footer-copy {
+  font-size: 10px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
   color: var(--faint);
+  line-height: 2;
 }
 
-/* ── RESPONSIVE ─────────────────────────── */
-@media (max-width: 600px) {
-  header { padding: 44px 20px 0; }
-  .grid  { padding: 0 20px 80px; }
-  .section-label { padding: 0 20px; }
-  .divider { padding: 0 20px; }
+/* ── SCROLL REVEAL ──────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .65s cubic-bezier(.22,1,.36,1), transform .65s cubic-bezier(.22,1,.36,1);
 }
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── RESPONSIVE ─────────────────────────────── */
+@media (max-width: 900px) {
+  .wrap { padding: 0 32px; }
+  nav { padding: 24px 32px; }
+  footer { padding: 40px 32px; grid-template-columns: 1fr; gap: 28px; }
+  .footer-right { text-align: left; }
+  .hero { padding-top: 100px; padding-bottom: 48px; }
+  .hero-bottom { flex-direction: column; gap: 40px; }
+  .hero-meta { align-items: flex-start; text-align: left; }
+
+  .proj-row, .site-row {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .proj-right { display: none; }
+  .proj-center { padding-right: 0; }
+  .proj-left { padding-right: 0; }
+}
+
+@media (max-width: 600px) {
+  .wrap { padding: 0 20px; }
+  nav { padding: 20px; }
+  nav .nav-contact { gap: 16px; }
+  .nav-link { display: none; }
+  footer { padding: 32px 20px; }
+  .hero-stats { gap: 28px; }
+  body { cursor: auto; }
+  #cursor, #cursor-ring { display: none; }
+}
+
 </style>
 </head>
 <body>
 
-<header>
-  <div class="eyebrow">Frontend Portfolio</div>
-  <h1>Proyectos <span>Web</span></h1>
-  <p>
-    Demos interactivos y sitios comerciales construidos con HTML, CSS y JavaScript puro — sin frameworks, sin SaaS. Diseño desde cero, cada uno.
-  </p>
-</header>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
 
-<div class="divider"><hr></div>
-
-<!-- ── DEMOS INTERACTIVOS ─────────────────── -->
-<div class="section-label"><span>Demos interactivos · SaaS UI</span></div>
-
-<div class="grid">
-
-  <!-- COBRA · Real Confort -->
-  <div class="card" style="--card-glow: rgba(245,158,11,0.08)">
-    <div class="card-icon" style="background:linear-gradient(135deg,#1e3a8a,#4a80d0)">🛋️</div>
-    <div class="card-category">Muebles · E-commerce</div>
-    <h2>Cobra · Real Confort</h2>
-    <p>
-      Dashboard interactivo para una marca de muebles premium. Incluye KPIs en tiempo real, tabla de pedidos, historial de actividad y navegación multi-vista — todo en una sola página.
-    </p>
-    <div class="tags">
-      <span class="tag hl">HTML5</span>
-      <span class="tag hl">CSS3</span>
-      <span class="tag hl">Vanilla JS</span>
-      <span class="tag go">Cormorant Garamond</span>
-      <span class="tag">DM Sans</span>
-      <span class="tag gn">CSS Custom Properties</span>
-    </div>
-    <a class="btn-visit" href="https://daniel666674.github.io/cobra/" target="_blank">
-      Ver proyecto
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+<!-- NAV -->
+<nav>
+  <span class="nav-name">Daniel Felipe Acosta</span>
+  <div class="nav-contact">
+    <a href="mailto:daniel.f.acosta96@gmail.com" class="nav-link">daniel.f.acosta96@gmail.com</a>
+    <a href="https://wa.me/573136662777" target="_blank" class="nav-wa">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.555 4.116 1.527 5.845L.057 23.5a.5.5 0 0 0 .614.612l5.76-1.51A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.882a9.882 9.882 0 0 1-5.022-1.368l-.36-.214-3.735.979.998-3.645-.235-.374A9.854 9.854 0 0 1 2.118 12C2.118 6.508 6.508 2.118 12 2.118S21.882 6.508 21.882 12 17.492 21.882 12 21.882z"/></svg>
+      WhatsApp
     </a>
   </div>
+</nav>
 
-  <!-- ALIVIA -->
-  <div class="card" style="--card-glow: rgba(79,70,229,0.10)">
-    <div class="card-icon" style="background:linear-gradient(135deg,#4f46e5,#7c3aed)">📊</div>
-    <div class="card-category">Finanzas · Contabilidad</div>
-    <h2>Alivia</h2>
-    <p>
-      Sistema operativo para firmas contables. Panel de gestión con sidebar de navegación, módulos de clientes, documentos y facturación — interfaz de escritorio completa en HTML puro.
-    </p>
-    <div class="tags">
-      <span class="tag hl">HTML5</span>
-      <span class="tag hl">CSS3</span>
-      <span class="tag hl">Vanilla JS</span>
-      <span class="tag">Inter</span>
-      <span class="tag gn">CSS Custom Properties</span>
-      <span class="tag gn">Design System</span>
+<!-- HERO -->
+<div class="wrap">
+  <section class="hero">
+    <div class="hero-available">2 meses de trabajo en solitario · Fullstack Developer</div>
+    <h1 class="hero-name">
+      Daniel Felipe<br>
+      <span class="line2">Acosta</span><br>
+      <span class="line2"><span class="italic">Fullstack Developer</span></span>
+    </h1>
+    <div class="hero-rule"></div>
+    <div class="hero-bottom">
+      <p class="hero-desc">
+        Diseño, construyo y despliego <strong>sistemas completos que generan ingresos</strong>. Desde la base de datos hasta la interfaz, desde el CRM hasta el dashboard de GA4. Cada línea de código tiene un propósito: que tu negocio venda más, entienda mejor a sus clientes y tome decisiones con datos reales. En dos meses trabajando de forma independiente, he entregado plataformas enterprise en producción y tengo una cartera activa de clientes en implementación.
+      </p>
+      <div class="hero-meta">
+        <div class="hero-stats">
+          <div>
+            <div class="hero-stat-n">8</div>
+            <div class="hero-stat-l">Proyectos activos</div>
+          </div>
+        </div>
+        <div class="hero-meta-item"><a href="mailto:daniel.f.acosta96@gmail.com">daniel.f.acosta96@gmail.com</a></div>
+        <div class="hero-meta-item"><a href="https://wa.me/573136662777" target="_blank">+57 313 666 2777 (WhatsApp)</a></div>
+        <div class="hero-meta-item">Bogotá, Colombia</div>
+      </div>
     </div>
-    <a class="btn-visit" href="https://daniel666674.github.io/cobra/alivia.html" target="_blank">
-      Ver proyecto
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-    </a>
-  </div>
-
-  <!-- COBRA REPUESTOS -->
-  <div class="card" style="--card-glow: rgba(16,185,129,0.08)">
-    <div class="card-icon" style="background:linear-gradient(135deg,#0d9488,#059669)">🔧</div>
-    <div class="card-category">Automotriz · Retail</div>
-    <h2>Cobra Repuestos</h2>
-    <p>
-      Control operativo para tiendas de repuestos automotrices. Gestión de inventario, órdenes de trabajo, clientes y facturación — mismo design system que Alivia, adaptado al sector.
-    </p>
-    <div class="tags">
-      <span class="tag hl">HTML5</span>
-      <span class="tag hl">CSS3</span>
-      <span class="tag hl">Vanilla JS</span>
-      <span class="tag">Inter</span>
-      <span class="tag gn">CSS Custom Properties</span>
-      <span class="tag gn">Design System</span>
-    </div>
-    <a class="btn-visit" href="https://daniel666674.github.io/cobra/cobra-repuestos.html" target="_blank">
-      Ver proyecto
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-    </a>
-  </div>
-
+  </section>
 </div>
 
-<!-- ── SITIOS COMERCIALES ──────────────────── -->
-<div class="section-label" style="margin-top:0"><span>Sitios comerciales · Clientes reales</span></div>
-
-<div class="grid">
-
-  <!-- IMPERIUM ROYAL -->
-  <div class="card" style="--card-glow: rgba(245,158,11,0.09)">
-    <div class="card-icon" style="background:linear-gradient(135deg,#92400e,#d97706)">🫧</div>
-    <div class="card-category">Perfumería · Lujo</div>
-    <h2>Imperium Royal</h2>
-    <p>
-      Sitio de lanzamiento para una marca de perfumes originales que ingresa al mercado. Identidad visual premium, catálogo de fragancias y presencia digital desde cero.
-    </p>
-    <div class="tags">
-      <span class="tag hl">HTML5</span>
-      <span class="tag hl">CSS3</span>
-      <span class="tag hl">Vanilla JS</span>
-      <span class="tag go">Google Fonts</span>
-      <span class="tag">GitHub Pages</span>
+<!-- FULLSTACK APPS -->
+<div class="wrap" id="apps">
+  <div class="section-block reveal">
+    <div class="section-header">
+      <div>
+        <div class="section-label">Ingeniería · Backend, APIs, IA</div>
+        <div class="section-title" style="margin-top:10px">El motor de tus operaciones</div>
+      </div>
     </div>
-    <a class="btn-visit" href="https://daniel666674.github.io/imperium-royal/index.html" target="_blank">
-      Ver proyecto
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-    </a>
-  </div>
-
-  <!-- STIKE SHOP · BMX -->
-  <div class="card" style="--card-glow: rgba(239,68,68,0.08)">
-    <div class="card-icon" style="background:linear-gradient(135deg,#b91c1c,#ef4444)">🚲</div>
-    <div class="card-category">BMX · Deportes · Bogotá</div>
-    <h2>Stike Shop</h2>
-    <p>
-      Presencia digital para la tienda de referencia de la escena BMX en Bogotá. Catálogo de productos, galería y canal para convertir la comunidad de Instagram en clientes recurrentes.
+    <p style="font-size:14px; color:var(--muted); max-width:640px; line-height:1.8; margin-bottom:40px;">
+      NEXUS CRM es mi proyecto flagship: entregado, en producción, manejando datos reales. TypeScript en el frontend y backend, APIs que conectan todo, bases de datos PostgreSQL optimizadas para millones de registros, inteligencia artificial que automatiza decisiones repetitivas. Los demos de abajo muestran la misma arquitectura y calidad de código aplicada a otros sectores: e-commerce, contabilidad, retail automotriz.
     </p>
-    <div class="tags">
-      <span class="tag hl">HTML5</span>
-      <span class="tag hl">CSS3</span>
-      <span class="tag hl">Vanilla JS</span>
-      <span class="tag go">Google Fonts</span>
-      <span class="tag">GitHub Pages</span>
-    </div>
-    <a class="btn-visit" href="https://daniel666674.github.io/bmxstore/index.html" target="_blank">
-      Ver proyecto
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-    </a>
-  </div>
 
-  <!-- PARRASHOP -->
-  <div class="card" style="--card-glow: rgba(79,70,229,0.08)">
-    <div class="card-icon" style="background:linear-gradient(135deg,#1d4ed8,#2563eb)">💻</div>
-    <div class="card-category">Tecnología · E-commerce</div>
-    <h2>PARRASHOP</h2>
-    <p>
-      12 años vendiendo tecnología por referidos. Primer sitio web del negocio: catálogo digital, WhatsApp directo y estructura para escalar ventas más allá del voz a voz.
-    </p>
-    <div class="tags">
-      <span class="tag hl">HTML5</span>
-      <span class="tag hl">CSS3</span>
-      <span class="tag hl">Vanilla JS</span>
-      <span class="tag go">Google Fonts</span>
-      <span class="tag">GitHub Pages</span>
+    <!-- NEXUS CRM — FLAGSHIP -->
+    <div class="proj-row reveal">
+      <div class="proj-left">
+        <div class="proj-cat" style="color:var(--gold);">Entregado · Flagship</div>
+        <div class="proj-name">NEXUS<br>CRM</div>
+      </div>
+      <div class="proj-center">
+        <p class="proj-desc">El sistema más complejo que he construido. Un CRM enterprise desde cero para un equipo de ventas que necesitaba visibilidad total sobre su pipeline. Antes tenían deals en hojas de cálculo, seguimiento por memoria y cero visibilidad sobre qué canal de marketing traía los mejores clientes. Hoy cada deal vive en un tablero con etapas claras, responsable asignado, fecha esperada de cierre y probabilidad calculada. El dashboard muestra en tiempo real la tasa de conversión por etapa, la velocidad promedio de cierre, el pronóstico de ingresos para el trimestre y el año. Integración profunda con GA4: cada lead entra al CRM con su fuente de origen (qué campaña de Google Ads, qué post de Instagram, qué referido), y el sistema correlaciona automáticamente la fuente con la tasa de cierre para saber dónde invertir más. Secuencias de ventas con inteligencia artificial que sugieren el siguiente paso basado en el historial completo del cliente. Reportes por vendedor (quién cierra mejor, quién tarda más, quién da más descuentos) y por negocio (tamaño promedio, industria, vertiente). Auditoría inmutable: cada cambio en un deal queda registrado con autor, fecha y valor anterior. Webhooks para sincronizar con herramientas de marketing externas. Permisos por rol: vendedores ven sus deals, gerentes ven su región, ejecutivos ven toda la empresa. Entregado, en producción, manejando datos reales.</p>
+      </div>
+      <div class="proj-right">
+        <div class="proj-tags">
+          <span class="ptag hi">CRM</span>
+          <span class="ptag hi">Sales Ops</span>
+          <span class="ptag hi">GA4 Integration</span>
+          <span class="ptag hi">AI Sequences</span>
+          <span class="ptag">Forecasting</span>
+          <span class="ptag">Webhooks</span>
+          <span class="ptag">Auditoría</span>
+          <span class="ptag">Permisos</span>
+        </div>
+      </div>
     </div>
-    <a class="btn-visit" href="https://daniel666674.github.io/PARRASHOP/#catalog" target="_blank">
-      Ver proyecto
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-    </a>
-  </div>
 
-  <!-- B-LINE DESIGN -->
-  <div class="card" style="--card-glow: rgba(16,185,129,0.08)">
-    <div class="card-icon" style="background:linear-gradient(135deg,#065f46,#059669)">🚗</div>
-    <div class="card-category">PPF · Detailing · Wraps</div>
-    <h2>B-Line Design</h2>
-    <p>
-      Sitio comercial para taller especializado en protección de pintura (PPF), polarizados, detailing y vehicle wraps. Servicios, galería de trabajos y contacto directo.
-    </p>
-    <div class="tags">
-      <span class="tag hl">HTML5</span>
-      <span class="tag hl">CSS3</span>
-      <span class="tag hl">Vanilla JS</span>
-      <span class="tag go">Google Fonts</span>
-      <span class="tag">GitHub Pages</span>
+    <!-- COBRA DASHBOARD — DEMO -->
+    <div class="proj-row reveal" style="opacity:0.85;">
+      <div class="proj-left">
+        <div class="proj-cat">Demo interactivo · Capacidad técnica</div>
+        <div class="proj-name">Cobra<br>Dashboard</div>
+      </div>
+      <div class="proj-center">
+        <p class="proj-desc">Demo funcional que muestra cómo construyo dashboards operacionales para e-commerce. KPIs de ventas en tiempo real (conversión, ticket promedio, ciclo de venta), gestión de órdenes desde captura hasta fulfillment, historial completo de cada cliente. Integración con GA4 para atribución de fuente, ROI por canal, análisis de cohortes. Reportes exportables, análisis de tendencias y auditoría granular. Representa la misma arquitectura y calidad de código que entrego en producción para clientes reales.</p>
+      </div>
+      <div class="proj-right">
+        <div class="proj-tags">
+          <span class="ptag hi">Dashboard</span>
+          <span class="ptag hi">GA4</span>
+          <span class="ptag hi">Real-time</span>
+          <span class="ptag">Attribution</span>
+          <span class="ptag">Reporting</span>
+        </div>
+      </div>
     </div>
-    <a class="btn-visit" href="https://daniel666674.github.io/b-linedesign/index.html" target="_blank">
-      Ver proyecto
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-    </a>
-  </div>
 
+    <!-- ALIVIA CRM/ERP — DEMO -->
+    <div class="proj-row reveal" style="opacity:0.85;">
+      <div class="proj-left">
+        <div class="proj-cat">Demo interactivo · Capacidad técnica</div>
+        <div class="proj-name">Alivia<br>CRM/ERP</div>
+      </div>
+      <div class="proj-center">
+        <p class="proj-desc">Demo funcional de un CRM/ERP para firmas contables. Centralización de clientes, documentos tributarios, ciclos de facturación. Pipeline de ingresos por etapa (quién pagó, quién debe, quién está en riesgo de churn). Reportes de rentabilidad por cliente, análisis de retención, predicción de ingresos mensual. Permisos granulares por rol, sincronización en tiempo real, auditoría de cada cambio financiero. Exportación a Excel. Demuestra la profundidad de sistemas que construyo para operaciones financieras.</p>
+      </div>
+      <div class="proj-right">
+        <div class="proj-tags">
+          <span class="ptag hi">CRM/ERP</span>
+          <span class="ptag hi">Revenue Ops</span>
+          <span class="ptag">Customer 360</span>
+          <span class="ptag">Forecasting</span>
+          <span class="ptag">Permisos</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- COBRA REPUESTOS ERP — DEMO -->
+    <div class="proj-row reveal" style="opacity:0.85;">
+      <div class="proj-left">
+        <div class="proj-cat">Demo interactivo · Capacidad técnica</div>
+        <div class="proj-name">Cobra<br>Repuestos ERP</div>
+      </div>
+      <div class="proj-center">
+        <p class="proj-desc">Demo funcional de un ERP para retail automotriz multi-sucursal. Inventario OEM unificado con alertas de stock, rotación de SKUs, lead time de proveedores. Órdenes de trabajo completas (recepción, diagnóstico, asignación, seguimiento). Dashboard comparativo entre tiendas, margen por producto, costo de adquisición de cliente. Permisos por sucursal, integración GA4, sincronización instantánea. Demuestra mi capacidad para construir sistemas de operaciones complejos con múltiples sedes y roles.</p>
+      </div>
+      <div class="proj-right">
+        <div class="proj-tags">
+          <span class="ptag hi">ERP</span>
+          <span class="ptag hi">Multi-store</span>
+          <span class="ptag">Inventory Ops</span>
+          <span class="ptag">Work Orders</span>
+          <span class="ptag">Profitability</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </div>
 
+<!-- BRIDGE / TRANSITION -->
+<div class="wrap" style="padding-top:60px;padding-bottom:60px;">
+  <div class="reveal" style="border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:48px 0; display:flex; gap:60px; align-items:flex-start;">
+    <div style="flex-shrink:0;">
+      <p style="font-family:'Playfair Display',serif; font-size:28px; font-weight:700; color:var(--text); line-height:1.2;">Un sistema<br>no funciona<br>sin el otro.</p>
+    </div>
+    <div style="max-width:520px;">
+      <p style="font-size:14px; line-height:1.85; color:var(--muted); margin-bottom:16px;">
+        Los sistemas de arriba son el cerebro: organizan tus datos, automatizan decisiones, te dicen qué funciona y qué no. Pero sin un punto de contacto con el cliente, esos datos no existen.
+      </p>
+      <p style="font-size:14px; line-height:1.85; color:var(--muted);">
+        Los sitios de abajo son ese punto de contacto. Cada visita, cada click, cada formulario enviado alimenta los dashboards y CRMs de arriba. GA4 en cada página conecta el comportamiento del visitante con el pipeline de ventas. No son proyectos separados. Son dos mitades del mismo sistema de ingresos.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- COMMERCIAL SITES / REVENUE GROWTH -->
+<div class="wrap section-gap" id="sites"></div>
+<div class="wrap">
+  <div class="section-block reveal">
+    <div class="section-header">
+      <div>
+        <div class="section-label">Frontend · GA4, Conversiones, Automatización</div>
+        <div class="section-title" style="margin-top:10px">Sitios que generan ingresos</div>
+      </div>
+    </div>
+    <p style="font-size:14px; color:var(--muted); max-width:640px; line-height:1.8; margin-bottom:40px;">
+      BlackScale es mi proyecto flagship de sitio web: entregado y en producción, con GA4 configurado, eventos personalizados y dashboard de métricas en tiempo real. Cada sitio que construyo sigue el mismo estándar: máquinas de captura de leads donde cada acción queda registrada para entender qué funciona, qué no, y dónde invertir más. HTML puro para velocidad máxima, diseño que convierte, automatizaciones que nutren al lead hasta que compra. Tres clientes más en implementación activa y uno firmado que arranca próximamente.
+    </p>
+
+    <!-- BLACKSCALE — FLAGSHIP -->
+    <a class="site-row reveal" href="https://blackscale.com" target="_blank">
+      <div class="proj-left">
+        <div class="proj-cat" style="color:var(--gold);">Entregado · Flagship</div>
+        <div class="proj-name">BlackScale</div>
+      </div>
+      <div class="proj-center">
+        <p class="proj-desc">Mi proyecto de sitio web más completo. BlackScale es una consultora tecnológica que necesitaba un sitio que no solo mostrara su trabajo, sino que capturara clientes de forma medible. Cada página tiene GA4 con eventos personalizados: sabemos exactamente dónde rebotan los visitantes, qué caso de estudio genera más interés, qué blog post convierte mejor, cuánto tiempo de permanencia predice que un visitante va a llenar el formulario. Cuando alguien completa una consulta, el lead se crea automáticamente en el CRM con su fuente de origen (si vino de Google Ads, de un referido o de búsqueda orgánica). Dashboard en tiempo real que muestra el funnel completo: visitantes, leads calificados, propuestas enviadas, clientes cerrados. Diseño obsesionado con la conversión: CTAs claros, formularios que no asustan, testimonios estratégicamente ubicados, velocidad de carga brutal. Entregado y en producción.</p>
+      </div>
+      <div class="proj-right">
+        <div class="proj-tags">
+          <span class="ptag hi">GA4</span>
+          <span class="ptag hi">Lead Funnel</span>
+          <span class="ptag hi">CRM Sync</span>
+          <span class="ptag">Attribution</span>
+          <span class="ptag">Conversion</span>
+        </div>
+        <div class="proj-arrow">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+        </div>
+      </div>
+    </a>
+
+    <!-- IMPERIUM ROYAL -->
+    <a class="site-row reveal" href="https://daniel666674.github.io/imperium-royal/index.html" target="_blank">
+      <div class="proj-left">
+        <div class="proj-cat">Cliente firmado · Inicia Q3 2026</div>
+        <div class="proj-name">Imperium Royal</div>
+      </div>
+      <div class="proj-center">
+        <p class="proj-desc">Marca de perfumes originales que está entrando al mercado colombiano. Ya firmó y la implementación comienza en los próximos meses. El plan: identidad visual premium que compita con marcas establecidas desde el primer día. Catálogo navegable por familia olfativa con GA4 rastreando cada interacción (qué fragancia genera más interés, cuánto tiempo pasan en cada producto, cuántos inician una compra). Dashboard en tiempo real para que el dueño sepa cuál es su fragancia estrella, de dónde vienen sus mejores clientes y cuánto le cuesta cada adquisición. WhatsApp integrado que captura preferencias para futuras campañas. SEO optimizado con schema markup para productos. Performance extrema con HTML puro.</p>
+      </div>
+      <div class="proj-right">
+        <div class="proj-tags">
+          <span class="ptag hi">GA4</span>
+          <span class="ptag">SEO</span>
+          <span class="ptag">WhatsApp</span>
+          <span class="ptag">Attribution</span>
+        </div>
+        <div class="proj-arrow">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+        </div>
+      </div>
+    </a>
+
+    <!-- STIKE SHOP -->
+    <a class="site-row reveal" href="https://daniel666674.github.io/bmxstore/index.html" target="_blank">
+      <div class="proj-left">
+        <div class="proj-cat">En implementación · BMX · Bogotá</div>
+        <div class="proj-name">Stike Shop</div>
+      </div>
+      <div class="proj-center">
+        <p class="proj-desc">Stike Shop es la tienda de referencia de la comunidad BMX en Bogotá. Tienen miles de seguidores en Instagram pero ningún canal propio para vender. El problema: dependen 100% de una plataforma que no les pertenece. Estoy construyendo su sitio web con un objetivo claro: convertir seguidores en compradores recurrentes. GA4 va a rastrear cada producto visto, cada interacción, cada intención de compra. Atribución multi-touch para registrar el recorrido completo: story de Instagram, click, catálogo, compra días después. Galería con fotos reales de clientes como social proof. Flujo directo desde el producto al WhatsApp con stock disponible. Dashboard para que el dueño vea qué producto genera más interés, qué canal trae compradores y cuánto cuesta cada cliente nuevo. Actualmente en implementación.</p>
+      </div>
+      <div class="proj-right">
+        <div class="proj-tags">
+          <span class="ptag hi">GA4</span>
+          <span class="ptag">Multi-touch</span>
+          <span class="ptag">Social Proof</span>
+          <span class="ptag">IG Conversion</span>
+        </div>
+        <div class="proj-arrow">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+        </div>
+      </div>
+    </a>
+
+    <!-- PARRASHOP -->
+    <a class="site-row reveal" href="https://daniel666674.github.io/PARRASHOP/#catalog" target="_blank">
+      <div class="proj-left">
+        <div class="proj-cat">En implementación · Tecnología</div>
+        <div class="proj-name">PARRASHOP</div>
+      </div>
+      <div class="proj-center">
+        <p class="proj-desc">PARRASHOP lleva 12 años vendiendo tecnología por voz a voz. Su reputación es impecable, pero su alcance está limitado al círculo de referidos. Nunca han tenido sitio web. Estoy construyendo su primera presencia digital sin perder lo que los hizo crecer: la confianza personal. Catálogo con búsqueda inteligente por marca, rango de precio y especificación técnica. GA4 va a revelar datos que hoy son invisibles: qué producto buscan más pero no compran, qué fuente de tráfico convierte mejor. Dashboard para saber quién es el cliente más valioso, qué compró antes y qué le interesa ahora. WhatsApp integrado que captura preferencias para seguimiento. Programa de referidos automatizado: un cliente refiere, el sistema genera un descuento sin intervención manual. Actualmente en implementación.</p>
+      </div>
+      <div class="proj-right">
+        <div class="proj-tags">
+          <span class="ptag hi">GA4</span>
+          <span class="ptag">Referral Automation</span>
+          <span class="ptag">Customer LTV</span>
+          <span class="ptag">WhatsApp</span>
+        </div>
+        <div class="proj-arrow">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+        </div>
+      </div>
+    </a>
+
+    <!-- B-LINE DESIGN -->
+    <a class="site-row reveal" href="https://daniel666674.github.io/b-linedesign/index.html" target="_blank">
+      <div class="proj-left">
+        <div class="proj-cat">En implementación · PPF · Detailing</div>
+        <div class="proj-name">B-Line Design</div>
+      </div>
+      <div class="proj-center">
+        <p class="proj-desc">Taller especializado en PPF, polarizados, detailing y vehicle wraps. Hoy dependen de Instagram para mostrar su trabajo y de llamadas telefónicas para cerrar presupuestos. No tienen forma de medir qué servicio genera más interés ni cuántos presupuestos se pierden por falta de seguimiento. Estoy construyendo un sitio que organiza la galería por categoría (protección de pintura, polarizado, wraps, detailing). GA4 va a medir qué servicio genera más visitas, dónde rebotan los visitantes, cuánto tiempo pasan viendo cada galería. Dashboard de leads: cuántos pidieron presupuesto, cuántos cerraron, tasa de cierre por servicio. Social proof con fotos reales de vehículos terminados. Automatización de seguimiento: si alguien consultó por PPF pero no se decidió, recibe un recordatorio con un caso similar una semana después. Actualmente en implementación.</p>
+      </div>
+      <div class="proj-right">
+        <div class="proj-tags">
+          <span class="ptag hi">GA4</span>
+          <span class="ptag">Lead Nurture</span>
+          <span class="ptag">Service Analytics</span>
+          <span class="ptag">Follow-up Auto</span>
+        </div>
+        <div class="proj-arrow">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+        </div>
+      </div>
+    </a>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
 <footer>
-  Construido con HTML · CSS · JavaScript — sin frameworks · sin SaaS
+  <div>
+    <div class="footer-name">Daniel Felipe Acosta</div>
+    <div class="footer-role">Fullstack Developer · Revenue Growth Expert · Bogotá, Colombia</div>
+  </div>
+  <div class="footer-links">
+    <a href="mailto:daniel.f.acosta96@gmail.com" class="footer-link">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+      daniel.f.acosta96@gmail.com
+    </a>
+    <a href="https://wa.me/573136662777" target="_blank" class="footer-link">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.123.555 4.116 1.527 5.845L.057 23.5a.5.5 0 0 0 .614.612l5.76-1.51A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.882a9.882 9.882 0 0 1-5.022-1.368l-.36-.214-3.735.979.998-3.645-.235-.374A9.854 9.854 0 0 1 2.118 12C2.118 6.508 6.508 2.118 12 2.118S21.882 6.508 21.882 12 17.492 21.882 12 21.882z"/></svg>
+      +57 313 666 2777
+    </a>
+  </div>
+  <div class="footer-right">
+    <div class="footer-copy">Fullstack: TypeScript, React, Next.js, Node.js, PostgreSQL<br>RevOps: CRM, GA4, Reporting, AI Workflows</div>
+  </div>
 </footer>
 
+<script>
+// Custom cursor
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx + 'px';
+  cursor.style.top  = my + 'px';
+});
+
+(function animRing() {
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px';
+  ring.style.top  = ry + 'px';
+  requestAnimationFrame(animRing);
+})();
+
+// Scroll reveal
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach((el, i) => {
+  el.style.transitionDelay = (i * 0.04) + 's';
+  observer.observe(el);
+});
+</script>
 </body>
 </html>
