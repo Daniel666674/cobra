@@ -2013,6 +2013,7 @@ function rnd(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
 function pick(a){return a[Math.floor(Math.random()*a.length)];}
 let credits=[];
 const meses=["enero","febrero","marzo","abril","mayo","junio","julio"];
+const PROD_NAMES=["Colchón Queen Ortopédico 160×190","Colchón Doble Espuma 135×190","Sofá 3 Puestos Tela Chenille","Comedor 6 Sillas Madera","Cama Doble Base + Espaldar","Sala Completa 3-2-1","Colchón King Premium 200×200","Comedor 4 Sillas Vidrio"];
 function genCredits(){
   credits=[];
   for(let i=0;i<85;i++){
@@ -2030,6 +2031,7 @@ function genCredits(){
     else if(r<0.42){estado="pagado";}
     else estado="aldia";
     const freq=Math.random()<0.5?"Quincenal":"Mensual";
+    const codeudorNm=nombres[rnd(0,nombres.length-1)];
     credits.push({
       id:i,nombre:nm[0]+" "+nm[1]+sfx,
       telefono:"+57 3"+rnd(0,2)+rnd(0,9)+" ••• "+rnd(1000,9999),
@@ -2038,7 +2040,11 @@ function genCredits(){
       iniciales:(nm[0][0]+nm[1][0]),
       proxima:rnd(26,30)+" may",
       canalWA:estado==="mora"||estado==="porvenc"||estado==="pagado",
-      canalVoz:estado==="mora"&&diasMora>=4
+      canalVoz:estado==="mora"&&diasMora>=4,
+      producto:pick(PROD_NAMES),
+      cuotaInicial:Math.round(total*0.2/10000)*10000,
+      codeudor:Math.random()<0.6?(codeudorNm[0]+" "+codeudorNm[1]):null,
+      entrega:estado==="pagado"||Math.random()<0.85?"entregado":"pendiente"
     });
   }
 }
@@ -2231,6 +2237,10 @@ function openDetail(id){
         <div class="di"><div class="di-l">Saldo pendiente</div><div class="di-v" style="color:var(--gold)">${COP(c.saldo)}</div></div>
         <div class="di"><div class="di-l">Cuota ${c.freq.toLowerCase()}</div><div class="di-v">${COP(c.cuota)}</div></div>
         <div class="di"><div class="di-l">Estado</div><div style="margin-top:6px">${c.estado==="mora"?`<span class="st mora"><i></i>Mora +${c.diasMora}d</span>`:stBadge(c.estado)}</div></div>
+        <div class="di"><div class="di-l">Producto</div><div class="di-v" style="font-size:14px">${c.producto||"— Sin vincular —"}</div></div>
+        <div class="di"><div class="di-l">Cuota inicial</div><div class="di-v" style="font-size:16px">${COP(c.cuotaInicial||0)}</div></div>
+        <div class="di"><div class="di-l">Codeudor</div><div class="di-v" style="font-size:14px">${c.codeudor||"No registrado"}</div></div>
+        <div class="di"><div class="di-l">Entrega</div><div style="margin-top:6px">${c.entrega==="entregado"?'<span class="st aldia"><i></i>Entregado</span>':'<span class="st porvenc"><i></i>Pendiente</span>'}</div></div>
       </div>
       <div class="sched-title">Plan de cuotas (${paidN}/${totN} pagadas)</div>
       <div class="sched">${sched}</div>
@@ -2241,12 +2251,19 @@ function openDetail(id){
         <button class="btn-ghost" onclick="enviarRecordatorio(${c.id});closeModal()">💬 Recordatorio</button>
         <button class="btn-ghost" onclick="programarLlamada(${c.id});closeModal()">📞 Llamada IA</button>
         <button class="btn-ghost" onclick="openAcuerdoPago(${c.id})">🤝 Acuerdo de pago</button>`}
+        ${c.entrega==="pendiente"?`<button class="btn-ghost" onclick="marcarEntregado(${c.id})">🚚 Marcar como entregado</button>`:""}
       </div>
     </div>`;
   document.getElementById("overlay").classList.add("show");
 }
 function closeModal(){document.getElementById("overlay").classList.remove("show");}
 document.getElementById("overlay").addEventListener("click",e=>{if(e.target.id==="overlay")closeModal();});
+function marcarEntregado(id){
+  const c=credits.find(x=>x.id===id);if(!c)return;
+  c.entrega="entregado";
+  toast(`Entrega confirmada · ${c.nombre}`,"gold","🚚");
+  openDetail(id);
+}
 
 // ============ MODAL: NUEVO CREDITO ============
 function openNuevo(){
@@ -2255,11 +2272,19 @@ function openNuevo(){
     <div class="modal-body">
       <div class="fg"><label>Nombre del cliente</label><input id="f-nombre" placeholder="Ej: Pedro Gómez"></div>
       <div class="fg"><label>Teléfono (WhatsApp)</label><input id="f-tel" placeholder="+57 300 000 0000"></div>
+      <div class="fg"><label>Producto</label><select id="f-prod" style="background:var(--panel2);border:1px solid var(--border2);border-radius:10px;padding:12px 14px;color:var(--text);font-size:14px;font-family:'DM Sans';width:100%;outline:none">
+        <option value="">— Sin producto vinculado —</option>
+        ${products.filter(p=>p.stock>0).map(p=>`<option value="${p.id}">${p.name} (${p.stock} disp.)</option>`).join("")}
+      </select></div>
       <div class="fg-row">
         <div class="fg"><label>Valor del crédito</label><input id="f-total" type="number" placeholder="2000000"></div>
-        <div class="fg"><label>Valor de la cuota</label><input id="f-cuota" type="number" placeholder="150000"></div>
+        <div class="fg"><label>Cuota inicial</label><input id="f-inicial" type="number" placeholder="400000"></div>
       </div>
-      <div class="fg"><label>Frecuencia de pago</label><select id="f-freq"><option>Mensual</option><option>Quincenal</option></select></div>
+      <div class="fg-row">
+        <div class="fg"><label>Valor de la cuota</label><input id="f-cuota" type="number" placeholder="150000"></div>
+        <div class="fg"><label>Frecuencia de pago</label><select id="f-freq"><option>Mensual</option><option>Quincenal</option></select></div>
+      </div>
+      <div class="fg"><label>Codeudor / fiador (opcional)</label><input id="f-codeudor" placeholder="Nombre del codeudor"></div>
       <div class="fg" style="display:flex;align-items:center;gap:9px"><input type="checkbox" id="f-cons" style="width:auto" checked><label style="margin:0;text-transform:none;letter-spacing:0;font-size:12.5px;color:var(--muted)">El cliente autorizó ser contactado para cobros (Ley 2300)</label></div>
       <div class="modal-actions"><button class="btn-g" onclick="guardarNuevo()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 5v14M5 12h14" stroke-width="2.2" stroke-linecap="round"/></svg>Agregar a la cartera</button></div>
     </div>`;
@@ -2269,12 +2294,26 @@ function guardarNuevo(){
   const nombre=document.getElementById("f-nombre").value||"Cliente Nuevo";
   const tel=document.getElementById("f-tel").value||"+57 300 ••• 0000";
   const total=+document.getElementById("f-total").value||2000000;
+  const inicial=+document.getElementById("f-inicial").value||0;
   const cuota=+document.getElementById("f-cuota").value||150000;
   const freq=document.getElementById("f-freq").value;
+  const codeudor=document.getElementById("f-codeudor").value.trim()||null;
+  const prodId=+document.getElementById("f-prod").value||null;
   const parts=nombre.trim().split(" ");
-  credits.unshift({id:Date.now(),nombre,telefono:tel,total,cuota,saldo:total,pagadas:0,totalCuotas:Math.ceil(total/cuota),freq,estado:"aldia",diasMora:0,color:pick(colors),iniciales:(parts[0][0]+(parts[1]?parts[1][0]:"")).toUpperCase(),proxima:"11 jun",canalWA:false,canalVoz:false});
+  let productoNombre=null;
+  if(prodId){
+    const p=products.find(x=>x.id===prodId);
+    if(p&&p.stock>0){
+      p.stock-=1;
+      p.status=p.stock===0?"agotado":p.stock<=p.minStock?"bajo":"disponible";
+      productoNombre=p.name;
+      renderInventario();
+    }
+  }
+  const saldo=Math.max(0,total-inicial);
+  credits.unshift({id:Date.now(),nombre,telefono:tel,total,cuota,saldo,pagadas:0,totalCuotas:Math.max(1,Math.ceil(saldo/cuota)),freq,estado:"aldia",diasMora:0,color:pick(colors),iniciales:(parts[0][0]+(parts[1]?parts[1][0]:"")).toUpperCase(),proxima:"11 jun",canalWA:false,canalVoz:false,producto:productoNombre,cuotaInicial:inicial,codeudor,entrega:"pendiente"});
   closeModal();
-  toast(`${nombre} agregado · cobranza automática activada`,"gold","⚡");
+  toast(`${nombre} agregado · abono ${COP(inicial)} recibido · cobranza automática activada`,"gold","⚡");
   go("cartera");renderKPIs();
 }
 document.getElementById("btn-nuevo").addEventListener("click",openNuevo);
