@@ -233,10 +233,10 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
 .intg-card{background:linear-gradient(160deg,var(--panel),var(--bg2));border:1px solid var(--border);border-radius:16px;padding:22px;transition:all .3s;position:relative;overflow:hidden}
 .intg-card:hover{border-color:rgba(232,185,74,.28);transform:translateY(-2px)}
 .intg-card::after{content:'';position:absolute;top:-40px;right:-40px;width:110px;height:110px;border-radius:50%;filter:blur(26px);opacity:.5}
-.intg-card.dapta::after{background:var(--burg-glow)}.intg-card.alegra::after{background:rgba(82,196,122,.18)}.intg-card.wa::after{background:rgba(37,211,102,.14)}.intg-card.pay::after{background:var(--gold-soft)}
+.intg-card.dapta::after{background:var(--burg-glow)}.intg-card.alegra::after{background:rgba(82,196,122,.18)}.intg-card.wa::after{background:rgba(37,211,102,.14)}.intg-card.pay::after{background:var(--gold-soft)}.intg-card.wc::after{background:rgba(150,105,205,.18)}
 .intg-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;position:relative;z-index:1}
 .intg-logo{width:48px;height:48px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:22px;border:1px solid var(--border2)}
-.intg-logo.dapta{background:var(--burg-glow)}.intg-logo.alegra{background:rgba(82,196,122,.14)}.intg-logo.wa{background:rgba(37,211,102,.12)}.intg-logo.pay{background:var(--gold-soft)}
+.intg-logo.dapta{background:var(--burg-glow)}.intg-logo.alegra{background:rgba(82,196,122,.14)}.intg-logo.wa{background:rgba(37,211,102,.12)}.intg-logo.pay{background:var(--gold-soft)}.intg-logo.wc{background:rgba(150,105,205,.14)}
 .intg-toggle{width:42px;height:23px;border-radius:20px;background:var(--green);position:relative;cursor:pointer;transition:background .25s;flex-shrink:0}
 .intg-toggle::after{content:'';position:absolute;top:2.5px;left:21px;width:18px;height:18px;border-radius:50%;background:#fff;transition:left .25s;box-shadow:0 1px 3px rgba(0,0,0,.3)}
 .intg-toggle.off{background:var(--panel2);border:1px solid var(--border2)}
@@ -471,7 +471,7 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
 .feed-row{display:flex;align-items:center;gap:13px;padding:13px 0;border-bottom:1px solid var(--border2)}
 .feed-row:last-child{border:none}
 .feed-ico{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
-.feed-ico.dapta{background:var(--burg-glow)}.feed-ico.alegra{background:rgba(82,196,122,.14)}.feed-ico.wa{background:rgba(37,211,102,.12)}.feed-ico.pay{background:var(--gold-soft)}
+.feed-ico.dapta{background:var(--burg-glow)}.feed-ico.alegra{background:rgba(82,196,122,.14)}.feed-ico.wa{background:rgba(37,211,102,.12)}.feed-ico.pay{background:var(--gold-soft)}.feed-ico.wc{background:rgba(150,105,205,.14)}
 .feed-txt{flex:1;font-size:13px}
 .feed-txt b{font-weight:600}
 .feed-src{font-size:10.5px;color:var(--faint);margin-top:2px}
@@ -782,6 +782,7 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
     <div class="nav-item active" data-view="panel"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="9" rx="1.5" stroke-width="1.7"/><rect x="14" y="3" width="7" height="5" rx="1.5" stroke-width="1.7"/><rect x="14" y="12" width="7" height="9" rx="1.5" stroke-width="1.7"/><rect x="3" y="16" width="7" height="5" rx="1.5" stroke-width="1.7"/></svg>Panel</div>
     <div class="nav-item" data-view="cartera"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke-width="1.7"/><circle cx="9" cy="7" r="4" stroke-width="1.7"/></svg>Cartera<span class="badge-n" id="nav-cartera-n">85</span></div>
     <div class="nav-item" data-view="cobros"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke-width="1.7"/></svg>Cobros<span class="badge-n" id="nav-cobros-n">0</span></div>
+    <div class="nav-item" data-view="inventario"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4a2 2 0 001-1.73z" stroke-width="1.7"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12" stroke-width="1.7"/></svg>Inventario<span class="badge-n" id="nav-inv-n" style="background:var(--red)">0</span></div>
     <div class="nav-item" data-view="llamadas"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.8 19.8 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0122 16.92z" stroke-width="1.7"/></svg>Llamadas IA</div>
     <div class="nav-item" data-view="onboarding"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 11.08V12a10 10 0 11-5.93-9.14" stroke-width="1.7"/><polyline points="22 4 12 14.01 9 11.01" stroke-width="1.7"/></svg>Inicio rápido<span class="badge-n" style="background:var(--gold);color:var(--bg)">!</span></div>
     <div class="nav-item" data-view="ventas"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 12V22H4V12" stroke-width="1.7"/><path d="M22 7H2v5h20V7z" stroke-width="1.7"/><path d="M12 22V7" stroke-width="1.7"/><path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z" stroke-width="1.7"/><path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z" stroke-width="1.7"/></svg>Ventas IA<span class="badge-n" style="background:var(--green)">3</span></div>
@@ -898,6 +899,47 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
       <div class="panel"><div class="table-scroll"><table><thead><tr><th>Cliente</th><th>Cuota</th><th>Estado</th><th>Canal</th><th></th></tr></thead><tbody id="cobros-body"></tbody></table></div></div>
     </section>
 
+    <!-- INVENTARIO -->
+    <section class="view" id="view-inventario">
+      <div class="topbar">
+        <div><h1>Inventario</h1><div class="sub">Colchones, salas, comedores y camas · sincronizado con tu tienda</div></div>
+        <div class="top-actions">
+          <div class="legal-chip" style="background:var(--burg-glow);border-color:rgba(30,58,138,.3);color:var(--burg-lt)"><span class="pulse" style="background:var(--burg-lt)"></span>WooCommerce conectado</div>
+        </div>
+      </div>
+
+      <div class="dian-bar">
+        <div class="dian-badge" style="color:var(--burg-lt)"><span class="pulse" style="width:8px;height:8px;background:var(--burg-lt)"></span>🔌 realconfort.co · cada compra en la tienda descuenta el stock aquí, en segundos</div>
+        <div style="display:flex;gap:10px;align-items:center">
+          <span style="font-size:11px;color:var(--faint)">Última venta web sincronizada automáticamente</span>
+          <button class="btn-sm green" id="btn-sim-order">🛒 Simular venta web</button>
+        </div>
+      </div>
+
+      <div class="kpis" id="inv-kpis"></div>
+
+      <div class="grid2">
+        <div class="panel">
+          <div class="panel-head"><div class="panel-title"><span class="dot-g"></span>Productos</div></div>
+          <div class="tools">
+            <div class="search"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="8" stroke-width="1.8"/><path d="M21 21l-4-4" stroke-width="1.8" stroke-linecap="round"/></svg><input type="text" id="inv-search" placeholder="Buscar producto o SKU..."></div>
+            <div class="tfilters">
+              <button class="tf on" data-invf="todos">Todos</button>
+              <button class="tf" data-invf="bajo">Stock bajo</button>
+              <button class="tf" data-invf="agotado">Agotados</button>
+            </div>
+          </div>
+          <div class="table-scroll" style="max-height:480px">
+            <table><thead><tr><th>Producto</th><th>SKU</th><th>Precio</th><th>Stock</th><th>Estado</th><th>Origen</th></tr></thead><tbody id="inv-body"></tbody></table>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><div class="panel-title"><span class="dot-g"></span>Actividad de la tienda</div></div>
+          <div id="inv-feed"></div>
+        </div>
+      </div>
+    </section>
+
     <!-- LLAMADAS -->
     <section class="view" id="view-llamadas">
       <div class="topbar"><div><h1>Llamadas IA</h1><div class="sub">Gestión de voz automática · solo para clientes que ignoran WhatsApp</div></div>
@@ -993,7 +1035,7 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
     <section class="view" id="view-automatizaciones">
       <div class="topbar">
         <div><h1>Automatizaciones</h1><div class="sub">Integraciones activas que hacen que Cobra funcione solo</div></div>
-        <div class="top-actions"><div class="legal-chip"><span class="pulse"></span>4 integraciones activas</div></div>
+        <div class="top-actions"><div class="legal-chip"><span class="pulse"></span>5 integraciones activas</div></div>
       </div>
 
       <!-- INTEGRATION CARDS -->
@@ -1107,6 +1149,39 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
             <div><div class="im-v" id="pay-links">62</div><div class="im-l">Links enviados</div></div>
             <div><div class="im-v">48%</div><div class="im-l">Conversión link</div></div>
             <div><div class="im-v">0%</div><div class="im-l">Comisión Bold</div></div>
+          </div>
+        </div>
+
+        <!-- WOOCOMMERCE -->
+        <div class="intg-card wc" style="grid-column:1/-1">
+          <div class="intg-head">
+            <div style="display:flex;align-items:center;gap:13px">
+              <div class="intg-logo wc">🛒</div>
+              <div>
+                <div class="intg-name">WooCommerce <span class="intg-status" id="wc-status">● Conectado</span></div>
+                <div style="font-size:11px;color:var(--faint)">realconfort.co · WordPress</div>
+              </div>
+            </div>
+            <div class="intg-toggle" id="toggle-wc" data-svc="wc"></div>
+          </div>
+          <div class="intg-desc">Cada compra en la tienda online descuenta el inventario en Cobra al instante — y si el cliente paga a crédito, Cobra crea el plan de cuotas y Alegra emite la factura DIAN, sin doble digitación.</div>
+          <div class="alegra-flow">
+            <div class="afl-step">🛒 Cliente compra en realconfort.co</div>
+            <div class="afl-arrow">→</div>
+            <div class="afl-step">📦 Cobra descuenta stock</div>
+            <div class="afl-arrow">→</div>
+            <div class="afl-step">🧾 Alegra genera factura DIAN</div>
+            <div class="afl-arrow">→</div>
+            <div class="afl-step" style="color:var(--green)">✅ Todo sincronizado, sin digitar</div>
+          </div>
+          <div style="display:flex;gap:8px;margin-bottom:14px;position:relative;z-index:1">
+            <button class="btn-sm green" onclick="go('inventario')">📦 Ver inventario</button>
+            <button class="btn-sm" onclick="simWebOrder()">🛒 Simular venta web</button>
+          </div>
+          <div class="intg-metrics">
+            <div><div class="im-v" id="wc-orders">14</div><div class="im-l">Pedidos web este mes</div></div>
+            <div><div class="im-v">100%</div><div class="im-l">Stock sincronizado</div></div>
+            <div><div class="im-v">0</div><div class="im-l">Digitación manual</div></div>
           </div>
         </div>
 
@@ -2041,6 +2116,7 @@ function go(view){
   document.getElementById("view-"+view).classList.add("active");
   if(view==="cartera")renderCartera();
   if(view==="cobros")renderCobros();
+  if(view==="inventario")renderInventario();
   if(view==="llamadas")renderCalls();
   if(view==="reportes"){setTimeout(animBars,80);setTimeout(calcROI,50);setTimeout(renderAging,100);}
   if(view==="automatizaciones"){renderAutomatizaciones();}
@@ -2211,8 +2287,8 @@ function loadWA(c){
 }
 
 // ============ FILTERS / SEARCH ============
-document.querySelectorAll(".tf").forEach(b=>b.addEventListener("click",()=>{
-  document.querySelectorAll(".tf").forEach(x=>x.classList.remove("on"));b.classList.add("on");
+document.querySelectorAll(".tf[data-filter]").forEach(b=>b.addEventListener("click",()=>{
+  document.querySelectorAll(".tf[data-filter]").forEach(x=>x.classList.remove("on"));b.classList.add("on");
   state.filter=b.dataset.filter;renderCartera();
 }));
 document.getElementById("search").addEventListener("input",e=>{state.search=e.target.value;renderCartera();});
@@ -2637,6 +2713,131 @@ function syncAlegra(){
 }
 function exportarInforme(){toast("CSV generado · Contabilidad_mayo_2025.csv","gold","📥");}
 function verEnAlegra(){toast("Abriendo Alegra en nueva pestaña...","gold","↗");}
+
+// ============ INVENTARIO ============
+intgState.wc=true;
+intgIcons.wc="🛒";
+intgNames.wc="WooCommerce";
+
+const PRODUCT_DEFS=[
+  ["Colchón Queen Ortopédico 160×190","Colchones",1450000,980000],
+  ["Colchón Doble Espuma 135×190","Colchones",890000,560000],
+  ["Colchón King Premium 200×200","Colchones",1980000,1320000],
+  ["Colchón Individual Niños 100×190","Colchones",520000,320000],
+  ["Colchón Semidoble 120×190","Colchones",720000,460000],
+  ["Sofá 3 Puestos Tela Chenille","Salas",2100000,1400000],
+  ["Sofá Seccional en L","Salas",3200000,2150000],
+  ["Sofá Cama Reclinable","Salas",1750000,1120000],
+  ["Sala Completa 3-2-1","Salas",2650000,1780000],
+  ["Comedor 6 Sillas Madera","Comedores",1650000,1050000],
+  ["Comedor 4 Sillas Vidrio","Comedores",1180000,760000],
+  ["Comedor 8 Sillas Rústico","Comedores",2450000,1620000],
+  ["Cama Doble Base + Espaldar","Camas",780000,480000],
+  ["Cama King Tapizada","Camas",1290000,820000],
+  ["Base Cama Doble Metálica","Camas",340000,190000],
+  ["Almohada Viscoelástica","Accesorios",95000,48000],
+  ["Protector de Colchón Impermeable","Accesorios",68000,32000],
+  ["Cojines Decorativos (Set x4)","Accesorios",145000,70000],
+];
+let products=[];
+function genProducts(){
+  products=PRODUCT_DEFS.map((p,i)=>{
+    const minStock=p[1]==="Accesorios"?10:4;
+    const stock=rnd(0,minStock*4);
+    const status=stock===0?"agotado":stock<=minStock?"bajo":"disponible";
+    return {id:i+1,sku:"RC-"+(1000+i),name:p[0],cat:p[1],price:p[2],cost:p[3],stock,minStock,status,
+      origin:Math.random()<0.35?"web":"local"};
+  });
+}
+genProducts();
+
+let wcFeed=[
+  {prod:"Colchón Queen Ortopédico 160×190",time:"hace 22 min",order:"#WC-3381",credito:false},
+  {prod:"Sofá 3 Puestos Tela Chenille",time:"hace 1h 10min",order:"#WC-3380",credito:true},
+  {prod:"Almohada Viscoelástica",time:"hace 2h",order:"#WC-3379",credito:false},
+];
+
+const invStBadge=s=>({disponible:'<span class="st aldia"><i></i>Disponible</span>',bajo:'<span class="st porvenc"><i></i>Stock bajo</span>',agotado:'<span class="st mora"><i></i>Agotado</span>'}[s]);
+
+function invKpiData(){
+  const totalVal=products.reduce((s,p)=>s+p.stock*p.cost,0);
+  const bajo=products.filter(p=>p.status==="bajo").length;
+  const agotado=products.filter(p=>p.status==="agotado").length;
+  return {totalVal,bajo,agotado,webSales:wcFeed.length};
+}
+function renderInvKPIs(){
+  const k=invKpiData();
+  document.getElementById("inv-kpis").innerHTML=`
+    <div class="kpi"><div class="kpi-ico" style="background:var(--gold-soft)">📦</div><div class="kpi-label">Valor inventario</div><div class="kpi-val">${COP(k.totalVal)}</div><div class="kpi-delta up">${products.length} productos activos</div></div>
+    <div class="kpi"><div class="kpi-ico" style="background:var(--amber-bg)">⚠️</div><div class="kpi-label">Stock bajo</div><div class="kpi-val">${k.bajo}</div><div class="kpi-delta down">Reabastecer pronto</div></div>
+    <div class="kpi"><div class="kpi-ico" style="background:var(--red-bg)">⛔</div><div class="kpi-label">Agotados</div><div class="kpi-val">${k.agotado}</div><div class="kpi-delta down">Bloqueados en tienda web</div></div>
+    <div class="kpi"><div class="kpi-ico" style="background:var(--burg-glow)">🛒</div><div class="kpi-label">Ventas web · mes</div><div class="kpi-val">${k.webSales}</div><div class="kpi-delta up">Auto-sincronizadas</div></div>`;
+  const badge=document.getElementById("nav-inv-n");
+  if(badge){const n=k.bajo+k.agotado;badge.textContent=n;badge.style.background=n>0?"var(--red)":"var(--green)";}
+}
+let invFilter="todos",invSearch="";
+function renderInvTable(){
+  let list=products.slice();
+  if(invFilter==="bajo")list=list.filter(p=>p.status==="bajo");
+  if(invFilter==="agotado")list=list.filter(p=>p.status==="agotado");
+  if(invSearch)list=list.filter(p=>p.name.toLowerCase().includes(invSearch)||p.sku.toLowerCase().includes(invSearch));
+  document.getElementById("inv-body").innerHTML=list.map(p=>`
+    <tr>
+      <td><div class="cli-name">${p.name}</div><div class="saldo">${p.cat}</div></td>
+      <td style="color:var(--faint);font-family:monospace;font-size:11.5px">${p.sku}</td>
+      <td><div class="cuota">${COP(p.price)}</div></td>
+      <td><div style="font-weight:600">${p.stock} uds</div><div class="saldo">mín ${p.minStock}</div></td>
+      <td>${invStBadge(p.status)}</td>
+      <td>${p.origin==="web"?'<span style="font-size:11px;color:var(--burg-lt)">🌐 realconfort.co</span>':'<span style="font-size:11px;color:var(--faint)">🏬 Tienda física</span>'}</td>
+    </tr>`).join("")||'<tr><td colspan="6" style="text-align:center;padding:30px;color:var(--faint)">Sin resultados</td></tr>';
+}
+function renderWcFeed(){
+  const el=document.getElementById("inv-feed");if(!el)return;
+  el.innerHTML=wcFeed.slice(0,10).map(f=>`
+    <div class="feed-row">
+      <div class="feed-ico wc">🛒</div>
+      <div class="feed-txt"><b>Venta web</b> · ${f.prod}<div class="feed-src">Pedido ${f.order} · realconfort.co${f.credito?' · crédito creado en Cobra':' · pago de contado'}</div></div>
+      <div class="feed-time">${f.time}</div>
+    </div>`).join("");
+}
+function renderInventario(){
+  renderInvKPIs();
+  renderInvTable();
+  renderWcFeed();
+}
+document.querySelectorAll(".tf[data-invf]").forEach(b=>b.addEventListener("click",()=>{
+  document.querySelectorAll(".tf[data-invf]").forEach(x=>x.classList.remove("on"));b.classList.add("on");
+  invFilter=b.dataset.invf;renderInvTable();
+}));
+document.getElementById("inv-search")?.addEventListener("input",e=>{invSearch=e.target.value.toLowerCase();renderInvTable();});
+
+function simWebOrder(){
+  const inStock=products.filter(p=>p.stock>0);
+  if(!inStock.length){toast("Sin stock disponible para simular venta","gold","🛒");return;}
+  const p=pick(inStock);
+  p.stock-=1;
+  p.status=p.stock===0?"agotado":p.stock<=p.minStock?"bajo":"disponible";
+  const isCredito=Math.random()<0.4;
+  const orderNum="#WC-"+rnd(3382,3499);
+  wcFeed.unshift({prod:p.name,time:"ahora",order:orderNum,credito:isCredito});
+  renderInventario();
+  toast(`🛒 Nueva venta en realconfort.co · ${p.name}`,"gold","🛒");
+  setTimeout(()=>{
+    addFeedEvent("wc",`Pedido ${orderNum} sincronizado · stock descontado automáticamente`,`${p.name} · ${p.stock} uds restantes`,true);
+    const el=document.getElementById("wc-orders");if(el)el.textContent=+el.textContent+1;
+  },500);
+  if(isCredito){
+    setTimeout(()=>{
+      addFeedEvent("alegra",`Factura electrónica DIAN generada · venta web a crédito`,`${p.name} · ${COP(p.price)} · Pedido ${orderNum}`,true);
+      const el=document.getElementById("alegra-invoices");if(el)el.textContent=+el.textContent+1;
+      toast("Alegra generó la factura automáticamente","gold","🧾");
+    },1400);
+  }
+  if(p.status!=="disponible"){
+    setTimeout(()=>toast(`⚠️ ${p.name} — ${p.status==="agotado"?"agotado":"stock bajo"}, revisar reabastecimiento`,"","⚠️"),2200);
+  }
+}
+document.getElementById("btn-sim-order")?.addEventListener("click",simWebOrder);
 
 // ============ ACUERDO DE PAGO ============
 function openAcuerdoPago(id){
@@ -3312,6 +3513,7 @@ const _goOrig=go;
 
 renderKPIs();renderHoy();renderCobros();
 renderAutomatizaciones();
+renderInventario();
 renderConv(0);
 renderAlegraInvoices();
 renderNotifs();
