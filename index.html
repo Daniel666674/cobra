@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<script>(function(){try{var t=localStorage.getItem('cobra_theme');if(t==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}})();</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cobra · Demo Interactivo · Real Confort</title>
@@ -16,6 +17,16 @@
   --red:#f4546e;--red-bg:rgba(244,84,110,.12);
   --amber:#f59e0b;--amber-bg:rgba(245,158,11,.12);
   --border:rgba(30,58,138,.2);--border2:rgba(238,242,255,.06);
+}
+:root[data-theme="light"]{
+  --bg:#f3f5f9;--bg2:#e8ebf2;--panel:#ffffff;--panel2:#eef1f6;
+  --burg:#1e3a8a;--burg-lt:#3b5fc0;--burg-glow:rgba(30,58,138,.08);
+  --gold:#d97706;--gold-dk:#b45309;--gold-soft:rgba(217,119,6,.10);
+  --text:#0f172a;--muted:#5b6b82;--faint:#7c8aa0;
+  --green:#0ca678;--green-bg:rgba(12,166,120,.10);
+  --red:#dc2626;--red-bg:rgba(220,38,38,.08);
+  --amber:#d97706;--amber-bg:rgba(217,119,6,.10);
+  --border:rgba(30,58,138,.15);--border2:rgba(15,23,42,.08);
 }
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;
@@ -1805,6 +1816,15 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
         </div>
 
         <div class="cfg-grid">
+
+          <!-- Apariencia -->
+          <div class="cfg-card">
+            <div class="cfg-card-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="5" stroke-width="2"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke-width="2" stroke-linecap="round"/></svg>Apariencia</div>
+            <div class="cfg-row">
+              <div><div class="cfg-row-label">Tema claro</div><div class="cfg-row-sub">Cambia el fondo a blanco en toda la app</div></div>
+              <label class="tog"><input type="checkbox" id="tog-theme"><span class="tog-slider"></span></label>
+            </div>
+          </div>
 
           <!-- Perfil del negocio -->
           <div class="cfg-card">
@@ -3644,6 +3664,24 @@ function cfgSave(){
 }
 // wire go() for configuracion
 const _goOrig=go;
+
+// ============ THEME ============
+function applyTheme(theme){
+  document.documentElement.setAttribute("data-theme",theme);
+  try{localStorage.setItem("cobra_theme",theme);}catch(e){}
+}
+function initTheme(){
+  let theme="dark";
+  try{theme=localStorage.getItem("cobra_theme")||"dark";}catch(e){}
+  applyTheme(theme);
+  const tog=document.getElementById("tog-theme");
+  if(tog)tog.checked=theme==="light";
+}
+document.getElementById("tog-theme")?.addEventListener("change",e=>{
+  applyTheme(e.target.checked?"light":"dark");
+  toast(e.target.checked?"Tema claro activado":"Tema oscuro activado","gold","🎨");
+});
+initTheme();
 
 renderKPIs();renderHoy();renderCobros();
 renderAutomatizaciones();
