@@ -478,6 +478,8 @@ tbody td{padding:13px 14px;font-size:13px;vertical-align:middle}
 .feed-time{font-size:11px;color:var(--faint);white-space:nowrap}
 .feed-new{animation:feedIn .5s ease}
 @keyframes feedIn{from{opacity:0;transform:translateX(-12px);background:var(--gold-soft)}to{opacity:1;transform:translateX(0)}}
+.row-highlight{animation:rowFlash 1.8s ease}
+@keyframes rowFlash{0%{background:rgba(245,158,11,.35)}100%{background:transparent}}
 .demo-flag{position:fixed;bottom:18px;right:18px;background:var(--gold);color:var(--bg);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:7px 14px;border-radius:50px;z-index:99;box-shadow:0 4px 16px rgba(232,185,74,.3)}
 
 /* ======= NOTIFICATION BELL ======= */
@@ -2237,7 +2239,7 @@ function openDetail(id){
         <div class="di"><div class="di-l">Saldo pendiente</div><div class="di-v" style="color:var(--gold)">${COP(c.saldo)}</div></div>
         <div class="di"><div class="di-l">Cuota ${c.freq.toLowerCase()}</div><div class="di-v">${COP(c.cuota)}</div></div>
         <div class="di"><div class="di-l">Estado</div><div style="margin-top:6px">${c.estado==="mora"?`<span class="st mora"><i></i>Mora +${c.diasMora}d</span>`:stBadge(c.estado)}</div></div>
-        <div class="di"><div class="di-l">Producto</div><div class="di-v" style="font-size:14px">${c.producto||"— Sin vincular —"}</div></div>
+        ${c.productoId?`<div class="di" style="cursor:pointer" onclick="verProductoInventario(${c.productoId})" title="Ver en inventario"><div class="di-l">Producto <span style="color:var(--gold)">↗</span></div><div class="di-v" style="font-size:14px;color:var(--gold);text-decoration:underline">${c.producto}</div></div>`:`<div class="di"><div class="di-l">Producto</div><div class="di-v" style="font-size:14px">${c.producto||"— Sin vincular —"}</div></div>`}
         <div class="di"><div class="di-l">Cuota inicial</div><div class="di-v" style="font-size:16px">${COP(c.cuotaInicial||0)}</div></div>
         <div class="di"><div class="di-l">Codeudor</div><div class="di-v" style="font-size:14px">${c.codeudor||"No registrado"}</div></div>
         <div class="di"><div class="di-l">Entrega</div><div style="margin-top:6px">${c.entrega==="entregado"?'<span class="st aldia"><i></i>Entregado</span>':'<span class="st porvenc"><i></i>Pendiente</span>'}</div></div>
@@ -2311,7 +2313,7 @@ function guardarNuevo(){
     }
   }
   const saldo=Math.max(0,total-inicial);
-  credits.unshift({id:Date.now(),nombre,telefono:tel,total,cuota,saldo,pagadas:0,totalCuotas:Math.max(1,Math.ceil(saldo/cuota)),freq,estado:"aldia",diasMora:0,color:pick(colors),iniciales:(parts[0][0]+(parts[1]?parts[1][0]:"")).toUpperCase(),proxima:"11 jun",canalWA:false,canalVoz:false,producto:productoNombre,cuotaInicial:inicial,codeudor,entrega:"pendiente"});
+  credits.unshift({id:Date.now(),nombre,telefono:tel,total,cuota,saldo,pagadas:0,totalCuotas:Math.max(1,Math.ceil(saldo/cuota)),freq,estado:"aldia",diasMora:0,color:pick(colors),iniciales:(parts[0][0]+(parts[1]?parts[1][0]:"")).toUpperCase(),proxima:"11 jun",canalWA:false,canalVoz:false,producto:productoNombre,productoId:prodId||null,cuotaInicial:inicial,codeudor,entrega:"pendiente"});
   closeModal();
   toast(`${nombre} agregado · abono ${COP(inicial)} recibido · cobranza automática activada`,"gold","⚡");
   go("cartera");renderKPIs();
@@ -2779,16 +2781,26 @@ const PRODUCT_DEFS=[
   ["Cojines Decorativos (Set x4)","Accesorios",145000,70000],
 ];
 let products=[];
+function catEmoji(cat){return {Colchones:"🛏️",Salas:"🛋️",Comedores:"🍽️",Camas:"🛏",Accesorios:"🧺"}[cat]||"📦";}
 function genProducts(){
   products=PRODUCT_DEFS.map((p,i)=>{
     const minStock=p[1]==="Accesorios"?10:4;
     const stock=rnd(0,minStock*4);
     const status=stock===0?"agotado":stock<=minStock?"bajo":"disponible";
-    return {id:i+1,sku:"RC-"+(1000+i),name:p[0],cat:p[1],price:p[2],cost:p[3],stock,minStock,status,
+    const sku="RC-"+(1000+i);
+    let image=null;
+    try{image=localStorage.getItem("cobra_prod_img_"+sku);}catch(e){}
+    return {id:i+1,sku,name:p[0],cat:p[1],price:p[2],cost:p[3],stock,minStock,status,image,
       origin:Math.random()<0.35?"web":"local"};
   });
 }
 genProducts();
+credits.forEach(c=>{
+  if(c.producto){
+    const match=products.find(p=>p.name===c.producto);
+    if(match)c.productoId=match.id;
+  }
+});
 
 let wcFeed=[
   {prod:"Colchón Queen Ortopédico 160×190",time:"hace 22 min",order:"#WC-3381",credito:false},
@@ -2821,14 +2833,55 @@ function renderInvTable(){
   if(invFilter==="agotado")list=list.filter(p=>p.status==="agotado");
   if(invSearch)list=list.filter(p=>p.name.toLowerCase().includes(invSearch)||p.sku.toLowerCase().includes(invSearch));
   document.getElementById("inv-body").innerHTML=list.map(p=>`
-    <tr>
-      <td><div class="cli-name">${p.name}</div><div class="saldo">${p.cat}</div></td>
+    <tr data-prodid="${p.id}">
+      <td><div style="display:flex;align-items:center;gap:11px">
+        <label style="position:relative;cursor:pointer;flex-shrink:0" title="Cambiar foto">
+          <div style="width:40px;height:40px;border-radius:9px;overflow:hidden;background:var(--panel2);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:17px">${p.image?`<img src="${p.image}" style="width:100%;height:100%;object-fit:cover">`:catEmoji(p.cat)}</div>
+          <input type="file" accept="image/*" data-imgupload="${p.id}" style="display:none">
+          <div style="position:absolute;bottom:-3px;right:-3px;width:16px;height:16px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:9px">📷</div>
+        </label>
+        <div><div class="cli-name">${p.name}</div><div class="saldo">${p.cat}</div></div>
+      </div></td>
       <td style="color:var(--faint);font-family:monospace;font-size:11.5px">${p.sku}</td>
       <td><div class="cuota">${COP(p.price)}</div></td>
       <td><div style="font-weight:600">${p.stock} uds</div><div class="saldo">mín ${p.minStock}</div></td>
       <td>${invStBadge(p.status)}</td>
       <td>${p.origin==="web"?'<span style="font-size:11px;color:var(--burg-lt)">🌐 realconfort.co</span>':'<span style="font-size:11px;color:var(--faint)">🏬 Tienda física</span>'}</td>
     </tr>`).join("")||'<tr><td colspan="6" style="text-align:center;padding:30px;color:var(--faint)">Sin resultados</td></tr>';
+}
+function handleImageUpload(input){
+  const file=input.files&&input.files[0];
+  if(!file)return;
+  const prodId=+input.dataset.imgupload;
+  const p=products.find(x=>x.id===prodId);
+  if(!p)return;
+  const reader=new FileReader();
+  reader.onload=()=>{
+    p.image=reader.result;
+    try{localStorage.setItem("cobra_prod_img_"+p.sku,reader.result);}catch(e){}
+    renderInvTable();
+    toast(`Foto actualizada · ${p.name}`,"gold","📷");
+  };
+  reader.readAsDataURL(file);
+}
+document.addEventListener("change",e=>{
+  if(e.target.dataset&&e.target.dataset.imgupload)handleImageUpload(e.target);
+});
+function verProductoInventario(prodId){
+  if(!prodId)return;
+  closeModal();
+  invFilter="todos";invSearch="";
+  const searchEl=document.getElementById("inv-search");if(searchEl)searchEl.value="";
+  document.querySelectorAll(".tf[data-invf]").forEach(x=>x.classList.toggle("on",x.dataset.invf==="todos"));
+  go("inventario");
+  setTimeout(()=>{
+    const row=document.querySelector(`#inv-body tr[data-prodid="${prodId}"]`);
+    if(row){
+      row.scrollIntoView({behavior:"smooth",block:"center"});
+      row.classList.add("row-highlight");
+      setTimeout(()=>row.classList.remove("row-highlight"),1800);
+    }
+  },150);
 }
 function renderWcFeed(){
   const el=document.getElementById("inv-feed");if(!el)return;
