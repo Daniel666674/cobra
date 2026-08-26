@@ -2188,7 +2188,10 @@ document.addEventListener("click",e=>{
   const cobrarBtn=e.target.closest("[data-cobrar]");
   if(cobrarBtn){e.stopPropagation();cobrar(+cobrarBtn.dataset.cobrar);return;}
   const row=e.target.closest("[data-detail]");
-  if(row){openDetail(+row.dataset.detail);}
+  if(row){openDetail(+row.dataset.detail);return;}
+  if(e.target.closest("label,input"))return;
+  const prodRow=e.target.closest("#inv-body tr[data-prodid]");
+  if(prodRow){openProductDetail(+prodRow.dataset.prodid);}
 });
 
 // ============ MODAL: DETAIL ============
@@ -2860,6 +2863,7 @@ function handleImageUpload(input){
     p.image=reader.result;
     try{localStorage.setItem("cobra_prod_img_"+p.sku,reader.result);}catch(e){}
     renderInvTable();
+    if(document.querySelector(`.modal-body [data-imgupload="${prodId}"]`))openProductDetail(prodId);
     toast(`Foto actualizada · ${p.name}`,"gold","📷");
   };
   reader.readAsDataURL(file);
@@ -2867,6 +2871,44 @@ function handleImageUpload(input){
 document.addEventListener("change",e=>{
   if(e.target.dataset&&e.target.dataset.imgupload)handleImageUpload(e.target);
 });
+function openProductDetail(id){
+  const p=products.find(x=>x.id===id);if(!p)return;
+  const margin=Math.round((p.price-p.cost)/p.price*100);
+  const linkedCredits=credits.filter(c=>c.productoId===p.id);
+  document.getElementById("modal").innerHTML=`
+    <div class="modal-head">
+      <div class="detail-top">
+        <div class="detail-av" style="background:var(--panel2);overflow:hidden">${p.image?`<img src="${p.image}" style="width:100%;height:100%;object-fit:cover">`:catEmoji(p.cat)}</div>
+        <div><div class="detail-name">${p.name}</div><div style="font-size:12.5px;color:var(--muted);margin-top:2px">${p.sku} · ${p.cat}</div></div>
+      </div>
+      <button class="modal-x" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="detail-info">
+        <div class="di"><div class="di-l">Precio de venta</div><div class="di-v">${COP(p.price)}</div></div>
+        <div class="di"><div class="di-l">Costo</div><div class="di-v">${COP(p.cost)}</div></div>
+        <div class="di"><div class="di-l">Margen</div><div class="di-v" style="color:var(--green)">${margin}%</div></div>
+        <div class="di"><div class="di-l">Estado</div><div style="margin-top:6px">${invStBadge(p.status)}</div></div>
+        <div class="di"><div class="di-l">Stock actual</div><div class="di-v">${p.stock} uds</div></div>
+        <div class="di"><div class="di-l">Stock mínimo</div><div class="di-v">${p.minStock} uds</div></div>
+        <div class="di"><div class="di-l">Origen</div><div class="di-v" style="font-size:14px">${p.origin==="web"?"🌐 realconfort.co":"🏬 Tienda física"}</div></div>
+        <div class="di"><div class="di-l">Valor en stock</div><div class="di-v" style="color:var(--gold)">${COP(p.stock*p.cost)}</div></div>
+      </div>
+      <div class="sched-title">Créditos vinculados a este producto (${linkedCredits.length})</div>
+      <div class="sched">
+        ${linkedCredits.length?linkedCredits.slice(0,8).map(c=>`
+          <div class="sch-row" style="cursor:pointer" onclick="closeModal();setTimeout(()=>openDetail(${c.id}),150)">
+            <span>${c.nombre} · ${c.estado==="mora"?`Mora +${c.diasMora}d`:c.estado}</span>
+            <span style="font-weight:600">${COP(c.saldo)} pendiente</span>
+          </div>`).join(""):`<div style="font-size:12.5px;color:var(--faint);padding:10px 0">Sin créditos vinculados todavía</div>`}
+      </div>
+      <div class="modal-actions" style="margin-top:18px">
+        <label class="btn-g" style="cursor:pointer;justify-content:center">📷 Cambiar foto<input type="file" accept="image/*" data-imgupload="${p.id}" style="display:none"></label>
+        <button class="btn-ghost" onclick="closeModal()">Cerrar</button>
+      </div>
+    </div>`;
+  document.getElementById("overlay").classList.add("show");
+}
 function verProductoInventario(prodId){
   if(!prodId)return;
   closeModal();
